@@ -74,3 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e643b4b7a6ee4b9fa762d8b6913f8e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameBootstrapperPrefab: {fileID: 2797032679983567818, guid: 1796456e341f028459142a37ba4161cf, type: 3}
+  _loadingCurtain: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2, type: 3}
