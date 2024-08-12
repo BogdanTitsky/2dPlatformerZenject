@@ -1,15 +1,17 @@
 using System;
 using CodeBase.Logic;
+using CodeBase.Services.Input;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Hero
 {
   public class HeroAnimator : MonoBehaviour, IAnimationStateReader
   {
-    [SerializeField] private CharacterController _characterController;
     [SerializeField] public Animator _animator;
 
-    private static readonly int MoveHash = Animator.StringToHash("Walking");
+    private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     private static readonly int AttackHash = Animator.StringToHash("AttackNormal");
     private static readonly int HitHash = Animator.StringToHash("Hit");
     private static readonly int DieHash = Animator.StringToHash("Die");
@@ -26,9 +28,17 @@ namespace CodeBase.Hero
     public AnimatorState State { get; private set; }
     public bool IsAttacking => State == AnimatorState.Attack;
 
+    private IInputService _inputService;
+
+    [Inject]
+    private void Init(IInputService inputService)
+    {
+      _inputService = inputService;
+    }
     private void Update()
     {
-      _animator.SetFloat(MoveHash, _characterController.velocity.magnitude, 0.1f, Time.deltaTime);
+      _animator.SetFloat(Speed, Math.Abs(_inputService.Axis.x), 0.1f, Time.deltaTime);
+      _animator.SetBool(IsMovingHash, Math.Abs(_inputService.Axis.x) > 0);
     }
 
     public void PlayHit()
