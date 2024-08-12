@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Services.Input;
 using UnityEngine;
@@ -10,10 +11,11 @@ namespace CodeBase.Hero
     public class HeroMove : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private float _movementSpeed;
+        [SerializeField] private Rigidbody2D _rigidbody2D;
 
         private IInputService _inputService;
         private Camera _camera;
-
+        private Vector3 _inputDirection;
         [Inject]
         public void Init(IInputService inputService)
         {
@@ -25,17 +27,31 @@ namespace CodeBase.Hero
 
         private void Update()
         {
-            Vector3 movementVector = Vector3.zero;
+            _inputDirection = Vector3.zero;
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
-                movementVector = _camera.transform.TransformDirection(_inputService.Axis);
-                movementVector.z = 0;
-                movementVector.y = 0;
-                movementVector.Normalize();
-            }
+                _inputDirection = _camera.transform.TransformDirection(_inputService.Axis);
+                _inputDirection.z = 0;
+                _inputDirection.y = 0;
 
-            transform.position += _movementSpeed * movementVector * Time.deltaTime;
+                LookAtMoveDirection();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            Vector2 velocity = _rigidbody2D.velocity;
+            velocity.x = _movementSpeed * _inputDirection.x;
+            _rigidbody2D.velocity = velocity;
+        }
+
+        private void LookAtMoveDirection()
+        {
+            if (_inputDirection.x > 0)
+                transform.localScale = new Vector3(1, 1, 1);
+            else if (_inputDirection.x < 0)
+                transform.localScale = new Vector3(-1, 1, 1);
         }
 
         public void UpdateProgress(PlayerProgress progress)
