@@ -32,7 +32,15 @@ namespace CodeBase.Hero
                 movementVector = _camera.transform.TransformDirection(_inputService.Axis);
                 movementVector.z = 0;
                 movementVector.y = 0;
-                movementVector.Normalize();
+               
+                if (movementVector.x > 0)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+                else if (movementVector.x < 0)
+                {
+                    transform.localScale = new Vector3(-1, 1, 1); 
+                }
             }
 
             transform.position += _movementSpeed * movementVector * Time.deltaTime;
