@@ -12,7 +12,7 @@ namespace CodeBase.Enemy
         private void OnEnable()
         {
             triggerObserver.TriggerEnter += TriggerEnter;
-            triggerObserver.TriggerExit += OnTriggerExit;
+            triggerObserver.TriggerExit += TriggerExit;
             
             attack.DisableAttack();
         }
@@ -20,7 +20,7 @@ namespace CodeBase.Enemy
         private void OnDisable()
         {
             triggerObserver.TriggerEnter -= TriggerEnter;
-            triggerObserver.TriggerExit -= OnTriggerExit;
+            triggerObserver.TriggerExit -= TriggerExit;
         }
         
         private void TriggerEnter(Collider2D obj)
@@ -28,10 +28,9 @@ namespace CodeBase.Enemy
             attack.EnableAttack();
         }
 
-        private void OnTriggerExit(Collider2D obj)
+        private void TriggerExit(Collider2D obj)
         {
             attack.DisableAttack();
-
         }
     }
 }

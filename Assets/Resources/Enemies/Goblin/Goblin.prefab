@@ -331,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 1123088436940497375}
   speed: 2
+  minimalDistance: 4
 --- !u!70 &4882585253273267774
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -383,6 +384,7 @@ MonoBehaviour:
   layerMask: 0
   attackCooldown: 1.5
   animator: {fileID: 5593878730750527215}
+  damage: 10
 --- !u!114 &9027424449756380787
 MonoBehaviour:
   m_ObjectHideFlags: 0

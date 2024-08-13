@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CodeBase.Hero;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -12,6 +13,7 @@ namespace CodeBase.Enemy
         [SerializeField] private int layerMask;
         [SerializeField] private float attackCooldown = 1.5f;
         [SerializeField] private EnemyAnimator animator;
+        [SerializeField] private float damage = 5f;
         
         
         private Collider2D[] _hits = new Collider2D[1];
@@ -49,6 +51,7 @@ namespace CodeBase.Enemy
             if (Hit(out Collider2D hit))
             {
                PhysicsDebug.DrawDebug(StartPoint(), cleavage, 2);
+               hit.transform.GetComponent<HeroHealth>().TakeDamage(damage);
             }
         }
         

@@ -36,7 +36,13 @@ namespace CodeBase.Infrastructure.States
         ?? NewProgress();
     }
 
-    private PlayerProgress NewProgress() => 
-      new PlayerProgress(initialLevel: "Main");
+    private PlayerProgress NewProgress()
+    {
+      var progress = new PlayerProgress(initialLevel: "Main");
+
+      progress.HeroState.MaxHp = 50;
+      progress.HeroState.ResetHp();
+      return progress;
+    }
   }
 }
