@@ -10,10 +10,10 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float speed;
-        
+        [SerializeField] private float minimalDistance = 4;
+
         private IGameFactory _gameFactory;
         private Transform targetTransform;
-        private const float MinimalDistance = 2;
 
         [Inject]
         private void Init(IGameFactory gameFactory)
@@ -30,17 +30,21 @@ namespace CodeBase.Enemy
 
         public void FixedUpdate()
         {
-            if (targetTransform == null)
-                return;
-            float distance = Vector2.Distance(_rb.transform.position, targetTransform.position);
-            if (distance >= MinimalDistance)
+            if (targetTransform != null)
             {
-                Vector2 direction = (targetTransform.position - _rb.transform.position).normalized;
-                LookAtTarget(direction);
-                Vector2 velocity = _rb.velocity;
-                velocity.x = speed * direction.x;
-                _rb.velocity = velocity;
+                float distance = Vector2.Distance(_rb.transform.position, targetTransform.position);
+                if (distance >= minimalDistance) 
+                    Chase();
             }
+        }
+
+        private void Chase()
+        {
+            Vector2 direction = (targetTransform.position - _rb.transform.position).normalized;
+            LookAtTarget(direction);
+            Vector2 velocity = _rb.velocity;
+            velocity.x = speed * direction.x;
+            _rb.velocity = velocity;
         }
 
         private void LookAtTarget(Vector2 direction)

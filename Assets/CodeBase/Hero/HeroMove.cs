@@ -46,6 +46,11 @@ namespace CodeBase.Hero
             _rigidbody2D.velocity = velocity;
         }
 
+        public void StopMoving()
+        {
+            _rigidbody2D.velocity = Vector2.zero;
+        }
+
         private void LookAtMoveDirection()
         {
             if (_inputDirection.x > 0)

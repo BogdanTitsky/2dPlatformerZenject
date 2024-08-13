@@ -16,9 +16,12 @@ namespace CodeBase.Logic
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _saveLoadService.SaveProgress();
-            Debug.Log("Progress saved!");
-            gameObject.SetActive(false);
+            if (other.CompareTag("Player"))
+            {
+                _saveLoadService.SaveProgress();
+                Debug.Log("Progress saved!");
+                gameObject.SetActive(false);
+            }
         }
 
         private void OnDrawGizmos()
