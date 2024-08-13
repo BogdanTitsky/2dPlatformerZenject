@@ -11,5 +11,6 @@ namespace CodeBase.Enemy
             Debug.DrawRay(worldPosition, radius * Vector2.right, Color.red, seconds);
             Debug.DrawRay(worldPosition, radius * Vector2.down, Color.red, seconds);
         }
+
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using CodeBase.Hero;
+﻿using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Logic;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +10,7 @@ namespace CodeBase.UI
     {
         [SerializeField] private HpBar hpBar;
 
-        private HeroHealth _heroHealth;
+        private IHealth _heroHealth;
 
         private IGameFactory _gameFactory;
 
@@ -18,17 +18,23 @@ namespace CodeBase.UI
         public void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
-            _heroHealth = _gameFactory.HeroGameObject.GetComponent<HeroHealth>();
+            _heroHealth = _gameFactory.HeroGameObject.GetComponent<IHealth>();
         }
-
-        private void OnEnable()
+        
+        private void Start()
         {
-            _heroHealth.OnHealthChanged += UpdateHpBar;
-            UpdateHpBar();
+            IHealth enemyHealth = GetComponent<IHealth>();
+            if (enemyHealth != null)
+            {
+                _heroHealth = enemyHealth;
+            }
+            
+            _heroHealth.HealthChanged += UpdateHpBar;
+
         }
 
         private void OnDisable() => 
-            _heroHealth.OnHealthChanged -= UpdateHpBar;
+            _heroHealth.HealthChanged -= UpdateHpBar;
 
         private void UpdateHpBar() => 
             hpBar.SetValue(_heroHealth.Current, _heroHealth.Max);

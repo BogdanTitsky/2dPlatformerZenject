@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(Attack))]
+    [RequireComponent(typeof(EnemyAttack))]
     public class CheckAttackRange : MonoBehaviour
     {
-        [SerializeField] private Attack attack;
+        [SerializeField] private EnemyAttack EnemyAttack;
         [SerializeField] private TriggerObserver triggerObserver;
 
         private void OnEnable()
@@ -14,7 +14,7 @@ namespace CodeBase.Enemy
             triggerObserver.TriggerEnter += TriggerEnter;
             triggerObserver.TriggerExit += TriggerExit;
             
-            attack.DisableAttack();
+            EnemyAttack.DisableAttack();
         }
         
         private void OnDisable()
@@ -25,12 +25,12 @@ namespace CodeBase.Enemy
         
         private void TriggerEnter(Collider2D obj)
         {
-            attack.EnableAttack();
+            EnemyAttack.EnableAttack();
         }
 
         private void TriggerExit(Collider2D obj)
         {
-            attack.DisableAttack();
+            EnemyAttack.DisableAttack();
         }
     }
 }
