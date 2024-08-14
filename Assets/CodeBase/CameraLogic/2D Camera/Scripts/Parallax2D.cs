@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using CodeBase.Infrastructure.Factory;
+using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Parallax2D : MonoBehaviour

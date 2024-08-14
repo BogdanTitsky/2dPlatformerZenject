@@ -12,7 +12,7 @@ public class Camera2DEditor : Editor
     float followDampeningX = 0.4f;
     float followDampeningY = 0.6f;
 
-    float lookAheadAmount = 1.0f;
+    float lookAheadAmount = 0.4f;
 
     float minCameraZoomVal;
     float minCameraZoomLimit = 1;
@@ -69,7 +69,7 @@ public class Camera2DEditor : Editor
             followDampeningX = 0.4f;
             followDampeningY = 0.6f;
             multiTargetDampening = 3.0f;
-            lookAheadAmount = 1.0f;
+            lookAheadAmount = 0.4f;
             minCameraZoomVal = 1;
             maxCameraZoomVal = 10;
         }
