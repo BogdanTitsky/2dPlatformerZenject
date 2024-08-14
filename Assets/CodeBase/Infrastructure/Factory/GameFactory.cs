@@ -13,9 +13,11 @@ namespace CodeBase.Infrastructure.Factory
         private DiContainer _container;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
+
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-        
+
         public GameObject HeroGameObject { get; set; }
+
         public event Action HeroCreated;
 
         public GameFactory(DiContainer container, IAssetProvider assets)
@@ -24,12 +26,14 @@ namespace CodeBase.Infrastructure.Factory
             _assets = assets;
         }
 
-        public GameObject CreateHero(GameObject at)
+        public void CreateHero(GameObject at)
         {
             HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
             HeroCreated?.Invoke();
-            return HeroGameObject;
         }
+
+        public void CreateCamera() =>
+            InstantiateRegistered(AssetPath.CameraPath);
 
         public void CreateHud() =>
             InstantiateRegistered(AssetPath.HudPath);
