@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class RailAnchor2D : MonoBehaviour
+namespace CodeBase.CameraLogic._2D_Camera.Scripts
 {
+    public class RailAnchor2D : MonoBehaviour
+    {
     
+    }
 }

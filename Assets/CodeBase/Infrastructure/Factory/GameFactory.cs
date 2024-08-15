@@ -1,7 +1,9 @@
-using System;
 using System.Collections.Generic;
+using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
+using CodeBase.Services.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +13,7 @@ namespace CodeBase.Infrastructure.Factory
     {
         private readonly IAssetProvider _assets;
         private DiContainer _container;
+        private readonly IStaticDataService _staticData;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
 
@@ -18,18 +21,42 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject HeroGameObject { get; set; }
 
-        public event Action HeroCreated;
-
-        public GameFactory(DiContainer container, IAssetProvider assets)
+        public GameFactory(DiContainer container, IAssetProvider assets, IStaticDataService staticData)
         {
             _container = container;
             _assets = assets;
+            _staticData = staticData;
         }
 
         public void CreateHero(GameObject at)
         {
             HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
-            HeroCreated?.Invoke();
+        }
+
+        public GameObject CreateEnemy(EnemyTypeId typeId, Transform parent)
+        {
+           EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
+           
+           GameObject enemy = _container.InstantiatePrefab(enemyData.Prefab);
+           enemy.transform.position = parent.position;
+           
+           IHealth health = enemy.GetComponent<IHealth>();
+           health.Current = enemyData.Hp;
+           health.Max = enemyData.Hp;
+           
+           EnemyAttack attack = enemy.GetComponent<EnemyAttack>();
+           attack.Damage = enemyData.Damage;
+           attack.Cleavage = enemyData.Cleavage;
+           attack.AttackCooldown = enemyData.AttackCooldown;
+           attack.Distance = enemyData.Distance;
+           
+           return enemy;
+        }
+
+        public void CreateCheckPoints(GameObject[] atPoints)
+        {
+            foreach (var checkPoint in atPoints)
+                InstantiateRegistered(AssetPath.CheckPointPath, checkPoint.transform.position);
         }
 
         public void CreateCamera() =>
@@ -68,11 +95,11 @@ namespace CodeBase.Infrastructure.Factory
             }
         }
 
-        private void Register(ISavedProgressReader progressReader)
+        public void Register(ISavedProgressReader progressReader)
         {
-            if (progressReader is ISavedProgress progressWriter)
+            if(progressReader is ISavedProgress progressWriter)
                 ProgressWriters.Add(progressWriter);
-
+      
             ProgressReaders.Add(progressReader);
         }
     }

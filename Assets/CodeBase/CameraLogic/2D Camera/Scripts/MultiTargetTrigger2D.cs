@@ -1,32 +1,35 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class MultiTargetTrigger2D : Trigger2D
+namespace CodeBase.CameraLogic._2D_Camera.Scripts
 {
-    public List<Target2D> targets = new List<Target2D>();
-
-    /// <summary>
-    /// Triggered when another Collider2D enters the bounding box.
-    /// </summary>
-    /// <param name="other"></param>
-    public override void Activate(Collider2D other)
+    [ExecuteInEditMode]
+    public class MultiTargetTrigger2D : Trigger2D
     {
-        Camera2D cam = GameObject.FindObjectOfType<Camera2D>();
-        if (cam == null) return;
+        public List<Target2D> targets = new List<Target2D>();
 
-        cam.AddTargets(targets);
-    }
+        /// <summary>
+        /// Triggered when another Collider2D enters the bounding box.
+        /// </summary>
+        /// <param name="other"></param>
+        public override void Activate(Collider2D other)
+        {
+            Camera2D cam = GameObject.FindObjectOfType<Camera2D>();
+            if (cam == null) return;
 
-    /// <summary>
-    /// Triggered when another Collider2D leaves the bounding box.
-    /// </summary>
-    /// <param name="other"></param>
-    public override void Deactivate(Collider2D other)
-    {
-        Camera2D cam = GameObject.FindObjectOfType<Camera2D>();
-        if (cam == null) return;
+            cam.AddTargets(targets);
+        }
 
-        cam.ClearAllTargetsExceptPlayer();
+        /// <summary>
+        /// Triggered when another Collider2D leaves the bounding box.
+        /// </summary>
+        /// <param name="other"></param>
+        public override void Deactivate(Collider2D other)
+        {
+            Camera2D cam = GameObject.FindObjectOfType<Camera2D>();
+            if (cam == null) return;
+
+            cam.ClearAllTargetsExceptPlayer();
+        }
     }
 }

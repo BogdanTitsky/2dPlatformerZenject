@@ -5,5 +5,6 @@ namespace CodeBase.Infrastructure.AssetManagement
     public const string HeroPath = "Hero/hero";
     public const string HudPath = "Hud/Hud";
     public const string CameraPath = "Camera/Camera";
+    public const string CheckPointPath = "Logic/SaveTrigger";
   }
 }

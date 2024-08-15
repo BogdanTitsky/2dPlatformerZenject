@@ -6,7 +6,7 @@ using Zenject;
 
 namespace CodeBase.UI
 {
-    public class UIChanger : MonoBehaviour
+    public class UIHeroHp : MonoBehaviour
     {
         [SerializeField] private HpBar hpBar;
 
@@ -21,17 +21,8 @@ namespace CodeBase.UI
             _heroHealth = _gameFactory.HeroGameObject.GetComponent<IHealth>();
         }
         
-        private void Start()
-        {
-            IHealth enemyHealth = GetComponent<IHealth>();
-            if (enemyHealth != null)
-            {
-                _heroHealth = enemyHealth;
-            }
-            
+        private void OnEnable() => 
             _heroHealth.HealthChanged += UpdateHpBar;
-
-        }
 
         private void OnDisable() => 
             _heroHealth.HealthChanged -= UpdateHpBar;

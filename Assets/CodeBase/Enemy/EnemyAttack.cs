@@ -11,12 +11,12 @@ namespace CodeBase.Enemy
     [RequireComponent(typeof(EnemyAnimator))]
     public class EnemyAttack : MonoBehaviour
     {
-        [SerializeField] private float cleavage = 1f;
-        [SerializeField] private float distance = 1f;
-        [SerializeField] private int layerMask;
-        [SerializeField] private float attackCooldown = 1.5f;
         [SerializeField] private EnemyAnimator animator;
-        [SerializeField] private float damage = 5f;
+        [SerializeField] private int layerMask;
+        public float Cleavage = 1f;
+        public float Distance = 1f;
+        public float AttackCooldown = 1.5f;
+        public float Damage = 5f;
         
         
         private Collider2D[] _hits = new Collider2D[1];
@@ -31,14 +31,8 @@ namespace CodeBase.Enemy
         public void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
-            _gameFactory.HeroCreated += OnHeroCreated;
-        }
-
-        private void OnHeroCreated()
-        {
             _heroHealth = _gameFactory.HeroGameObject.GetComponent<IHealth>();
         }
-
 
         private void Awake()
         {
@@ -68,15 +62,14 @@ namespace CodeBase.Enemy
         {
             if (Hit(out Collider2D hit))
             {
-               PhysicsDebug.DrawDebug(StartPoint(), cleavage, 2);
-               Debug.Log(hit.transform.GetComponent<HeroHealth>() != null);
-               _heroHealth.TakeDamage(damage);
+               PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 2);
+               _heroHealth.TakeDamage(Damage);
             }
         }
         
         private void OnAttackEnd()
         {
-            _currentAttackCooldown = attackCooldown;
+            _currentAttackCooldown = AttackCooldown;
             _isAttacking = false;
         }
 
@@ -99,12 +92,12 @@ namespace CodeBase.Enemy
             return hitCount > 0;
         }
 
-        private Vector2 Size() => new(cleavage, cleavage);
+        private Vector2 Size() => new(Cleavage, Cleavage);
           
         private Vector2 StartPoint()
         {
             return new Vector2(transform.position.x, transform.position.y) +
-                   new Vector2(transform.localScale.x, transform.localScale.y) * distance;
+                   new Vector2(transform.localScale.x, transform.localScale.y) * Distance;
         }
         
         private bool CanAttack() => 
