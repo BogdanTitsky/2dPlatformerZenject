@@ -11,8 +11,10 @@ namespace CodeBase.Logic
         public BoxCollider2D Collider;
 
         [Inject]
-        public void Init(ISaveLoadService saveLoadService) =>
+        public void Init(ISaveLoadService saveLoadService)
+        {
             _saveLoadService = saveLoadService;
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {

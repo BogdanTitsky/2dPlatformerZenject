@@ -1,41 +1,42 @@
-﻿using CodeBase.Infrastructure.Factory;
-using UnityEngine;
-using Zenject;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class Parallax2D : MonoBehaviour
+namespace CodeBase.CameraLogic._2D_Camera.Scripts
 {
-    public Camera cam;
-    public float parallaxEffect;
-    private float length;
-    private float startPos;
-    
-    void Awake()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class Parallax2D : MonoBehaviour
     {
-        // Set default camera if it hasn't been assigned in the editor
-        if (cam == null) {
-            cam = GameObject.FindObjectOfType<Camera>();
+        public Camera cam;
+        public float parallaxEffect;
+        private float length;
+        private float startPos;
+    
+        void Awake()
+        {
+            // Set default camera if it hasn't been assigned in the editor
+            if (cam == null) {
+                cam = GameObject.FindObjectOfType<Camera>();
+            }
+
+            // Initianl Setup
+            startPos = transform.position.x;
+            length = GetComponent<SpriteRenderer>().bounds.size.x;
         }
 
-        // Initianl Setup
-        startPos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
-    }
-
-    /// <summary>
-    /// Main loop
-    /// </summary>
-    void Update()
-    {
-        float temp = (cam.transform.position.x * (1 - parallaxEffect));
-        float distance = (cam.transform.position.x * parallaxEffect);
+        /// <summary>
+        /// Main loop
+        /// </summary>
+        void Update()
+        {
+            float temp = (cam.transform.position.x * (1 - parallaxEffect));
+            float distance = (cam.transform.position.x * parallaxEffect);
         
-        transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);   
+            transform.position = new Vector3(startPos + distance, transform.position.y, transform.position.z);   
         
-        if (temp > startPos + (length/2)) {
-            startPos += length;
-        } else if (temp < startPos - (length/2)) {
-            startPos -= length;
+            if (temp > startPos + (length/2)) {
+                startPos += length;
+            } else if (temp < startPos - (length/2)) {
+                startPos -= length;
+            }
         }
     }
 }

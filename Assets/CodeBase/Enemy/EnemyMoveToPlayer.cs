@@ -12,35 +12,26 @@ namespace CodeBase.Enemy
         [SerializeField] private float speed;
         [SerializeField] private float minimalDistance = 4;
 
+        private Transform _targetTransform;
         private IGameFactory _gameFactory;
-        private Transform targetTransform;
 
         [Inject]
         private void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
-
-            if (_gameFactory.HeroGameObject != null)
-                InitializeHeroTransform();
-            else
-            {
-                _gameFactory.HeroCreated += InitializeHeroTransform;
-            }
+            _targetTransform = _gameFactory.HeroGameObject.transform;
         }
 
         public void FixedUpdate()
-        {
-            if (targetTransform != null)
-            {
-                float distance = Vector2.Distance(_rb.transform.position, targetTransform.position);
-                if (distance >= minimalDistance) 
-                    Chase();
-            }
+        { 
+            float distance = Vector2.Distance(_rb.transform.position, _targetTransform.position);
+            if (distance >= minimalDistance) 
+                Chase();
         }
 
         private void Chase()
         {
-            Vector2 direction = (targetTransform.position - _rb.transform.position).normalized;
+            Vector2 direction = (_targetTransform.position - _rb.transform.position).normalized;
             LookAtTarget(direction);
             Vector2 velocity = _rb.velocity;
             velocity.x = speed * direction.x;
@@ -54,8 +45,5 @@ namespace CodeBase.Enemy
             else if (direction.x < 0)
                 transform.localScale = new Vector3(-1, 1, 1);
         }
-
-        private void InitializeHeroTransform() => 
-            targetTransform = _gameFactory.HeroGameObject.transform;
     }
 }

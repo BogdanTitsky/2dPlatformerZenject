@@ -1,9 +1,5 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Services.Input;
+﻿using CodeBase.Infrastructure.Services.SaveLoad;
+using CodeBase.Services.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -13,15 +9,20 @@ namespace CodeBase.Infrastructure.States
         private const string Initial = "Initial";
         private GameStateMachine _stateMachine;
         private SceneLoader _sceneLoader;
+        private ISaveLoadService _saveLoadService;
+        private  IStaticDataService _staticDataService;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, IStaticDataService staticDataService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _staticDataService = staticDataService;
+            
         }
 
         public void Enter()
         {
+            _staticDataService.LoadEnemies();
             _sceneLoader.Load(Initial, EnterLoadLevel);
         }
 

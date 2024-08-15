@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 9027424449756380787}
   - component: {fileID: 6358091898406290986}
   - component: {fileID: 9027941984697810452}
-  - component: {fileID: 260142970703955518}
+  - component: {fileID: 3042561009898748510}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Untagged
@@ -434,7 +434,7 @@ MonoBehaviour:
   health: {fileID: 6358091898406290986}
   animator: {fileID: 5593878730750527215}
   DeathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
---- !u!114 &260142970703955518
+--- !u!114 &3042561009898748510
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -443,10 +443,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1164555603491010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93f0b87cd144416bb90ec19b16f6fea5, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d3d801c4f4b4e94971a30635080c51b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 295136929019459524}
+  _health: {fileID: 6358091898406290986}
+  _hpBar: {fileID: 295136929019459524}
 --- !u!1 &1196218182181502
 GameObject:
   m_ObjectHideFlags: 0

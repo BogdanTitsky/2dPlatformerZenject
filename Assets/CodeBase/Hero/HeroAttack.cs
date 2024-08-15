@@ -39,7 +39,6 @@ namespace CodeBase.Hero
 
         public void UpdateProgress(PlayerProgress progress)
         {
-            throw new System.NotImplementedException();
         }
         
         public void OnAttack()

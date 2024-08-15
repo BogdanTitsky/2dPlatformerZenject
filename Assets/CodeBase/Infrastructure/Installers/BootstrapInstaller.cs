@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
+using CodeBase.Services.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -46,6 +47,8 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
             Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
+            
 
             void RegisterInputService()
             {
