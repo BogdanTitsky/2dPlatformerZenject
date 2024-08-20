@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
-using CodeBase.Services.StaticData;
+using CodeBase.StaticData;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -49,10 +51,19 @@ namespace CodeBase.Infrastructure.Factory
            attack.Cleavage = enemyData.Cleavage;
            attack.AttackCooldown = enemyData.AttackCooldown;
            attack.Distance = enemyData.Distance;
+
+           var lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
+           lootSpawner.SetLootValue(enemyData.MinLoot, enemyData.MaxLoot);
            
            return enemy;
         }
-
+        
+        public LootCollector CreateLoot()
+        {
+            var coin = InstantiateRegistered(AssetPath.Coin);
+            return coin.GetComponent<LootCollector>();
+        }
+        
         public void CreateCheckPoints(GameObject[] atPoints)
         {
             foreach (var checkPoint in atPoints)
@@ -102,5 +113,7 @@ namespace CodeBase.Infrastructure.Factory
       
             ProgressReaders.Add(progressReader);
         }
+
+        
     }
 }

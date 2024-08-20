@@ -2,7 +2,7 @@
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Services.StaticData;
+using CodeBase.StaticData;
 using UnityEngine;
 using Zenject;
 
@@ -31,7 +31,9 @@ namespace CodeBase.Logic
         public void LoadProgress(PlayerProgress progress)
         {
             if (progress.KillData.ClearedSpawners.Contains(_id))
+            {
                 _IsSlain = true;
+            }
             else
                 Spawn();
         }

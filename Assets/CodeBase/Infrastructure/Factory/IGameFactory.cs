@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using CodeBase.Enemy;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Services.StaticData;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
@@ -19,5 +20,6 @@ namespace CodeBase.Infrastructure.Factory
 
         void Cleanup();
         void Register(ISavedProgressReader savedProgress);
+        LootCollector CreateLoot();
     }
 }

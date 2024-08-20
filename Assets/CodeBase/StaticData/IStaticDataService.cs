@@ -1,6 +1,6 @@
 ﻿using CodeBase.Infrastructure.Services;
 
-namespace CodeBase.Services.StaticData
+namespace CodeBase.StaticData
 {
     public interface IStaticDataService : IService
     {
