@@ -2,7 +2,9 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.StaticData;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -17,15 +19,17 @@ namespace CodeBase.Infrastructure.States
         private readonly LoadingCurtain _loadingCurtain;
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
+        private readonly IStaticDataService _staticData;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
-            IGameFactory gameFactory, IPersistentProgressService progressService)
+            IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _gameFactory = gameFactory;
             _progressService = progressService;
+            _staticData = staticData;
         }
 
         public void Enter(string sceneName)
@@ -66,10 +70,11 @@ namespace CodeBase.Infrastructure.States
 
         private void InitSpawners()
         {
-            foreach (GameObject spawnerGameObject in GameObject.FindGameObjectsWithTag(EnemySpawner))
+            string sceneKey = SceneManager.GetActiveScene().name;
+            LevelStaticData levelData = _staticData.ForLevel(sceneKey);
+            foreach (EnemySpawnerData spawnerData in levelData.EnemySpawnerData)
             {
-                var spawner = spawnerGameObject.GetComponent<EnemySpawner>();
-                _gameFactory.Register(spawner);
+                _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.EnemyTypeId);
             }
         }
     }

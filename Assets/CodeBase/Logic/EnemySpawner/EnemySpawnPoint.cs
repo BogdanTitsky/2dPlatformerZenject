@@ -6,12 +6,12 @@ using CodeBase.StaticData;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Logic
+namespace CodeBase.Logic.EnemySpawner
 {
-    public class EnemySpawner : MonoBehaviour, ISavedProgress
+    public class EnemySpawnPoint : MonoBehaviour, ISavedProgress
     {
         public EnemyTypeId EnemyTypeId;
-        private string _id;
+        public string Id { get;  set; }
 
         public bool _IsSlain;
         private IGameFactory _factory;
@@ -23,19 +23,21 @@ namespace CodeBase.Logic
             _factory = factory;
         }
 
-        private void Awake()
-        {
-            _id = GetComponent<UniqueId>().Id;
-        }
-
         public void LoadProgress(PlayerProgress progress)
         {
-            if (progress.KillData.ClearedSpawners.Contains(_id))
+            if (progress.KillData.ClearedSpawners.Contains(Id))
             {
                 _IsSlain = true;
+                //SpawnLootIfNeed
             }
             else
                 Spawn();
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            if (_IsSlain)
+                progress.KillData.ClearedSpawners.Add(Id);
         }
 
         private void Spawn()
@@ -51,12 +53,6 @@ namespace CodeBase.Logic
                 _enemyDeath.OnDeath -= Slay;
             
             _IsSlain = true;
-        }
-
-        public void UpdateProgress(PlayerProgress progress)
-        {
-            if (_IsSlain)
-                progress.KillData.ClearedSpawners.Add(_id);
         }
     }
 }
