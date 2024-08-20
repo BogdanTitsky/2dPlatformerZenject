@@ -1,5 +1,5 @@
 ﻿using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Services.StaticData;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -17,7 +17,6 @@ namespace CodeBase.Infrastructure.States
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
-            
         }
 
         public void Enter()

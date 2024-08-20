@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684de0470dfb4469a0b80cda215e23b4, type: 3}
   m_Name: GoblinData
   m_EditorClassIdentifier: 
+  EnemyTypeId: 0
+  MinLoot: 1
+  MaxLoot: 7
   Hp: 20
   Damage: 5
   Cleavage: 1
   Distance: 1
+  AttackCooldown: 1
   Prefab: {fileID: 1164555603491010, guid: 1d137edf05b0fa24188f5a06147adb82, type: 3}

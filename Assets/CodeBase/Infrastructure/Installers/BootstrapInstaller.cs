@@ -1,11 +1,12 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
+﻿using CodeBase.Enemy;
+using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
-using CodeBase.Services.StaticData;
+using CodeBase.StaticData;
 using UnityEngine;
 using Zenject;
 

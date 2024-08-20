@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 
-namespace CodeBase.Services.StaticData
+namespace CodeBase.StaticData
 {
     [CreateAssetMenu(fileName = "EnemyData", menuName = "StaticData/Enemy")]
     public class EnemyStaticData : ScriptableObject
     {
         public EnemyTypeId EnemyTypeId;
+
+        public int MinLoot;
+        public int MaxLoot;
+        
         [Range(1, 100)]
         public int Hp;
         [Range(1f, 50f)]

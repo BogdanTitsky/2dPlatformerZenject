@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace CodeBase.Services.StaticData
+namespace CodeBase.StaticData
 {
     public class StaticDataService : IStaticDataService
     {
