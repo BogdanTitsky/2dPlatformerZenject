@@ -7,5 +7,7 @@ namespace CodeBase.Infrastructure.AssetManagement
     public const string CameraPath = "Camera/Camera";
     public const string CheckPointPath = "Logic/SaveTrigger";
     public const string Coin = "Loot/Coin";
+    public const string Spawner = "Enemies/EnemySpawnPoint";
+
   }
 }

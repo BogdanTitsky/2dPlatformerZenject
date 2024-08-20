@@ -13,13 +13,12 @@ namespace CodeBase.Infrastructure.Factory
         void CreateCheckPoints(GameObject[] atPoints);
         void CreateHud();
         void CreateCamera();
+        void CreateSpawner(Vector3 at, string spawnerId, EnemyTypeId enemyTypeId);
         GameObject CreateEnemy(EnemyTypeId typeId, Transform transformParent);
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
         GameObject HeroGameObject { get; }
-
         void Cleanup();
-        void Register(ISavedProgressReader savedProgress);
         LootCollector CreateLoot();
     }
 }

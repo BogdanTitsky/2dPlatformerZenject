@@ -6,5 +6,6 @@ namespace CodeBase.StaticData
     {
         void LoadEnemies();
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
+        LevelStaticData ForLevel(string sceneKey);
     }
 }

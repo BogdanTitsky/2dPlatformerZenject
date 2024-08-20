@@ -4,6 +4,7 @@ using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawner;
 using CodeBase.StaticData;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -57,13 +58,13 @@ namespace CodeBase.Infrastructure.Factory
            
            return enemy;
         }
-        
+
         public LootCollector CreateLoot()
         {
             var coin = InstantiateRegistered(AssetPath.Coin);
             return coin.GetComponent<LootCollector>();
         }
-        
+
         public void CreateCheckPoints(GameObject[] atPoints)
         {
             foreach (var checkPoint in atPoints)
@@ -75,6 +76,15 @@ namespace CodeBase.Infrastructure.Factory
 
         public void CreateHud() =>
             InstantiateRegistered(AssetPath.HudPath);
+
+        public void CreateSpawner(Vector3 at, string spawnerId, EnemyTypeId enemyTypeId)
+        {
+            var spawner = InstantiateRegistered(AssetPath.Spawner, at)
+                .GetComponent<EnemySpawnPoint>();
+
+            spawner.Id = spawnerId;
+            spawner.EnemyTypeId = enemyTypeId;
+        }
 
         public void Cleanup()
         {

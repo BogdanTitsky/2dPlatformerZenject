@@ -7,7 +7,6 @@ TagManager:
   - LoadingCurtain
   - InitialPoint
   - FxTemporaire
-  - EnemySpawner
   - SaveTriggerPoint
   layers:
   - Default
