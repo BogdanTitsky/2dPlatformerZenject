@@ -1774,6 +1774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8983210764145485352}
   - component: {fileID: 8780102324654654659}
+  - component: {fileID: 5799717969158474643}
   m_Layer: 0
   m_Name: LootSpawner
   m_TagString: Untagged
@@ -1809,6 +1810,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyDeath: {fileID: 9027941984697810452}
+  IdComponent: {fileID: 5799717969158474643}
+--- !u!114 &5799717969158474643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3586728139462461994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0863f09d3d94ccaa4e9d3dd2284a55c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: Goblin_b5d5042f-b67a-4f4a-89e3-fe53d245e021
 --- !u!1 &3720230895694323046
 GameObject:
   m_ObjectHideFlags: 0

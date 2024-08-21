@@ -1,7 +1,9 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 using Random = System.Random;
 
@@ -10,6 +12,7 @@ namespace CodeBase.Enemy
     public class LootSpawner : MonoBehaviour
     {
         [SerializeField] private EnemyDeath EnemyDeath;
+        [SerializeField] private UniqueId IdComponent;
         private IGameFactory _factory;
         private int _lootMax;
         private int _lootMin;
@@ -43,14 +46,16 @@ namespace CodeBase.Enemy
           Loot lootItem = GenerateLoot();
           
           loot.InitLootItem(lootItem);
-          _worldData.CoinPositionOnLevel.SetPosition(loot.transform.position.AsVectorData());
         }
 
         private Loot GenerateLoot()
         {
             return new()
             {
-                Value = _random.Next(_lootMin, _lootMax)
+                Value = _random.Next(_lootMin, _lootMax),
+                PositionOnLevel = transform.position.AsVectorData(),
+                Level = SceneManager.GetActiveScene().name,
+                Id = IdComponent.Id
             };
         }
 

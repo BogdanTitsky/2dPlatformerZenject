@@ -65,6 +65,11 @@ namespace CodeBase.Infrastructure.Factory
             return coin.GetComponent<LootCollector>();
         }
 
+        public void TryCreateUncollectedLoot()
+        {
+            
+        }
+
         public void CreateCheckPoints(GameObject[] atPoints)
         {
             foreach (var checkPoint in atPoints)

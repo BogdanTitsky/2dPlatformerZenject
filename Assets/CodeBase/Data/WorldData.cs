@@ -6,15 +6,15 @@ namespace CodeBase.Data
   public class WorldData
   {
     public PositionOnLevel PositionOnLevel;
-    public CoinPositionOnLevel CoinPositionOnLevel;
     public LootData LootData;
+    public NotCollectedLoot NotCollectedLoot;
 
 
     public WorldData(string initialLevel)
     {
       PositionOnLevel = new PositionOnLevel(initialLevel);
-      CoinPositionOnLevel = new CoinPositionOnLevel(initialLevel);
       LootData = new LootData();
+      NotCollectedLoot = new NotCollectedLoot();
     }
   }
 }
