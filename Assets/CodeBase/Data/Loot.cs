@@ -6,5 +6,15 @@ namespace CodeBase.Data
     public class Loot
     {
         public int Value;
+        public Vector3Data PositionOnLevel;
+        public string Level;
+        public string Id;
+
+        public void SetLootLocation(Vector3Data positionOnLevel, string levelName, string id)
+        {
+            PositionOnLevel = positionOnLevel;
+            Level = levelName;
+            Id = id;
+        }
     }
 }

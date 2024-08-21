@@ -1,13 +1,15 @@
 ﻿using System.Collections;
+using System.Xml;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
 using Zenject;
+using UniqueId = CodeBase.Logic.UniqueId;
 
 namespace CodeBase.Enemy
 {
-    public class LootCollector : MonoBehaviour
+    public class LootCollector : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private GameObject coin;
         [SerializeField] private GameObject fxPrefab;
@@ -22,10 +24,44 @@ namespace CodeBase.Enemy
         public void Init(IPersistentProgressService progressService) => 
             _worldData = progressService.Progress.WorldData;
 
-        public void InitLootItem(Loot loot) => 
+        public void InitLootItem(Loot loot)
+        {
             _loot = loot;
+        }
 
         private void OnTriggerEnter2D(Collider2D other) => Pickup();
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+        }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            Loot lootInList = FindThisLootInData(progress);
+            if (!_isPickedUp && lootInList == null)
+            {
+                SaveUncollectedLoot(progress);
+            }else if (_isPickedUp && lootInList != null)
+            {
+                RemoveUncollectedLoot(progress, lootInList);
+            }
+        }
+
+        private Loot FindThisLootInData(PlayerProgress progress)
+        {
+            Loot lootInList = progress.WorldData.NotCollectedLoot.NotCollectedList.Find(loot => loot.Id == _loot.Id);
+            return lootInList;
+        }
+
+        private static void RemoveUncollectedLoot(PlayerProgress progress, Loot lootInList)
+        {
+            progress.WorldData.NotCollectedLoot.NotCollectedList.Remove(lootInList);
+        }
+
+        private void SaveUncollectedLoot(PlayerProgress progress)
+        {
+            progress.WorldData.NotCollectedLoot.NotCollectedList.Add(_loot);
+        }
 
         private void Pickup()
         {
@@ -33,7 +69,6 @@ namespace CodeBase.Enemy
                 return;
             
             _isPickedUp = true;
-            
             UpdateWorldData();
             HideCoin();
             PlayPickupFx();

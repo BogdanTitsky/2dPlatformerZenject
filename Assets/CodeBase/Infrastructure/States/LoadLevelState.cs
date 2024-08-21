@@ -1,4 +1,6 @@
 ﻿using System;
+using CodeBase.Data;
+using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
@@ -48,14 +50,9 @@ namespace CodeBase.Infrastructure.States
         {
             InitGameWorld();
             InformProgressReaders();
+            TryCreateUncollectedLoot();
 
             _stateMachine.Enter<GameLoopState>();
-        }
-
-        private void InformProgressReaders()
-        {
-            foreach (var progressReader in _gameFactory.ProgressReaders)
-                progressReader.LoadProgress(_progressService.Progress);
         }
 
         private void InitGameWorld()
@@ -65,6 +62,22 @@ namespace CodeBase.Infrastructure.States
             _gameFactory.CreateCamera();
             _gameFactory.CreateHud();
             _gameFactory.CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
+        }
+
+        private void InformProgressReaders()
+        {
+            foreach (var progressReader in _gameFactory.ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
+
+        private void TryCreateUncollectedLoot()
+        {
+            foreach (var lootItem in _progressService.Progress.WorldData.NotCollectedLoot.NotCollectedList)
+            {
+                LootCollector lootObject = _gameFactory.CreateLoot();
+                lootObject.InitLootItem(lootItem);
+                lootObject.transform.position = lootItem.PositionOnLevel.AsUnityVector();
+            }
         }
 
 

@@ -28,7 +28,7 @@ namespace CodeBase.Logic.EnemySpawner
             if (progress.KillData.ClearedSpawners.Contains(Id))
             {
                 _IsSlain = true;
-                //SpawnLootIfNeed
+                
             }
             else
                 Spawn();

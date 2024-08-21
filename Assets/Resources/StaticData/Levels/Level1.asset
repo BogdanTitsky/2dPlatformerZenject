@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d34ba159674417999ccac13bdb0ca7f, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  LevelKey: 
-  EnemySpawnerData: []
+  LevelKey: Main
+  EnemySpawnerData:
+  - Id: Main_792f625b-a989-4778-aa87-0746fb79f523
+    EnemyTypeId: 0
+    Position: {x: 22.53, y: -2.74, z: 0.021091614}
+  - Id: _9bff1ef3-4af9-4c83-b593-f9d1d7a0925e
+    EnemyTypeId: 0
+    Position: {x: 15.56, y: -2.48, z: 0.021091614}
