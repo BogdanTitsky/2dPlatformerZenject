@@ -6,6 +6,7 @@ namespace CodeBase.Data
     public class Stats
     {
         public float Damage;
-        public Vector2Data DamageRadius;
+        public Vector2Data AttackDistance;
+        public float AttackCleavage;
     }
 }

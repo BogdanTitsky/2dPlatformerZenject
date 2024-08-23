@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GoblinData
   m_EditorClassIdentifier: 
   EnemyTypeId: 0
-  MinLoot: 1
+  MinLoot: 2
   MaxLoot: 7
   Hp: 20
   Damage: 5
-  Cleavage: 1
-  Distance: 1
+  Cleavage: 1.7
   AttackCooldown: 1
+  Distance: {x: 1.15, y: 0.8}
   Prefab: {fileID: 1164555603491010, guid: 1d137edf05b0fa24188f5a06147adb82, type: 3}
