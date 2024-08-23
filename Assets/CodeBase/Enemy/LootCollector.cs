@@ -39,12 +39,9 @@ namespace CodeBase.Enemy
         {
             Loot lootInList = FindThisLootInData(progress);
             if (!_isPickedUp && lootInList == null)
-            {
                 SaveUncollectedLoot(progress);
-            }else if (_isPickedUp && lootInList != null)
-            {
+            else if (_isPickedUp && lootInList != null) 
                 RemoveUncollectedLoot(progress, lootInList);
-            }
         }
 
         private Loot FindThisLootInData(PlayerProgress progress)

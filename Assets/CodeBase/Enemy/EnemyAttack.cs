@@ -97,7 +97,7 @@ namespace CodeBase.Enemy
         private Vector2 StartPoint()
         {
             return new Vector2(transform.position.x, transform.position.y) +
-                   new Vector2(transform.localScale.x, transform.localScale.y) * Distance;
+                   new Vector2(transform.localScale.x  * Distance, transform.localScale.y);
         }
         
         private bool CanAttack() => 

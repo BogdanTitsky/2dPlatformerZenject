@@ -10,6 +10,10 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyHealth health;
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private GameObject DeathFx;
+        [SerializeField] private Rigidbody2D _rb;
+        [SerializeField] private Collider2D _collider;
+        [SerializeField] private EnemyMoveToPlayer _enemyMove;
+        
 
         public event Action OnDeath;
 
@@ -29,11 +33,19 @@ namespace CodeBase.Enemy
         {
             health.HealthChanged -= OnHealthChanged;
             animator.PlayDeath();
-            
+            DisableMove();
             SpawnFx();
             StartCoroutine(DestroyTimer());
             
             OnDeath?.Invoke(); 
+        }
+
+        private void DisableMove()
+        {
+            _enemyMove.enabled = false;
+            _rb.velocity = Vector2.zero;
+            _rb.isKinematic = true;
+            _collider.enabled = false;
         }
 
         private void SpawnFx() => 
