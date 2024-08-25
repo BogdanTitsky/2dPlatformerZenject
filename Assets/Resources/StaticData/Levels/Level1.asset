@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Main
   EnemySpawnerData:
+  - Id: _c1e0b206-b4fb-481d-885b-412980157c75
+    EnemyTypeId: 0
+    Position: {x: 19.11, y: -2.48, z: 0.021091614}
   - Id: Main_792f625b-a989-4778-aa87-0746fb79f523
     EnemyTypeId: 0
     Position: {x: -8, y: -2.74, z: 0.021091614}
-  - Id: _9bff1ef3-4af9-4c83-b593-f9d1d7a0925e
-    EnemyTypeId: 0
-    Position: {x: 19.11, y: -2.48, z: 0.021091614}
