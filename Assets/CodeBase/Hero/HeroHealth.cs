@@ -50,14 +50,10 @@ namespace CodeBase.Hero
         public void TakeDamage(float damage)
         {
             if (Current <= 0)
-            {
-                // Hero died
-                // TODO: Handle death animation and event
                 return;
-            }
-
             Current -= damage;
-            animator.PlayHit();
+            if (Current > 0)
+                animator.PlayHit();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private int layerMask;
         public float Cleavage = 1f;
-        public float Distance = 1f;
+        public Vector2 Distance = new ();
         public float AttackCooldown = 1.5f;
         public float Damage = 5f;
         
@@ -81,11 +81,7 @@ namespace CodeBase.Enemy
 
         private bool Hit(out Collider2D hit)
         {
-            Vector2 startPoint = StartPoint();
-            
-            Vector2 size = Size();
-
-            int hitCount = Physics2D.OverlapBoxNonAlloc(startPoint, size, layerMask ,_hits);
+            int hitCount = Physics2D.OverlapBoxNonAlloc(StartPoint(), Size(), layerMask ,_hits);
 
             hit = _hits.FirstOrDefault();
 
@@ -94,12 +90,8 @@ namespace CodeBase.Enemy
 
         private Vector2 Size() => new(Cleavage, Cleavage);
           
-        private Vector2 StartPoint()
-        {
-            return new Vector2(transform.position.x, transform.position.y) +
-                   new Vector2(transform.localScale.x, transform.localScale.y) * Distance;
-        }
-        
+        private Vector2 StartPoint() => new Vector2(transform.position.x, transform.position.y) + Distance;
+
         private bool CanAttack() => 
             !_isAttacking && CooldownIsUp() && _attackIsActive;
 
@@ -108,11 +100,8 @@ namespace CodeBase.Enemy
 
         private void OnDrawGizmos()
         {
-            Vector2 startPoint = StartPoint();
-            Vector2 size = Size();
-
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(startPoint, size);
+            Gizmos.DrawWireCube(StartPoint(), Size());
         }
     }
 }

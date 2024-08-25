@@ -12,7 +12,8 @@ namespace CodeBase.Hero
     {
         [SerializeField] private HeroAnimator heroAnimator;
         [SerializeField] private Rigidbody2D rigidbody2D;
-        // [SerializeField] private Vector2 _vector2;
+        [SerializeField] private float Cleavage = 1f;
+        [SerializeField] private Vector2 Distance = Vector2.one;
         
 
         private int _layerMask;
@@ -54,18 +55,25 @@ namespace CodeBase.Hero
         }
         
         private int Hit() =>
-            Physics2D.OverlapBoxNonAlloc(StartPoint(),
-                _stats.DamageRadius.AsUnity2Vector(),90 ,_hits, _layerMask);
+            Physics2D.OverlapBoxNonAlloc(StartPoint(), Size(), 0,  _hits,_layerMask);
+        
+       
 
-        private Vector2 StartPoint() => 
-            new(transform.position.x + transform.localScale.x, transform.position.y + 1f);
+        private Vector2 StartPoint() =>
+            Application.isPlaying 
+                ? new Vector2(transform.position.x, transform.position.y) + _stats.AttackDistance.AsUnity2Vector() * transform.localScale
+                : new Vector2(transform.position.x, transform.position.y) + Distance * transform.localScale;
 
+        private Vector2 Size() => 
+            Application.isPlaying 
+                ? new(_stats.AttackCleavage, _stats.AttackCleavage) 
+                : new(Cleavage, Cleavage);
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(StartPoint(), _stats.DamageRadius.AsUnity2Vector());
+            Gizmos.DrawWireCube(StartPoint(), Size());
         }
-
        
     }
 }

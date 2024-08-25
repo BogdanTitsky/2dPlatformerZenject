@@ -42,7 +42,8 @@ namespace CodeBase.Infrastructure.States
 
       progress.HeroState.MaxHp = 50;
       progress.HeroStats.Damage = 10;
-      progress.HeroStats.DamageRadius = new Vector2Data(2, 2);
+      progress.HeroStats.AttackDistance = new Vector2Data(1.4f, 0.8f);
+      progress.HeroStats.AttackCleavage = 1.6f;
       progress.HeroState.ResetHp();
       return progress;
     }
