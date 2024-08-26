@@ -27,12 +27,11 @@ namespace CodeBase.Hero
 
         private void Update()
         {
-            _inputDirection = Vector3.zero;
+            _inputDirection = Vector2.zero;
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
                 _inputDirection = _camera.transform.TransformDirection(_inputService.Axis);
-                _inputDirection.z = 0;
                 _inputDirection.y = 0;
 
                 LookAtMoveDirection();

@@ -15,7 +15,7 @@ namespace CodeBase.Hero
         [SerializeField] private float Cleavage = 1f;
         [SerializeField] private Vector2 Distance = Vector2.one;
         
-
+        const string LayerName = "Hittable";
         private int _layerMask;
 
         private IInputService _input;
@@ -27,12 +27,12 @@ namespace CodeBase.Hero
         {
             _input = input;
 
-            _layerMask = 1 << LayerMask.NameToLayer("Hittable");
+            _layerMask = 1 << LayerMask.NameToLayer(LayerName);
         }
 
         private void Update()
         {
-            if (_input.IsAttackButtonUp() && !heroAnimator.IsAttacking) heroAnimator.PlayAttack();
+            if (_input.IsAttackButtonDown() && !heroAnimator.IsAttacking) heroAnimator.PlayAttack();
         }
         
         public void LoadProgress(PlayerProgress progress) => 

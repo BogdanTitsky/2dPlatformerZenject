@@ -8,6 +8,8 @@ namespace CodeBase.Services.Input
   {
     Vector2 Axis { get; }
 
-    bool IsAttackButtonUp();
+    bool IsAttackButtonDown();
+    bool IsJumpButtonDown();
+    bool IsJumpButtonUp();
   }
 }
