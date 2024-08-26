@@ -12,6 +12,7 @@ namespace CodeBase.Hero
 
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
+    private static readonly int IsJumpingHash = Animator.StringToHash("IsJumping");
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int HitHash = Animator.StringToHash("Hit");
     private static readonly int DieHash = Animator.StringToHash("Die");
@@ -56,10 +57,17 @@ namespace CodeBase.Hero
       _animator.SetTrigger(DieHash);
     }
 
+    public void PlayJump() => 
+      _animator.SetBool(IsJumpingHash, true);
+
+    public void StopJump() => 
+      _animator.SetBool(IsJumpingHash, false);
+
     public void ResetToIdle()
     {
       _animator.Play(_idleStateHash, -1);
     }
+    
 
     public void EnteredState(int stateHash)
     {

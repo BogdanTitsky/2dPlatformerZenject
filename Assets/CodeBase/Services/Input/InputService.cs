@@ -6,14 +6,18 @@ namespace CodeBase.Services.Input
   {
     protected const string Horizontal = "Horizontal";
     protected const string Vertical = "Vertical";
-    private const string Button = "Fire1";
+    private const string AttackButton = "Fire1";
+    private const string JumpButton = "Jump";
 
     public abstract Vector2 Axis { get; }
 
-    public bool IsAttackButtonUp()
-    {
-      return SimpleInput.GetButtonUp(Button);
-    }
+    public bool IsAttackButtonDown() => 
+      SimpleInput.GetButtonDown(AttackButton);
+    
+    public bool IsJumpButtonDown() => 
+      SimpleInput.GetButtonDown(JumpButton);
+    public bool IsJumpButtonUp() => 
+      SimpleInput.GetButtonUp(JumpButton);
 
     protected static Vector2 SimpleInputAxis()
     {
