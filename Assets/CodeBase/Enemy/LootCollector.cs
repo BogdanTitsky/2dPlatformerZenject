@@ -1,17 +1,15 @@
 ﻿using System.Collections;
-using System.Xml;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
 using Zenject;
-using UniqueId = CodeBase.Logic.UniqueId;
 
 namespace CodeBase.Enemy
 {
     public class LootCollector : MonoBehaviour, ISavedProgress
     {
-        [SerializeField] private GameObject coin;
+        [SerializeField] private GameObject collectableSprite;
         [SerializeField] private GameObject fxPrefab;
         [SerializeField] private TextMeshPro lootText;
         [SerializeField] private GameObject pickupPopup;
@@ -77,7 +75,7 @@ namespace CodeBase.Enemy
             _worldData.LootData.Collect(_loot);
 
         private void HideCoin() => 
-            coin.SetActive(false);
+            collectableSprite.SetActive(false);
 
         private IEnumerator StartDestroyTimer()
         {

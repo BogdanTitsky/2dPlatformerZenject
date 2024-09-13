@@ -3,12 +3,12 @@
 namespace CodeBase.Data
 {
     [Serializable]
-    public class CoinPositionOnLevel
+    public class LootPositionOnLevel
     {
         public string Level;
         public Vector3Data Position;
 
-        public CoinPositionOnLevel(string level)
+        public LootPositionOnLevel(string level)
         {
             Level = level;
         }

@@ -61,13 +61,8 @@ namespace CodeBase.Infrastructure.Factory
 
         public LootCollector CreateLoot()
         {
-            var coin = InstantiateRegistered(AssetPath.Coin);
-            return coin.GetComponent<LootCollector>();
-        }
-
-        public void TryCreateUncollectedLoot()
-        {
-            
+            var loot = InstantiateRegistered(AssetPath.LootCoin);
+            return loot.GetComponent<LootCollector>();
         }
 
         public void CreateCheckPoints(GameObject[] atPoints)

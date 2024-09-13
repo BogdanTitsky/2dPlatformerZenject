@@ -80,7 +80,6 @@ namespace CodeBase.Infrastructure.States
             }
         }
 
-
         private void InitSpawners()
         {
             string sceneKey = SceneManager.GetActiveScene().name;

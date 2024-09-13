@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 8040219642420525326, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8518483782511002548, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

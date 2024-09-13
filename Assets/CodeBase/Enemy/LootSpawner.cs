@@ -13,6 +13,7 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private EnemyDeath EnemyDeath;
         [SerializeField] private UniqueId IdComponent;
+        [SerializeField] private LootType LootType;
         private IGameFactory _factory;
         private int _lootMax;
         private int _lootMin;
@@ -40,25 +41,23 @@ namespace CodeBase.Enemy
 
         private void SpawnLoot()
         {
-          LootCollector loot = _factory.CreateLoot();
-          loot.transform.position = transform.position;
+          LootCollector lootCollector= _factory.CreateLoot();
+          lootCollector.transform.position = transform.position;
           
           Loot lootItem = GenerateLoot();
           
-          loot.InitLootItem(lootItem);
+          lootCollector.InitLootItem(lootItem);
         }
 
         private Loot GenerateLoot()
         {
-            return new()
-            {
-                Value = _random.Next(_lootMin, _lootMax),
-                PositionOnLevel = transform.position.AsVectorData(),
-                Level = SceneManager.GetActiveScene().name,
-                Id = IdComponent.Id
-            };
+            return new Loot(
+                _random.Next(_lootMin, _lootMax),
+                transform.position.AsVectorData(),
+                SceneManager.GetActiveScene().name,
+                IdComponent.Id,
+                LootType
+            );
         }
-
-        
     }
 }
