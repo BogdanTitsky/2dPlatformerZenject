@@ -2,7 +2,7 @@
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.StaticData;
+using CodeBase.Infrastructure.Services.StaticData.Data;
 using UnityEngine;
 using Zenject;
 

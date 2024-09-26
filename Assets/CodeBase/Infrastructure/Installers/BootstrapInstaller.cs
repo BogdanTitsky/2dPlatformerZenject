@@ -1,12 +1,12 @@
-﻿using CodeBase.Enemy;
-using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
-using CodeBase.StaticData;
+using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +16,7 @@ namespace CodeBase.Infrastructure.Installers
     {
         [SerializeField] private GameBootstrapper _gameBootstrapperPrefab;
         [SerializeField] private LoadingCurtain _loadingCurtain;
-
+        
         public override void InstallBindings()
         {
             Container.Bind<ICoroutineRunner>().To<GameBootstrapper>().FromComponentInNewPrefab(_gameBootstrapperPrefab)
@@ -44,12 +44,13 @@ namespace CodeBase.Infrastructure.Installers
         private void RegisterServices()
         {
             RegisterInputService();
-            Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
+            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
             Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
+            Container.Bind<IUiFactory>().To<UiFactory>().AsSingle();
+            Container.Bind<IWindowService>().To<WindowService>().AsSingle().NonLazy();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
-            Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
-            
+
 
             void RegisterInputService()
             {

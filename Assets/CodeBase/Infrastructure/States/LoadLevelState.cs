@@ -1,10 +1,11 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services.StaticData.Data;
 using CodeBase.Logic;
-using CodeBase.StaticData;
+using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,8 +13,6 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
-        private const string InitialPointTag = "InitialPoint";
-        private const string EnemySpawner = "EnemySpawner";
         private const string SaveTriggerTag = "SaveTriggerPoint";
 
         private readonly GameStateMachine _stateMachine;
@@ -22,9 +21,10 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
+        private readonly  IUiFactory _uiFactory;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
-            IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData)
+            IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticData, IUiFactory uiFactory)
         {
             _stateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -32,6 +32,7 @@ namespace CodeBase.Infrastructure.States
             _gameFactory = gameFactory;
             _progressService = progressService;
             _staticData = staticData;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -57,8 +58,11 @@ namespace CodeBase.Infrastructure.States
 
         private void InitGameWorld()
         {
-            InitSpawners();
-            _gameFactory.CreateHero(GameObject.FindWithTag(InitialPointTag));
+            LevelStaticData levelData = LevelStaticData();
+
+            InitUiRoot();
+            InitSpawners(levelData);
+            InitHero(levelData);
             _gameFactory.CreateCamera();
             _gameFactory.CreateHud();
             _gameFactory.CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
@@ -80,14 +84,19 @@ namespace CodeBase.Infrastructure.States
             }
         }
 
-        private void InitSpawners()
+        private LevelStaticData LevelStaticData() => 
+            _staticData.ForLevel(SceneManager.GetActiveScene().name);
+
+        private void InitUiRoot() => 
+            _uiFactory.CreateUiRoot();
+
+        private void InitHero(LevelStaticData levelData) => 
+            _gameFactory.CreateHero(levelData.InitialHeroPosition);
+
+        private void InitSpawners(LevelStaticData levelData)
         {
-            string sceneKey = SceneManager.GetActiveScene().name;
-            LevelStaticData levelData = _staticData.ForLevel(sceneKey);
-            foreach (EnemySpawnerData spawnerData in levelData.EnemySpawnerData)
-            {
+            foreach (EnemySpawnerData spawnerData in levelData.EnemySpawnerData) 
                 _gameFactory.CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.EnemyTypeId);
-            }
         }
     }
 }

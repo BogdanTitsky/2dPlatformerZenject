@@ -1,5 +1,5 @@
 ﻿using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.StaticData;
+using CodeBase.Infrastructure.Services.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -21,7 +21,7 @@ namespace CodeBase.Infrastructure.States
 
         public void Enter()
         {
-            _staticDataService.LoadEnemies();
+            _staticDataService.LoadStaticData();
             _sceneLoader.Load(Initial, EnterLoadLevel);
         }
 

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
+using CodeBase.Infrastructure.Services.StaticData.Data;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawner;
-using CodeBase.StaticData;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,6 +11,8 @@ namespace CodeBase.Editor
     [CustomEditor(typeof(LevelStaticData))]
     public class LevelStaticDataEditor : UnityEditor.Editor
     {
+        private const string InitialPointTag = "InitialPoint";
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -25,6 +27,8 @@ namespace CodeBase.Editor
                     .ToList();
 
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
+
+                levelData.InitialHeroPosition = GameObject.FindWithTag(InitialPointTag).transform.position;
             }
             
             EditorUtility.SetDirty(target);

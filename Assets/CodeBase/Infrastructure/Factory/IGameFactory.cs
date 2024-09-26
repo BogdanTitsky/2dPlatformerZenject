@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.StaticData;
+using CodeBase.Infrastructure.Services.StaticData.Data;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
 {
     public interface IGameFactory : IService
     {
-        void CreateHero(GameObject at);
+        void CreateHero(Vector3 at);
         void CreateCheckPoints(GameObject[] atPoints);
         void CreateHud();
         void CreateCamera();

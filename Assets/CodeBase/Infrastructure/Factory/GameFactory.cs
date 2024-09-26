@@ -3,9 +3,10 @@ using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services.StaticData.Data;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawner;
-using CodeBase.StaticData;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
@@ -14,7 +15,6 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IAssetProvider _assets;
         private DiContainer _container;
         private readonly IStaticDataService _staticData;
 
@@ -24,16 +24,15 @@ namespace CodeBase.Infrastructure.Factory
 
         public GameObject HeroGameObject { get; set; }
 
-        public GameFactory(DiContainer container, IAssetProvider assets, IStaticDataService staticData)
+        public GameFactory(DiContainer container, IStaticDataService staticData)
         {
             _container = container;
-            _assets = assets;
             _staticData = staticData;
         }
 
-        public void CreateHero(GameObject at)
+        public void CreateHero(Vector3 at)
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
         }
 
         public GameObject CreateEnemy(EnemyTypeId typeId, Transform parent)

@@ -75,6 +75,10 @@ namespace CodeBase.Hero
 
         private void JumpIfGrounded()
         {
+            if (_input.IsJumpButtonDown())
+            {
+                Debug.Log("Jump");
+            }
             if (_input.IsJumpButtonDown() && groundChecker.IsGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, _stats.JumpPower);

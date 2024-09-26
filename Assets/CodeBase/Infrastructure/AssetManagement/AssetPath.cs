@@ -8,6 +8,9 @@ namespace CodeBase.Infrastructure.AssetManagement
     public const string CheckPointPath = "Logic/SaveTrigger";
     public const string LootCoin = "Loot/LootCoin";
     public const string Spawner = "Enemies/EnemySpawnPoint";
-
+    
+    // UI
+    public const string UiRootPath = "UI/UiRootCanvas";
+    public const string UiShopWindowPath = "UI/Shop";
   }
 }
