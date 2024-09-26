@@ -601,8 +601,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00080001354, y: -0.00029999763}
+  m_SizeDelta: {x: -0.03155, y: -0.04289}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7945961424951193706
 CanvasRenderer:
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 661b2d204d6a6254594f43d5df5d41b9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 655df0b57e056b049992d89bdab9b9e3, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1409,8 +1409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2.7}
-  m_SizeDelta: {x: 2.5, y: 0.2}
+  m_AnchoredPosition: {x: 0, y: 2.6837}
+  m_SizeDelta: {x: 2.5, y: 0.1773}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2208862684483606529
 Canvas:
@@ -1523,8 +1523,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 661b2d204d6a6254594f43d5df5d41b9, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 1577c5e2d398fb345a4e358d441100b6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1696,6 +1696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyDeath: {fileID: 6236726579714639725}
   IdComponent: {fileID: 3302727558230395744}
+  LootType: 0
 --- !u!114 &3302727558230395744
 MonoBehaviour:
   m_ObjectHideFlags: 0
