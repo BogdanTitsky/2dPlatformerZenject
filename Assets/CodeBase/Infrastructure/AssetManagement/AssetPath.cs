@@ -10,7 +10,8 @@ namespace CodeBase.Infrastructure.AssetManagement
     public const string Spawner = "Enemies/EnemySpawnPoint";
     
     // UI
-    public const string UiRootPath = "UI/UiRootCanvas";
+    public const string UIRootPath = "UI/UIRootCanvas";
+    public const string UIMenuRootPath = "UI/UIMenuRootCanvas";
     public const string UiShopWindowPath = "UI/Shop";
   }
 }

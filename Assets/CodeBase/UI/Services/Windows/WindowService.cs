@@ -13,14 +13,7 @@ namespace CodeBase.UI.Services.Windows
         }
         public void Open(WindowId windowId)
         {
-            switch (windowId)
-            {
-                case WindowId.Unknown:
-                    break;
-                case WindowId.Shop:
-                    _uiFactory.CreateShop();
-                    break;
-            }
+            _uiFactory.CreateWindow(windowId);
         }
     }
 

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class GameStateMachine
+    public class GameStateMachine : IGameStateMachine
     {
         private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
@@ -15,9 +15,10 @@ namespace CodeBase.Infrastructure.States
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = container.Resolve<BootstrapState>(),
+                [typeof(LoadMenuState)] = container.Resolve<LoadMenuState>(),
                 [typeof(LoadLevelState)] = container.Resolve<LoadLevelState>(),
                 [typeof(LoadProgressState)] = container.Resolve<LoadProgressState>(),
-                [typeof(GameLoopState)] = container.Resolve<GameLoopState>()
+                [typeof(GameLoopState)] = container.Resolve<GameLoopState>(),
             };
         }
 

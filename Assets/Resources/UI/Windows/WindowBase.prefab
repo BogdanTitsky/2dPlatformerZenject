@@ -165,7 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1544921664745737727}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2441870184736902324}
   m_Layer: 5
-  m_Name: Window
+  m_Name: WindowBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

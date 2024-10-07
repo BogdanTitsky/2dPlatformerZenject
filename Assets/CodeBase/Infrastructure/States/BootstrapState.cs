@@ -7,12 +7,12 @@ namespace CodeBase.Infrastructure.States
     public class BootstrapState : IState
     {
         private const string Initial = "Initial";
-        private GameStateMachine _stateMachine;
+        private IGameStateMachine _stateMachine;
         private SceneLoader _sceneLoader;
         private ISaveLoadService _saveLoadService;
-        private  IStaticDataService _staticDataService;
+        private IStaticDataService _staticDataService;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, IStaticDataService staticDataService)
+        public BootstrapState(IGameStateMachine stateMachine, SceneLoader sceneLoader, IStaticDataService staticDataService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -22,7 +22,7 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             _staticDataService.LoadStaticData();
-            _sceneLoader.Load(Initial, EnterLoadLevel);
+            _sceneLoader.Load("Menu", EnterLoadLevel);
         }
 
         public void Exit()

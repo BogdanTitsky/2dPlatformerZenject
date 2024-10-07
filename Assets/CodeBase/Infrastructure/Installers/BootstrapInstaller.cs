@@ -16,7 +16,7 @@ namespace CodeBase.Infrastructure.Installers
     {
         [SerializeField] private GameBootstrapper _gameBootstrapperPrefab;
         [SerializeField] private LoadingCurtain _loadingCurtain;
-        
+
         public override void InstallBindings()
         {
             Container.Bind<ICoroutineRunner>().To<GameBootstrapper>().FromComponentInNewPrefab(_gameBootstrapperPrefab)
@@ -25,7 +25,7 @@ namespace CodeBase.Infrastructure.Installers
 
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<Game>().AsSingle();
-            Container.Bind<GameStateMachine>().AsSingle();
+            Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
 
             RegisterServices();
 
@@ -36,6 +36,7 @@ namespace CodeBase.Infrastructure.Installers
         {
             //Don't forget to add new states into state machine
             Container.Bind<BootstrapState>().AsSingle();
+            Container.Bind<LoadMenuState>().AsSingle();               
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
@@ -46,7 +47,6 @@ namespace CodeBase.Infrastructure.Installers
             RegisterInputService();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
-            Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
             Container.Bind<IUiFactory>().To<UiFactory>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle().NonLazy();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();

@@ -65,7 +65,7 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (CurrentLevel() != progress.WorldData.PositionOnLevel.Level) return;
+            if (CurrentLevel() != progress.WorldData.PositionOnLevel.SceneName) return;
 
             Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
             if (savedPosition != null)

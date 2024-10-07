@@ -1,8 +1,10 @@
-﻿namespace CodeBase.UI.Services.Factory
+﻿using CodeBase.UI.Services.Windows;
+
+namespace CodeBase.UI.Services.Factory
 {
     public interface IUiFactory
     {
-        void CreateShop();
+        void CreateWindow(WindowId windowId);
         void CreateUiRoot();
     }
 }

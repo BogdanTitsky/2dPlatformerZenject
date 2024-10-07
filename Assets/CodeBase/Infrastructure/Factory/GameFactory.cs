@@ -5,35 +5,93 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Services.StaticData.Data;
+using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawner;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
+        private const string SaveTriggerTag = "SaveTriggerPoint";
+        private readonly IGameStateMachine _stateMachine;
+        private readonly IPersistentProgressService _progressService;
         private DiContainer _container;
         private readonly IStaticDataService _staticData;
-
+        private LoadLevelState _loadLevelState;
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-
         public GameObject HeroGameObject { get; set; }
+        private bool levelLoaded = false;
 
-        public GameFactory(DiContainer container, IStaticDataService staticData)
+        public GameFactory(IGameStateMachine stateMachine,DiContainer sceneContainer, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService)
         {
-            _container = container;
+            _progressService = progressService;
+            _stateMachine = stateMachine;
+            _container = sceneContainer;
             _staticData = staticData;
+            _loadLevelState = loadLevelState;
+            _loadLevelState.OnLoaded += LoadGame;
         }
 
-        public void CreateHero(Vector3 at)
+        private void LoadGame()
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
+            if (levelLoaded)
+            {
+                _stateMachine.Enter<GameLoopState>();
+                return;
+            }
+            InitGameWorld();
+            InformProgressReaders();
+            TryCreateUncollectedLoot();
+            _stateMachine.Enter<GameLoopState>();
         }
+        
+        private void InitGameWorld()
+        {
+            Cleanup();
+            LevelStaticData levelData = GetLevelStaticData();
+            InitSpawners(levelData);
+            CreateHero(levelData.InitialHeroPosition);
+            CreateCamera();
+            CreateHud();
+            CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
+        }
+        
+        private void InformProgressReaders()
+        {
+            foreach (var progressReader in ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
+
+        private void TryCreateUncollectedLoot()
+        {
+            foreach (var lootItem in _progressService.Progress.WorldData.NotCollectedLoot.NotCollectedList)
+            {
+                LootCollector lootObject = CreateLoot();
+                lootObject.InitLootItem(lootItem);
+                lootObject.transform.position = lootItem.PositionOnLevel.AsUnityVector();
+            }
+        }
+        
+        private void InitSpawners(LevelStaticData levelData)
+        {
+            foreach (EnemySpawnerData spawnerData in levelData.EnemySpawnerData) 
+                CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.EnemyTypeId);
+        }
+        
+        private LevelStaticData GetLevelStaticData()
+        {
+            levelLoaded = true;
+            return _staticData.ForLevel(SceneManager.GetActiveScene().name);
+        }
+
+        public void CreateHero(Vector3 at) => 
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
 
         public GameObject CreateEnemy(EnemyTypeId typeId, Transform parent)
         {
@@ -58,11 +116,8 @@ namespace CodeBase.Infrastructure.Factory
            return enemy;
         }
 
-        public LootCollector CreateLoot()
-        {
-            var loot = InstantiateRegistered(AssetPath.LootCoin);
-            return loot.GetComponent<LootCollector>();
-        }
+        public LootCollector CreateLoot() => 
+            InstantiateRegistered(AssetPath.LootCoin).GetComponent<LootCollector>();
 
         public void CreateCheckPoints(GameObject[] atPoints)
         {

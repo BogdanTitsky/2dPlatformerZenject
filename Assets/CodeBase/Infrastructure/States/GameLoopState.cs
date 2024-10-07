@@ -1,13 +1,16 @@
-﻿namespace CodeBase.Infrastructure.States
+﻿using UnityEngine;
+
+namespace CodeBase.Infrastructure.States
 {
   public class GameLoopState : IState
   {
-    public GameLoopState(GameStateMachine stateMachine)
+    public GameLoopState(IGameStateMachine stateMachine)
     {
     }
 
     public void Exit()
     {
+
     }
 
     public void Enter()
