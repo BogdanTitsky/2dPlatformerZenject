@@ -6,6 +6,8 @@ TagManager:
   tags:
   - LoadingCurtain
   - InitialPoint
+  - FxTemporaire
+  - SaveTriggerPoint
   layers:
   - Default
   - TransparentFX
@@ -21,11 +23,11 @@ TagManager:
   - 
   - Player
   - Aggro
-  - 
-  - 
-  - 
-  - 
-  - 
+  - AttackZone
+  - Hittable
+  - Pickup
+  - Ground
+  - GroundChecker
   - 
   - 
   - 

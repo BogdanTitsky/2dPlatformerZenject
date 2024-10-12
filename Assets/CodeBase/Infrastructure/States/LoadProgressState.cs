@@ -1,17 +1,19 @@
-using System;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
   public class LoadProgressState : IState
   {
-    private readonly GameStateMachine _gameStateMachine;
+    private const string InitialLevel = "Main";
+    private const string MenuKey = "Menu";
+    private readonly IGameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadProgress;
 
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+    public LoadProgressState(IGameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
     {
       _gameStateMachine = gameStateMachine;
       _progressService = progressService;
@@ -21,8 +23,7 @@ namespace CodeBase.Infrastructure.States
     public void Enter()
     {
       LoadProgressOrInitNew();
-      
-      _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+      _gameStateMachine.Enter<LoadMenuState>();
     }
 
     public void Exit()
@@ -36,7 +37,12 @@ namespace CodeBase.Infrastructure.States
         ?? NewProgress();
     }
 
-    private PlayerProgress NewProgress() => 
-      new PlayerProgress(initialLevel: "Main");
+    private PlayerProgress NewProgress()
+    {
+      var progress = new PlayerProgress(initialLevel: InitialLevel);
+
+      progress.HeroStats.ResetHp();
+      return progress;
+    }
   }
 }

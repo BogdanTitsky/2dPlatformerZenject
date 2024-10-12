@@ -12,13 +12,14 @@ namespace CodeBase.Hero
 
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
-    private static readonly int AttackHash = Animator.StringToHash("AttackNormal");
+    private static readonly int IsJumpingHash = Animator.StringToHash("IsJumping");
+    private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int HitHash = Animator.StringToHash("Hit");
     private static readonly int DieHash = Animator.StringToHash("Die");
 
     private readonly int _idleStateHash = Animator.StringToHash("Idle");
     private readonly int _idleStateFullHash = Animator.StringToHash("Base Layer.Idle");
-    private readonly int _attackStateHash = Animator.StringToHash("Attack Normal");
+    private readonly int _attackStateHash = Animator.StringToHash("Attack");
     private readonly int _walkingStateHash = Animator.StringToHash("Run");
     private readonly int _deathStateHash = Animator.StringToHash("Die");
 
@@ -56,10 +57,17 @@ namespace CodeBase.Hero
       _animator.SetTrigger(DieHash);
     }
 
+    public void PlayJump() => 
+      _animator.SetBool(IsJumpingHash, true);
+
+    public void StopJump() => 
+      _animator.SetBool(IsJumpingHash, false);
+
     public void ResetToIdle()
     {
       _animator.Play(_idleStateHash, -1);
     }
+    
 
     public void EnteredState(int stateHash)
     {

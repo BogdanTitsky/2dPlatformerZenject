@@ -27,12 +27,11 @@ namespace CodeBase.Hero
 
         private void Update()
         {
-            _inputDirection = Vector3.zero;
+            _inputDirection = Vector2.zero;
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
                 _inputDirection = _camera.transform.TransformDirection(_inputService.Axis);
-                _inputDirection.z = 0;
                 _inputDirection.y = 0;
 
                 LookAtMoveDirection();
@@ -44,6 +43,11 @@ namespace CodeBase.Hero
             Vector2 velocity = _rigidbody2D.velocity;
             velocity.x = _movementSpeed * _inputDirection.x;
             _rigidbody2D.velocity = velocity;
+        }
+
+        public void StopMoving()
+        {
+            _rigidbody2D.velocity = Vector2.zero;
         }
 
         private void LookAtMoveDirection()
@@ -61,7 +65,7 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress)
         {
-            if (CurrentLevel() != progress.WorldData.PositionOnLevel.Level) return;
+            if (CurrentLevel() != progress.WorldData.PositionOnLevel.SceneName) return;
 
             Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
             if (savedPosition != null)

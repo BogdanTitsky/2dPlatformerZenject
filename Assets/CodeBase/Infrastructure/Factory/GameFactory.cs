@@ -1,38 +1,144 @@
-using System;
 using System.Collections.Generic;
+using CodeBase.Data;
+using CodeBase.Enemy;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
+using CodeBase.Infrastructure.Services.StaticData.Data;
+using CodeBase.Infrastructure.States;
+using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawner;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IAssetProvider _assets;
+        private const string SaveTriggerTag = "SaveTriggerPoint";
+        private readonly IGameStateMachine _stateMachine;
+        private readonly IPersistentProgressService _progressService;
         private DiContainer _container;
-
+        private readonly IStaticDataService _staticData;
+        private LoadLevelState _loadLevelState;
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-        
         public GameObject HeroGameObject { get; set; }
-        public event Action HeroCreated;
+        private bool levelLoaded = false;
 
-        public GameFactory(DiContainer container, IAssetProvider assets)
+        public GameFactory(IGameStateMachine stateMachine,DiContainer sceneContainer, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService)
         {
-            _container = container;
-            _assets = assets;
+            _progressService = progressService;
+            _stateMachine = stateMachine;
+            _container = sceneContainer;
+            _staticData = staticData;
+            _loadLevelState = loadLevelState;
+            _loadLevelState.OnLoaded += LoadGame;
         }
 
-        public GameObject CreateHero(GameObject at)
+        private void LoadGame()
         {
-            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
-            HeroCreated?.Invoke();
-            return HeroGameObject;
+            if (levelLoaded)
+            {
+                _stateMachine.Enter<GameLoopState>();
+                return;
+            }
+            InitGameWorld();
+            InformProgressReaders();
+            TryCreateUncollectedLoot();
+            _stateMachine.Enter<GameLoopState>();
         }
+        
+        private void InitGameWorld()
+        {
+            Cleanup();
+            LevelStaticData levelData = GetLevelStaticData();
+            InitSpawners(levelData);
+            CreateHero(levelData.InitialHeroPosition);
+            CreateCamera();
+            CreateHud();
+            CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
+        }
+        
+        private void InformProgressReaders()
+        {
+            foreach (var progressReader in ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
+
+        private void TryCreateUncollectedLoot()
+        {
+            foreach (var lootItem in _progressService.Progress.WorldData.NotCollectedLoot.NotCollectedList)
+            {
+                LootCollector lootObject = CreateLoot();
+                lootObject.InitLootItem(lootItem);
+                lootObject.transform.position = lootItem.PositionOnLevel.AsUnityVector();
+            }
+        }
+        
+        private void InitSpawners(LevelStaticData levelData)
+        {
+            foreach (EnemySpawnerData spawnerData in levelData.EnemySpawnerData) 
+                CreateSpawner(spawnerData.Position, spawnerData.Id, spawnerData.EnemyTypeId);
+        }
+        
+        private LevelStaticData GetLevelStaticData()
+        {
+            levelLoaded = true;
+            return _staticData.ForLevel(SceneManager.GetActiveScene().name);
+        }
+
+        public void CreateHero(Vector3 at) => 
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at);
+
+        public GameObject CreateEnemy(EnemyTypeId typeId, Transform parent)
+        {
+           EnemyStaticData enemyData = _staticData.ForEnemy(typeId);
+           
+           GameObject enemy = _container.InstantiatePrefab(enemyData.Prefab);
+           enemy.transform.position = parent.position;
+           
+           IHealth health = enemy.GetComponent<IHealth>();
+           health.Current = enemyData.Hp;
+           health.Max = enemyData.Hp;
+           
+           EnemyAttack attack = enemy.GetComponent<EnemyAttack>();
+           attack.Damage = enemyData.Damage;
+           attack.Cleavage = enemyData.Cleavage;
+           attack.AttackCooldown = enemyData.AttackCooldown;
+           attack.Distance = enemyData.Distance;
+
+           var lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
+           lootSpawner.SetLootValue(enemyData.MinLoot, enemyData.MaxLoot);
+           
+           return enemy;
+        }
+
+        public LootCollector CreateLoot() => 
+            InstantiateRegistered(AssetPath.LootCoin).GetComponent<LootCollector>();
+
+        public void CreateCheckPoints(GameObject[] atPoints)
+        {
+            foreach (var checkPoint in atPoints)
+                InstantiateRegistered(AssetPath.CheckPointPath, checkPoint.transform.position);
+        }
+
+        public void CreateCamera() =>
+            InstantiateRegistered(AssetPath.CameraPath);
 
         public void CreateHud() =>
             InstantiateRegistered(AssetPath.HudPath);
+
+        public void CreateSpawner(Vector3 at, string spawnerId, EnemyTypeId enemyTypeId)
+        {
+            var spawner = InstantiateRegistered(AssetPath.Spawner, at)
+                .GetComponent<EnemySpawnPoint>();
+
+            spawner.Id = spawnerId;
+            spawner.EnemyTypeId = enemyTypeId;
+        }
 
         public void Cleanup()
         {
@@ -64,12 +170,14 @@ namespace CodeBase.Infrastructure.Factory
             }
         }
 
-        private void Register(ISavedProgressReader progressReader)
+        public void Register(ISavedProgressReader progressReader)
         {
-            if (progressReader is ISavedProgress progressWriter)
+            if(progressReader is ISavedProgress progressWriter)
                 ProgressWriters.Add(progressWriter);
-
+      
             ProgressReaders.Add(progressReader);
         }
+
+        
     }
 }
