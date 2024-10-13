@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace CodeBase.Infrastructure.Services.StaticData.Data
 {
@@ -21,6 +22,6 @@ namespace CodeBase.Infrastructure.Services.StaticData.Data
 
         public Vector2 Distance = Vector2.one;
         
-        public GameObject Prefab;
+        public AssetReference prefabReference;
     }
 }

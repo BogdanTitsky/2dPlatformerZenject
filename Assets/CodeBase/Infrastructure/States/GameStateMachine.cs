@@ -38,7 +38,7 @@ namespace CodeBase.Infrastructure.States
         {
             _activeState?.Exit();
 
-            var state = GetState<TState>();
+            TState state = GetState<TState>();
             _activeState = state;
 
             return state;

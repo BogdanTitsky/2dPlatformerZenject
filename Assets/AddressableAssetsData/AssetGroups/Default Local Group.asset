@@ -16,7 +16,47 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 8387a3fabef48b046820b110d1375b01
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 124b94d65e6b19649b3290f3814fa42d
+    m_Address: EnemySpawnPoint
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 223ba9502f8d6e645ad759cecb3e7e0c
+    m_Address: Camera
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34ab128879f3ecf4886bc96eb0296bc7
+    m_Address: Hero
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49b19378296b2f24297b9a1134fac0ca
+    m_Address: UIRootCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50a2e8556e2ad994ea8d8163438e361f
+    m_Address: Goblin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b9a66cab9f704b43a0937872a1b3d7f
+    m_Address: SaveTrigger
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3f9f22bfc99bd943931aa2d611458ff
+    m_Address: LootCoin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6395af14c6ae2d4ea00c7e97e633ad3
+    m_Address: Hud
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f14417379bf06f542b3cbe9437330e9e, type: 2}
   m_SchemaSet:

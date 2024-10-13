@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Services.Input;
 using UnityEngine;
@@ -14,16 +13,13 @@ namespace CodeBase.Hero
         [SerializeField] private Rigidbody2D _rigidbody2D;
 
         private IInputService _inputService;
-        private Camera _camera;
         private Vector3 _inputDirection;
+        
         [Inject]
         public void Init(IInputService inputService)
         {
             _inputService = inputService;
         }
-
-        private void Start() =>
-            _camera = Camera.main;
 
         private void Update()
         {
@@ -31,7 +27,8 @@ namespace CodeBase.Hero
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
             {
-                _inputDirection = _camera.transform.TransformDirection(_inputService.Axis);
+
+                _inputDirection = _inputService.Axis;
                 _inputDirection.y = 0;
 
                 LookAtMoveDirection();

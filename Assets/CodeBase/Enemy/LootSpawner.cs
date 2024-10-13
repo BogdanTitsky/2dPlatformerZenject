@@ -39,9 +39,9 @@ namespace CodeBase.Enemy
             _lootMin = min;
         }
 
-        private void SpawnLoot()
+        private async void SpawnLoot()
         {
-          LootCollector lootCollector= _factory.CreateLoot();
+          LootCollector lootCollector= await _factory.CreateLoot();
           lootCollector.transform.position = transform.position;
           
           Loot lootItem = GenerateLoot();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -9,16 +10,16 @@ namespace CodeBase.Infrastructure.Factory
 {
     public interface IGameFactory : IService
     {
-        void CreateHero(Vector3 at);
-        void CreateCheckPoints(GameObject[] atPoints);
-        void CreateHud();
-        void CreateCamera();
-        void CreateSpawner(Vector3 at, string spawnerId, EnemyTypeId enemyTypeId);
-        GameObject CreateEnemy(EnemyTypeId typeId, Transform transformParent);
+        Task CreateHero(Vector3 at);
+        Task CreateCheckPoints(GameObject[] atPoints);
+        Task CreateHud();
+        Task CreateCamera();
+        Task CreateSpawner(Vector3 at, string spawnerId, EnemyTypeId enemyTypeId);
+        Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform transformParent);
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
         GameObject HeroGameObject { get; }
         void Cleanup();
-        LootCollector CreateLoot();
+        Task<LootCollector> CreateLoot();
     }
 }

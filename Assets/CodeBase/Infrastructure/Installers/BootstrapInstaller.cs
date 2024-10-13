@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -46,6 +47,7 @@ namespace CodeBase.Infrastructure.Installers
         {
             RegisterInputService();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
+            Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle().NonLazy();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
             Container.Bind<IUiFactory>().To<UiFactory>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle().NonLazy();

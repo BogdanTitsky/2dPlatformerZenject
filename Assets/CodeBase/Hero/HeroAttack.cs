@@ -11,7 +11,7 @@ namespace CodeBase.Hero
     public class HeroAttack : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private HeroAnimator heroAnimator;
-        [SerializeField] private Rigidbody2D rigidbody2D;
+        [SerializeField] private new Rigidbody2D rigidbody2D;
         [SerializeField] private float Cleavage = 1f;
         [SerializeField] private Vector2 Distance = Vector2.one;
         
