@@ -8,15 +8,12 @@ using Zenject;
 
 namespace CodeBase.UI.Menu
 {
-    public class LoadSceneButton : MonoBehaviour
+    public class LoadMenuButton : MonoBehaviour
     {
         [SerializeField] private Button button;
-        [SerializeField] private string sceneName;
         [SerializeField] private WindowBase window;
         
         private IGameStateMachine _stateMachine;
-        private ISaveLoadService _saveLoadService;
-        private IGameFactory _gameFactory;
 
         [Inject]
         public void Init(IGameStateMachine stateMachine)
@@ -29,9 +26,9 @@ namespace CodeBase.UI.Menu
 
         private void LoadLevel()
         {
-            _stateMachine.Enter<LoadLevelState, string>(sceneName);
-            if(window != null)
-                Destroy(window.gameObject);
+                _stateMachine.Enter<LoadMenuState>();
+                if(window != null)
+                    Destroy(window.gameObject);
         }
     }
 }

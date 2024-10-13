@@ -56,7 +56,6 @@ namespace CodeBase.Infrastructure.Factory
             LevelStaticData levelData = GetLevelStaticData();
             await InitSpawners(levelData);
             await CreateHero(levelData.InitialHeroPosition);
-            await CreateCamera();
             await CreateHud();
             await CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
         }

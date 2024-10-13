@@ -13,7 +13,5 @@ namespace CodeBase.Data
             Collected += loot.Value;
             OnChange?.Invoke();
         }
-
-        
     }
 }

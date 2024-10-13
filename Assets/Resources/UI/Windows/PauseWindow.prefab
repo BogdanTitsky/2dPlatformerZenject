@@ -152,7 +152,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9098481337667370845, guid: a798a889505837d45ab105dfd02db87d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9173966561754377898}
+      addedObject: {fileID: 5400397155042274230}
   m_SourcePrefab: {fileID: 100100000, guid: a798a889505837d45ab105dfd02db87d, type: 3}
 --- !u!114 &4093731344733124611 stripped
 MonoBehaviour:
@@ -170,7 +170,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9098481337667370845, guid: a798a889505837d45ab105dfd02db87d, type: 3}
   m_PrefabInstance: {fileID: 2636666550361806600}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9173966561754377898
+--- !u!114 &5400397155042274230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,11 +179,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6544608562643429461}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a0a82d71b248afa7ad1f6b690b1545, type: 3}
+  m_Script: {fileID: 11500000, guid: bec398dc994a489c9c02101bca5360dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4093731344733124611}
-  sceneName: Menu
   window: {fileID: 1724916385639586252}
 --- !u!224 &8708499366064186600 stripped
 RectTransform:

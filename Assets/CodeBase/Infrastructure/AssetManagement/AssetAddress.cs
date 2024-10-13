@@ -11,7 +11,5 @@ namespace CodeBase.Infrastructure.AssetManagement
     
     // UI
     public const string UIRoot = "UIRootCanvas";
-    public const string UIMenuRootPath = "UI/UIMenuRootCanvas";
-    public const string UiShopWindowPath = "UI/Shop";
   }
 }

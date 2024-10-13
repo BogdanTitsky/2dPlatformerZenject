@@ -902,8 +902,8 @@ GameObject:
   - component: {fileID: 4444644334599171483}
   - component: {fileID: 4724316378514082194}
   - component: {fileID: 7401110200598906667}
-  - component: {fileID: 7663526774542397336}
   - component: {fileID: 6364520551492253135}
+  - component: {fileID: 4792438638703222910}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -1100,18 +1100,6 @@ MonoBehaviour:
   rigidbody2D: {fileID: -4820137000759361564}
   Cleavage: 1.6
   Distance: {x: 1.4, y: 0.8}
---- !u!114 &7663526774542397336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013360577858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14fee397db9e844ecacbaef350aefcbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6364520551492253135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1127,6 +1115,19 @@ MonoBehaviour:
   groundChecker: {fileID: 5382132951234650652}
   heroAnimator: {fileID: -1881666878790873495}
   rb: {fileID: -4820137000759361564}
+  _gravityScale: 5
+--- !u!114 &4792438638703222910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013360577858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d826304403e1afe42979bbe5ba11fcd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000013552469458
 GameObject:
   m_ObjectHideFlags: 0
