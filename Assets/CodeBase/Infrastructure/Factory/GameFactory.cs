@@ -37,7 +37,6 @@ namespace CodeBase.Infrastructure.Factory
             _staticData = staticData;
             _loadLevelState = loadLevelState;
             _loadLevelState.OnLoaded += LoadGame;
-
         }
 
         private async void LoadGame()

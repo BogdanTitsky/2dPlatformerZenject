@@ -4,7 +4,9 @@ namespace CodeBase.CameraLogic
 {
     public class CameraTarget : MonoBehaviour
     {
-        [SerializeField] private int offset = 3;
+        [SerializeField] private int Offset = 3;
+        [SerializeField] private float CameraSpeed = 5;
+        
         
         private  Camera _camera;
 
@@ -13,9 +15,10 @@ namespace CodeBase.CameraLogic
             _camera = Camera.main;
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
-            _camera.transform.position =  transform.position + new Vector3(0, offset, -10);
+            Vector3 newPosition = transform.position + new Vector3(0, Offset, -10);
+            _camera.transform.position =  Vector3.Slerp(_camera.transform.position, newPosition, CameraSpeed * Time.deltaTime);
         }
     }
 }

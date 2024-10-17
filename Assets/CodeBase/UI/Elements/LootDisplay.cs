@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
@@ -24,6 +25,12 @@ namespace CodeBase.UI.Elements
             _worldData.LootData.OnChange += Save;
             _saveLoadService = saveLoadService;
             _gameFactory = gameFactory;
+        }
+
+        private void OnDisable()
+        {
+            _worldData.LootData.OnChange -= UpdateCounter;
+            _worldData.LootData.OnChange -= Save;
         }
 
         private void Start()

@@ -1,6 +1,4 @@
-﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Infrastructure.States;
+﻿using CodeBase.Infrastructure.States;
 using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +8,8 @@ namespace CodeBase.UI.Menu
 {
     public class LoadMenuButton : MonoBehaviour
     {
-        [SerializeField] private Button button;
-        [SerializeField] private WindowBase window;
+        [SerializeField] private Button Button;
+        [SerializeField] private WindowBase Window;
         
         private IGameStateMachine _stateMachine;
 
@@ -22,13 +20,13 @@ namespace CodeBase.UI.Menu
         }
 
         private void Awake() => 
-            button.onClick.AddListener(LoadLevel);
+            Button.onClick.AddListener(LoadLevel);
 
         private void LoadLevel()
         {
                 _stateMachine.Enter<LoadMenuState>();
-                if(window != null)
-                    Destroy(window.gameObject);
+                if(Window != null)
+                    Destroy(Window.gameObject);
         }
     }
 }

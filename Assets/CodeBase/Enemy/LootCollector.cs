@@ -80,7 +80,8 @@ namespace CodeBase.Enemy
         private IEnumerator StartDestroyTimer()
         {
             yield return new WaitForSeconds(1.5f);
-            Destroy(gameObject);
+            if (gameObject != null) 
+                Destroy(gameObject);
         }
 
         private void PlayPickupFx() => 
