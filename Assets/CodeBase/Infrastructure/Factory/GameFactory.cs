@@ -37,7 +37,6 @@ namespace CodeBase.Infrastructure.Factory
             _staticData = staticData;
             _loadLevelState = loadLevelState;
             _loadLevelState.OnLoaded += LoadGame;
-
         }
 
         private async void LoadGame()
@@ -56,7 +55,6 @@ namespace CodeBase.Infrastructure.Factory
             LevelStaticData levelData = GetLevelStaticData();
             await InitSpawners(levelData);
             await CreateHero(levelData.InitialHeroPosition);
-            await CreateCamera();
             await CreateHud();
             await CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
         }

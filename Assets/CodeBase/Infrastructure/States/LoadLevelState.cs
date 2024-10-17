@@ -15,16 +15,14 @@ namespace CodeBase.Infrastructure.States
 
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
-        private readonly IStaticDataService _staticData;
         private readonly IUiFactory _uiFactory;
         private IAssetProvider _assets;
 
 
-        public LoadLevelState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IStaticDataService staticData, IUiFactory uiFactory, IAssetProvider assets)
+        public LoadLevelState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IUiFactory uiFactory, IAssetProvider assets)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
-            _staticData = staticData;
             _uiFactory = uiFactory;
             _assets = assets;
         }
