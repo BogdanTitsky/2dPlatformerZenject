@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
@@ -18,13 +17,11 @@ namespace CodeBase.Hero
         [SerializeField] private Vector2 Distance = Vector2.one;
         [SerializeField] private GroundChecker groundChecker;
         [SerializeField] private HeroMove heroMover;
-        
 
-        private bool _isAttackHitBox;
-        public bool IsAttackHitBox
+        private bool IsAttackHitBox
         {
             get => _isAttackHitBox;
-            private set
+            set
             {
                 if (_isAttackHitBox != value)
                 {
@@ -34,16 +31,12 @@ namespace CodeBase.Hero
             } 
         }
 
-        private const string LayerName = "Hittable";
-
+        private bool _isAttackHitBox;
+        private const string LayerName = Constants.Hittable;
         private int _layerMask;
-
         private IInputService _input;
-
         private readonly Collider2D[] _hits = new Collider2D[3];
-
         private Stats _stats;
-
         private HashSet<Collider2D> _uniqueHits = new();
 
         [Inject]
@@ -76,7 +69,11 @@ namespace CodeBase.Hero
             if (obj == AnimatorState.Attack)
                 heroMover.enabled = false;
             else if (obj == AnimatorState.SecondAttack)
+            {
+                heroAnimator.IsAttackingOn();
+                heroAnimator.OffCombo();
                 heroMover.enabled = false;
+            }
             else if(obj == AnimatorState.MidAirAttack)
                 DisableAttackHitBox();
             else
@@ -96,10 +93,10 @@ namespace CodeBase.Hero
         {
             if (_input.IsAttackButtonDown())
             {
-                heroAnimator.PlayAttack();
+                heroAnimator.IsAttackingOn();
             }
-            if (_input.IsAttackButtonDown() && heroAnimator.IsAttacking) 
-                heroAnimator.PlaySecondAttack();
+            if (_input.IsAttackButtonDown() && heroAnimator.State == AnimatorState.Attack) 
+                heroAnimator.ContinueCombo();
             
         }
 
@@ -109,7 +106,7 @@ namespace CodeBase.Hero
         public void DisableAttackHitBox()
         {
             IsAttackHitBox = false;
-            heroAnimator.StopAttack();
+            heroAnimator.IsAttackingOff();
             _uniqueHits.Clear();
         }
 

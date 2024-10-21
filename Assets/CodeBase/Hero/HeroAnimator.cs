@@ -14,7 +14,7 @@ namespace CodeBase.Hero
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     private static readonly int InAirHash = Animator.StringToHash("InAir");
     private static readonly int IsAttackingHash = Animator.StringToHash("IsAttacking");
-    private static readonly int SecondAttackHash = Animator.StringToHash("SecondAttack");
+    private static readonly int IsComboContinueHash = Animator.StringToHash("IsComboContinue");
     private static readonly int HitHash = Animator.StringToHash("Hit");
     private static readonly int DieHash = Animator.StringToHash("Die");
 
@@ -29,7 +29,6 @@ namespace CodeBase.Hero
     public event Action<AnimatorState> StateExited;
 
     public AnimatorState State { get; private set; }
-    public bool IsAttacking => State == AnimatorState.Attack;
 
     private IInputService _inputService;
 
@@ -49,16 +48,17 @@ namespace CodeBase.Hero
       animator.SetTrigger(HitHash);
     }
 
-    public void PlayAttack() => 
+    public void IsAttackingOn() => 
       animator.SetBool(IsAttackingHash, true);
 
-    public void StopAttack() => 
+    public void IsAttackingOff() => 
       animator.SetBool(IsAttackingHash, false);
 
-    public void PlaySecondAttack()
-    {
-      animator.SetTrigger(SecondAttackHash);
-    }
+    public void ContinueCombo() => 
+      animator.SetBool(IsComboContinueHash, true);
+    
+    public void OffCombo() => 
+      animator.SetBool(IsComboContinueHash, false);
 
     public void PlayDeath()
     {
