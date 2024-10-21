@@ -26,16 +26,26 @@ namespace CodeBase.Hero
         public void Init(IInputService input) => 
             _input = input;
 
-        private void Update()
-        {
-            JumpInput();
-        }
+        public void LoadProgress(PlayerProgress progress) => 
+            _stats = progress.HeroStats;
 
         private void FixedUpdate() => 
             WhileJumping();
 
-        public void LoadProgress(PlayerProgress progress) => 
-            _stats = progress.HeroStats;
+        private void Update() => JumpInput();
+
+        private void JumpInput()
+        {
+            JumpIfGrounded();
+
+            if (_input.IsJumpButtonUp())
+            {
+                _isJumpBtnDown = false;
+                _currentJumpTime = 0;
+            } 
+            
+            PlayJumpAnimation();
+        }
 
         private void WhileJumping()
         {
@@ -55,30 +65,13 @@ namespace CodeBase.Hero
         {
             if (_isJumpBtnDown && rb.velocity.y > 0 && _currentJumpTime < _maxJumpTime)
             {
-                rb.velocity += Vector2.up * (_jumpMultiplierOnHoldingBtn * Time.fixedDeltaTime);
-                _currentJumpTime += Time.fixedDeltaTime;
+                rb.velocity += Vector2.up * (_jumpMultiplierOnHoldingBtn * Time.deltaTime);
+                _currentJumpTime += Time.deltaTime;
             }
-        }
-
-        private void JumpInput()
-        {
-            JumpIfGrounded();
-
-            if (_input.IsJumpButtonUp())
-            {
-                _isJumpBtnDown = false;
-                _currentJumpTime = 0;
-            } 
-            
-            PlayJumpAnimation();
         }
 
         private void JumpIfGrounded()
         {
-            if (_input.IsJumpButtonDown())
-            {
-                Debug.Log("Jump");
-            }
             if (_input.IsJumpButtonDown() && groundChecker.IsGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, _stats.JumpPower);

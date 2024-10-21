@@ -12,7 +12,7 @@ namespace CodeBase.Hero
         [SerializeField] private HeroAnimator animator;
         
         private Stats _stats;
-
+        
         public event Action HealthChanged;
 
         public float Current

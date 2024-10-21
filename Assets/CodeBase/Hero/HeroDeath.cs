@@ -1,5 +1,4 @@
-﻿using CodeBase.Infrastructure.Factory;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Hero
 {
