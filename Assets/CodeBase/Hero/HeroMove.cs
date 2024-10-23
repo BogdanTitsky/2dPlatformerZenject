@@ -11,7 +11,7 @@ namespace CodeBase.Hero
     {
         [SerializeField] private float _movementSpeed;
         [SerializeField] private Rigidbody2D _rigidbody2D;
-
+        public bool AbleMove;
         private IInputService _inputService;
         private Vector3 _inputDirection;
         
@@ -25,9 +25,8 @@ namespace CodeBase.Hero
         {
             _inputDirection = Vector2.zero;
 
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
+            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon && AbleMove)
             {
-
                 _inputDirection = _inputService.Axis;
                 _inputDirection.y = 0;
 
@@ -37,15 +36,14 @@ namespace CodeBase.Hero
 
         private void FixedUpdate()
         {
-            Vector2 velocity = _rigidbody2D.velocity;
+            Vector2 velocity = _rigidbody2D.linearVelocity;
             velocity.x = _movementSpeed * _inputDirection.x;
-            _rigidbody2D.velocity = velocity;
+            _rigidbody2D.linearVelocity = velocity;
         }
 
-        public void StopMoving()
-        {
-            _rigidbody2D.velocity = Vector2.zero;
-        }
+        public void MoveOff() => AbleMove = false;
+
+        public void MoveOn() => AbleMove = true;
 
         private void LookAtMoveDirection()
         {

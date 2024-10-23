@@ -67,17 +67,18 @@ namespace CodeBase.Hero
         private void CheckEnteredState(AnimatorState obj)
         {
             if (obj == AnimatorState.Attack)
-                heroMover.enabled = false;
+                heroMover.MoveOff();
             else if (obj == AnimatorState.SecondAttack)
             {
                 heroAnimator.IsAttackingOn();
                 heroAnimator.OffCombo();
-                heroMover.enabled = false;
+                heroMover.MoveOff();
             }
             else if(obj == AnimatorState.MidAirAttack)
                 DisableAttackHitBox();
             else
-                heroMover.enabled = true;
+                heroMover.MoveOn();
+
         }
 
         public void LoadProgress(PlayerProgress progress)
