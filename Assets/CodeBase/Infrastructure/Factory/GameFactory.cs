@@ -9,6 +9,7 @@ using CodeBase.Infrastructure.Services.StaticData.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawner;
+using CodeBase.UI.Elements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -17,6 +18,9 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
+        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
+        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        public GameObject HeroGameObject { get; set; }
         private const string SaveTriggerTag = "SaveTriggerPoint";
         private readonly IGameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
@@ -24,9 +28,8 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IStaticDataService _staticData;
         private LoadLevelState _loadLevelState;
         private IAssetProvider _assets;
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-        public GameObject HeroGameObject { get; set; }
+
+        private LootDisplay _lootDisplay;
 
         public GameFactory(IGameStateMachine stateMachine,DiContainer sceneContainer, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assetProvider)
         {
@@ -119,8 +122,9 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<LootCollector> CreateLoot()
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddress.LootCoin);
+            LootCollector lootCollector = InstantiateRegistered(prefab).GetComponent<LootCollector>();
 
-            return InstantiateRegistered(prefab).GetComponent<LootCollector>();
+            return lootCollector;
         }
 
         public async Task CreateCheckPoints(GameObject[] atPoints)
@@ -140,7 +144,9 @@ namespace CodeBase.Infrastructure.Factory
         public async Task CreateHud()
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Hud);
-            InstantiateRegistered(prefab);
+            GameObject instance = InstantiateRegistered(prefab);
+            _lootDisplay = instance.GetComponentInChildren<LootDisplay>();
+            _container.Bind<LootDisplay>().FromInstance(_lootDisplay).AsSingle();
         }
 
         public async Task CreateSpawner(Vector3 at, string spawnerId, EnemyTypeId enemyTypeId)
