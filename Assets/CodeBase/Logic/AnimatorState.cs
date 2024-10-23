@@ -7,5 +7,7 @@ namespace CodeBase.Logic
     Attack,
     Walking,
     Died,
+    SecondAttack,
+    MidAirAttack
   }
 }

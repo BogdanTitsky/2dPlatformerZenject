@@ -33,9 +33,9 @@ namespace CodeBase.Enemy
         {
             Vector2 direction = (_targetTransform.position - _rb.transform.position).normalized;
             LookAtTarget(direction);
-            Vector2 velocity = _rb.velocity;
+            Vector2 velocity = _rb.linearVelocity;
             velocity.x = speed * direction.x;
-            _rb.velocity = velocity;
+            _rb.linearVelocity = velocity;
         }
 
         private void LookAtTarget(Vector2 direction)

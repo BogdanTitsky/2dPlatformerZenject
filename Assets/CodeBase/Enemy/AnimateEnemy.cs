@@ -23,7 +23,7 @@ namespace CodeBase.Enemy
 
         private bool ShouldMove()
         {
-            return Math.Abs(_rb.velocity.x) > MinimalVelocity;
+            return Math.Abs(_rb.linearVelocity.x) > MinimalVelocity;
         }
     }
 }

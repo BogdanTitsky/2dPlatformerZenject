@@ -1,5 +1,4 @@
-﻿using CodeBase.Infrastructure.Factory;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Hero
 {
@@ -34,7 +33,7 @@ namespace CodeBase.Hero
             _isDead = true;
             heroMove.enabled = false;
             attack.enabled = false;
-            heroMove.StopMoving();
+            heroMove.MoveOff();
             heroAnimator.PlayDeath();
             
             Instantiate(DeathFx, transform.position, Quaternion.identity);

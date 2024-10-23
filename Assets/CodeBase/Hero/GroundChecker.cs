@@ -1,30 +1,29 @@
-using System;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
     public class GroundChecker : MonoBehaviour
     {
+        [SerializeField] private LayerMask _layerGround; 
+        [SerializeField] private float checkDistance = 0.1f;
+        [SerializeField] private Vector2 boxSize = new(1f, 0.1f);
         public bool IsGrounded { get; private set; }
-        [SerializeField] private LayerMask _layerGround;
-        private readonly Collider2D[] groundColliders = new Collider2D[1];
-        private Vector2 startPoint;
-        private Vector2 size = new(1f, 0.1f);
 
-        private void Update()
+        private void Update() => CheckIfGrounded();
+
+        private void CheckIfGrounded()
         {
-            startPoint = new Vector2(transform.position.x, transform.position.y);
-            
-            var numColliders = Physics2D.OverlapCapsuleNonAlloc(startPoint,
-                size, CapsuleDirection2D.Horizontal, 0, groundColliders, _layerGround);
-
-            IsGrounded = numColliders > 0;
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, 
+                boxSize, 0f, Vector2.down, checkDistance, _layerGround);
+            IsGrounded = hit.collider != null;
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(startPoint, size);
+            
+            Vector3 position = transform.position;
+            Gizmos.DrawWireCube(position * Vector2.down * checkDistance, boxSize);
         }
     }
 }
