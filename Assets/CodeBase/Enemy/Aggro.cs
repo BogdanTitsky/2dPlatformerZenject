@@ -12,7 +12,7 @@ namespace CodeBase.Enemy
 
         private bool _hasAggroTarget;
         
-        void Start()
+        private void Start()
         {
             triggerObserver.TriggerExit += TriggerExit;
             triggerObserver.TriggerEnter += TriggerEnter;

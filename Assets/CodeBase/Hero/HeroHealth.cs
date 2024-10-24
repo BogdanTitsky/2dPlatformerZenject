@@ -10,19 +10,19 @@ namespace CodeBase.Hero
     public class HeroHealth : MonoBehaviour, ISavedProgress, IHealth
     {
         [SerializeField] private HeroAnimator animator;
-        
+        private float _current;
         private Stats _stats;
         
         public event Action HealthChanged;
 
         public float Current
         {
-            get => _stats.CurrentHp;
+            get => _current;
             set
             {
-                if (_stats.CurrentHp != value)
+                if (_current != value)
                 {
-                    _stats.CurrentHp = value;
+                    _current = value;
                     HealthChanged?.Invoke();
                 }
             }
@@ -38,6 +38,7 @@ namespace CodeBase.Hero
         public void LoadProgress(PlayerProgress progress)
         {
             _stats = progress.HeroStats;
+            Current = _stats.CurrentHp;
             HealthChanged?.Invoke();
         }
 

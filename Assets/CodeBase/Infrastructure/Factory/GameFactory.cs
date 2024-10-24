@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Data;
 using CodeBase.Enemy;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -20,7 +22,7 @@ namespace CodeBase.Infrastructure.Factory
     {
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-        public GameObject HeroGameObject { get; set; }
+        public HeroDeath HeroDeathObject { get; set; }
         private const string SaveTriggerTag = "SaveTriggerPoint";
         private readonly IGameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
@@ -91,7 +93,7 @@ namespace CodeBase.Infrastructure.Factory
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Hero);
 
-            HeroGameObject = InstantiateRegistered(prefab, at);
+            HeroDeathObject = InstantiateRegistered(prefab, at).GetComponent<HeroDeath>();
         }
 
         public async Task<GameObject> CreateEnemy(EnemyTypeId typeId, Transform parent)
@@ -199,6 +201,7 @@ namespace CodeBase.Infrastructure.Factory
       
             ProgressReaders.Add(progressReader);
         }
+
 
         
     }

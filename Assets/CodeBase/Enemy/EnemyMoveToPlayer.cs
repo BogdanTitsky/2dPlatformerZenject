@@ -1,7 +1,7 @@
 ﻿using System;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Zenject;
 
 namespace CodeBase.Enemy
@@ -11,21 +11,33 @@ namespace CodeBase.Enemy
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float speed;
         [SerializeField] private float minimalDistance = 4;
-
+        [SerializeField] private EnemyAnimator animator;
+        
+        private HeroDeath hero;
         private Transform _targetTransform;
         private IGameFactory _gameFactory;
+        public bool Enabled = true;
 
         [Inject]
         private void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
-            _targetTransform = _gameFactory.HeroGameObject.transform;
+            hero = _gameFactory.HeroDeathObject;
+            _targetTransform = _gameFactory.HeroDeathObject.transform;
+
+            hero.OnHeroDeath += HeroDie;
+        }
+
+        private void HeroDie()
+        {
+           Enabled = false;
+           animator.PlayOnHeroDie();
         }
 
         public void FixedUpdate()
         { 
             float distance = Vector2.Distance(_rb.transform.position, _targetTransform.position);
-            if (distance >= minimalDistance) 
+            if (distance >= minimalDistance && Enabled) 
                 Chase();
         }
 

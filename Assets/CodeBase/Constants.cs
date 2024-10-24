@@ -4,6 +4,7 @@ namespace CodeBase
   {
     public const float Epsilon = 0.001f;
     public const string Hittable = "Hittable";
+    public const string InitialScene = "Initial";
 
   }
 }

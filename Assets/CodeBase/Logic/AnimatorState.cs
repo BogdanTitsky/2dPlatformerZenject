@@ -8,6 +8,7 @@ namespace CodeBase.Logic
     Walking,
     Died,
     SecondAttack,
-    MidAirAttack
+    MidAirAttack,
+    Taunt
   }
 }

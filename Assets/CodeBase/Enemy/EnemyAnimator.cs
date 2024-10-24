@@ -13,11 +13,13 @@ namespace CodeBase.Enemy
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private static readonly int Hit = Animator.StringToHash("Hit");
     private static readonly int Die = Animator.StringToHash("Die");
+    private static readonly int HeroDie = Animator.StringToHash("HeroDie");
 
     private readonly int _idleStateHash = Animator.StringToHash("idle");
     private readonly int _attackStateHash = Animator.StringToHash("Attack");
     private readonly int _walkingStateHash = Animator.StringToHash("Move");
     private readonly int _deathStateHash = Animator.StringToHash("die");
+    private readonly int _heroDieStateHash = Animator.StringToHash("Taunt");
 
     private Animator _animator;
     public event Action<AnimatorState> StateEntered;
@@ -31,6 +33,8 @@ namespace CodeBase.Enemy
 
     public void PlayHit() => _animator.SetTrigger(Hit);
     public void PlayDeath() => _animator.SetTrigger(Die);
+    
+    public void PlayOnHeroDie() => _animator.SetTrigger(HeroDie);
 
     public void Move()
     {
@@ -62,6 +66,8 @@ namespace CodeBase.Enemy
         state = AnimatorState.Walking;
       else if (stateHash == _deathStateHash)
         state = AnimatorState.Died;
+      else if (stateHash == _deathStateHash)
+        state = AnimatorState.Taunt;
       else
         state = AnimatorState.Unknown;
       

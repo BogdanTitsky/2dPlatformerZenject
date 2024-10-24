@@ -42,7 +42,7 @@ namespace CodeBase.Enemy
 
         private void DisableMove()
         {
-            _enemyMove.enabled = false;
+            _enemyMove.Enabled = false;
             _rb.linearVelocity = Vector2.zero;
             _rb.isKinematic = true;
             _collider.enabled = false;

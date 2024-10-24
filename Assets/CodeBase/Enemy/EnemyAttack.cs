@@ -31,7 +31,7 @@ namespace CodeBase.Enemy
         public void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
-            _heroHealth = _gameFactory.HeroGameObject.GetComponent<IHealth>();
+            _heroHealth = _gameFactory.HeroDeathObject.GetComponent<IHealth>();
         }
 
         private void Awake()
@@ -46,11 +46,17 @@ namespace CodeBase.Enemy
                 StartAttack();
         }
 
-        public void EnableAttack() => 
+        public void EnableAttack()
+        {
             _attackIsActive = true;
+            _isAttacking = false;
+        }
 
-        public void DisableAttack() => 
+        public void DisableAttack()
+        {
+            _isAttacking = false;
             _attackIsActive = false;
+        }
 
         private void StartAttack()
         {

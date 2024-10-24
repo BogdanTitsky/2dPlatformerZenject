@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using CodeBase.UI.Services.Windows;
+using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -9,9 +12,18 @@ namespace CodeBase.Hero
         [SerializeField] private HeroAnimator heroAnimator;
         [SerializeField] private HeroAttack attack;
 
+        public event Action OnHeroDeath;
         public GameObject DeathFx;
         private bool _isDead;
 
+        private IWindowService _windowService;
+    
+        [Inject]
+        public void Init(IWindowService windowService)
+        {
+            _windowService = windowService;
+        }
+        
         private void OnEnable()
         {
             health.HealthChanged += HealthChanged;
@@ -30,6 +42,8 @@ namespace CodeBase.Hero
 
         private void Die()
         {
+            _windowService.Open(WindowId.Lose);
+            OnHeroDeath?.Invoke();
             _isDead = true;
             heroMove.enabled = false;
             attack.enabled = false;

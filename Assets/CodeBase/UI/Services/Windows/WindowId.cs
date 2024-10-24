@@ -5,5 +5,6 @@
         Unknown,
         Shop,
         Pause,
+        Lose,
     }
 }

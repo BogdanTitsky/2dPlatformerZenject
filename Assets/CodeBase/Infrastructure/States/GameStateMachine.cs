@@ -19,6 +19,7 @@ namespace CodeBase.Infrastructure.States
                 [typeof(LoadLevelState)] = container.Resolve<LoadLevelState>(),
                 [typeof(LoadProgressState)] = container.Resolve<LoadProgressState>(),
                 [typeof(GameLoopState)] = container.Resolve<GameLoopState>(),
+                [typeof(ReloadLevelState)] = container.Resolve<ReloadLevelState>(),
             };
         }
 
