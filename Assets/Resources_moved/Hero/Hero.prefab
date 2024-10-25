@@ -1015,7 +1015,7 @@ MonoBehaviour:
   groundChecker: {fileID: 5382132951234650652}
   heroAnimator: {fileID: -1881666878790873495}
   rb: {fileID: -4820137000759361564}
-  _jumpMultiplierOnHoldingBtn: 45
+  _jumpMultiplierOnHoldingBtn: 50
   _maxJumpTime: 0.3
 --- !u!114 &114000011419280334
 MonoBehaviour:
@@ -1119,9 +1119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d826304403e1afe42979bbe5ba11fcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 3
-  cameraSpeed: 5
+  offset: 0
+  cameraSpeed: 2
   maxSpeedMultiplier: 2
+  minY: 0
 --- !u!70 &6368745763822402927
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1132,7 +1133,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 2c1775ba2c4431749a14f9cd6d96a7d0, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
