@@ -30,7 +30,11 @@ namespace CodeBase.Enemy
 
   private void Awake() => 
       _animator = GetComponent<Animator>();
-
+  private void OnDisable()
+  {
+    if (_animator != null)
+      _animator.Rebind(); 
+  }
     public void PlayHit() => _animator.SetTrigger(Hit);
     public void PlayDeath() => _animator.SetTrigger(Die);
     

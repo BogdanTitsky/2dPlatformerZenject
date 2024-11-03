@@ -1,5 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
@@ -41,6 +42,8 @@ namespace CodeBase.Hero
                 _isJumpBtnDown = false;
                 _currentJumpTime = 0;
             } 
+            else if (_input.IsJumpButtonDown()) 
+                _isJumpBtnDown = true;
             
             PlayJumpAnimation();
         }
@@ -52,16 +55,16 @@ namespace CodeBase.Hero
 
         private void JumpIfGrounded()
         {
-            if (_input.IsJumpButtonDown() && groundChecker.IsGrounded)
+            if (_isJumpBtnDown && groundChecker.IsGrounded)
             {
+                heroAnimator.PlayJump();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, _stats.JumpPower);
-                _isJumpBtnDown = true;
             }
         }
 
         private void TryExtendJump()
         {
-            if (_isJumpBtnDown && rb.linearVelocity.y > 0 && _currentJumpTime < _maxJumpTime)
+            if (_isJumpBtnDown && rb.linearVelocity.y > 0 && _currentJumpTime < _maxJumpTime )
             {
                 rb.linearVelocity += Vector2.up * (_jumpMultiplierOnHoldingBtn * Time.deltaTime);
                 _currentJumpTime += Time.deltaTime;
@@ -71,9 +74,9 @@ namespace CodeBase.Hero
         private void PlayJumpAnimation()
         {
             if (groundChecker.IsGrounded)
-                heroAnimator.StopJump();
+                heroAnimator.StopInAir();
             else
-                heroAnimator.PlayJump();
+                heroAnimator.PlayInAir();
         }
     }
 }

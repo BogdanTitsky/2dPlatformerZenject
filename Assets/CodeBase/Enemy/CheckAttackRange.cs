@@ -13,8 +13,6 @@ namespace CodeBase.Enemy
         {
             triggerObserver.TriggerEnter += TriggerEnter;
             triggerObserver.TriggerExit += TriggerExit;
-            
-            EnemyAttack.DisableAttack();
         }
         
         private void OnDisable()
@@ -25,12 +23,12 @@ namespace CodeBase.Enemy
         
         private void TriggerEnter(Collider2D obj)
         {
-            EnemyAttack.EnableAttack();
+            EnemyAttack.InRange = true;
         }
 
         private void TriggerExit(Collider2D obj)
         {
-            EnemyAttack.DisableAttack();
+            EnemyAttack.InRange = false;
         }
     }
 }

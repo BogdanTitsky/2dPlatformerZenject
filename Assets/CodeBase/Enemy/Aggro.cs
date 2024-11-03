@@ -18,6 +18,11 @@ namespace CodeBase.Enemy
             triggerObserver.TriggerEnter += TriggerEnter;
             FollowOff();
         }
+        
+        private void OnDisable()
+        {
+            StopAggroCoroutine();
+        }
 
         private void TriggerEnter(Collider2D obj)
         {
@@ -33,7 +38,9 @@ namespace CodeBase.Enemy
             if (!_hasAggroTarget)
                 return;
             _hasAggroTarget = false;
-            _aggroCoroutine = StartCoroutine(FollowOffAfterCooldown());
+            
+            if (gameObject.activeInHierarchy)
+                _aggroCoroutine = StartCoroutine(FollowOffAfterCooldown());
         }
 
         private void StopAggroCoroutine()

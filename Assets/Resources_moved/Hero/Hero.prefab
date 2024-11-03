@@ -1119,10 +1119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d826304403e1afe42979bbe5ba11fcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0
-  cameraSpeed: 2
-  maxSpeedMultiplier: 2
-  minY: 0
 --- !u!70 &6368745763822402927
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66c7491bc750d7f49b67d50a09fdee8a
+guid: 03022af4d9039884f80277da2e396a46
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -134,7 +134,69 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SpikesPiece_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 33, y: 1}
+        - {x: 22, y: 27}
+        - {x: -31, y: 27}
+        - {x: -33, y: 26}
+        - {x: -33, y: -21}
+        - {x: -27, y: -27}
+        - {x: 33, y: -27}
+      physicsShape:
+      - - {x: 33, y: -11}
+        - {x: 24, y: 26}
+        - {x: 21, y: 27}
+        - {x: 7, y: 27}
+        - {x: 1, y: 19}
+        - {x: -2, y: 6}
+        - {x: -9, y: 19}
+        - {x: -23, y: 25}
+        - {x: -33, y: 21}
+        - {x: -33, y: -27}
+        - {x: 33, y: -27}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b8bb6faf93179848af62014e9896c12
+      internalID: 1654085940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpikesPiece_1
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 0
+        width: 59
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a1287dee2028bb4f9d460bdacd5d4b0
+      internalID: 297987464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -148,7 +210,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SpikesPiece_0: 1654085940
+      SpikesPiece_1: 297987464
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

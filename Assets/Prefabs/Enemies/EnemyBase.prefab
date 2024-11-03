@@ -115,6 +115,7 @@ Transform:
   - {fileID: 2889902509982529105}
   - {fileID: 4126698970477980574}
   - {fileID: 9086636840108278416}
+  - {fileID: 8372559419990364863}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2233390964922722009
@@ -260,6 +261,7 @@ MonoBehaviour:
   speed: 2
   minimalDistance: 2.5
   animator: {fileID: 7393210776034395062}
+  Enabled: 1
 --- !u!114 &1817112971516816003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7393210776034395062}
-  layerMask: 0
+  groundChecker: {fileID: 2754219626506802508}
   Cleavage: 1.7
   Distance: {x: 1.15, y: 0.8}
   AttackCooldown: 1.5
@@ -826,6 +828,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1623359672070941676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8372559419990364863}
+  - component: {fileID: 2754219626506802508}
+  m_Layer: 0
+  m_Name: GroundChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8372559419990364863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623359672070941676}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8518483782511002548}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2754219626506802508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623359672070941676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6c1cd1eced9c47b9e973168811740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layerGround:
+    serializedVersion: 2
+    m_Bits: 131072
+  checkDistance: 0.1
+  boxSize: {x: 1, y: 0.1}
 --- !u!1 &1980106724251123656
 GameObject:
   m_ObjectHideFlags: 0

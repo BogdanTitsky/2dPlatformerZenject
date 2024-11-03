@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using CodeBase.Hero;
+﻿using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using UnityEngine;
@@ -12,21 +10,21 @@ namespace CodeBase.Enemy
     public class EnemyAttack : MonoBehaviour
     {
         [SerializeField] private EnemyAnimator animator;
-        [SerializeField] private int layerMask;
+        [SerializeField] private GroundChecker groundChecker;
+
+        public bool InRange { get; set; }
         public float Cleavage = 1f;
-        public Vector2 Distance = new ();
+        public Vector2 Distance;
         public float AttackCooldown = 1.5f;
         public float Damage = 5f;
         
-        
-        private Collider2D[] _hits = new Collider2D[1];
         private float _currentAttackCooldown;
         private bool _isAttacking;
-        private bool _attackIsActive;
         
         private IGameFactory _gameFactory;
         private IHealth _heroHealth;
-
+        private int layerMask;
+        
         [Inject]
         public void Init(IGameFactory gameFactory)
         {
@@ -42,35 +40,20 @@ namespace CodeBase.Enemy
         private void Update()
         {
             UpdateCooldown();
-            if (CanAttack())
+            if (InRange && CanAttack()) 
                 StartAttack();
         }
 
-        public void EnableAttack()
-        {
-            _attackIsActive = true;
-            _isAttacking = false;
-        }
-
-        public void DisableAttack()
-        {
-            _isAttacking = false;
-            _attackIsActive = false;
-        }
-
         private void StartAttack()
-        {
+        { 
             animator.PlayAttack();
             _isAttacking = true;
         }
         
-        private void OnAttack()
+        private void InflictDamage()
         {
-            if (Hit(out Collider2D hit))
-            {
-               PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 2);
-               _heroHealth.TakeDamage(Damage);
-            }
+            if (Hit()) 
+                _heroHealth.TakeDamage(Damage);
         }
         
         private void OnAttackEnd()
@@ -78,32 +61,30 @@ namespace CodeBase.Enemy
             _currentAttackCooldown = AttackCooldown;
             _isAttacking = false;
         }
-
+        
+        private bool CanAttack() => 
+            !_isAttacking && CooldownIsUp()  && groundChecker.IsGrounded;
+        
         private void UpdateCooldown()
         {
             if (!CooldownIsUp())
                 _currentAttackCooldown -= Time.deltaTime;
         }
-
-        private bool Hit(out Collider2D hit)
+        
+        private bool CooldownIsUp() => 
+            _currentAttackCooldown <= 0;
+        
+        private bool Hit()
         {
-            int hitCount = Physics2D.OverlapBoxNonAlloc(StartPoint(), Size(), layerMask ,_hits);
-
-            hit = _hits.FirstOrDefault();
-
-            return hitCount > 0;
+            Collider2D hit = Physics2D.OverlapBox(StartPoint(), Size(), 0, layerMask);
+            return hit != null;
         }
 
         private Vector2 Size() => new(Cleavage, Cleavage);
           
-        private Vector2 StartPoint() => new Vector2(transform.position.x, transform.position.y) + Distance;
-
-        private bool CanAttack() => 
-            !_isAttacking && CooldownIsUp() && _attackIsActive;
-
-        private bool CooldownIsUp() => 
-            _currentAttackCooldown <= 0;
-
+        private Vector2 StartPoint() => new Vector2(transform.position.x, transform.position.y) 
+                                        + Distance * transform.localScale;
+ 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
