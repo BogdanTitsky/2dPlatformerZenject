@@ -1,8 +1,9 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
-using UnityEngine;
-using UnityEngine.Audio;
+using CodeBase.Audio;
+using CodeBase.Infrastructure.Factory;
+
 
 namespace CodeBase.Infrastructure.States
 {
@@ -13,17 +14,22 @@ namespace CodeBase.Infrastructure.States
     private readonly IGameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadProgress;
+    private readonly IAudioFactory _audioFactory;
 
-    public LoadProgressState(IGameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+    public LoadProgressState(IGameStateMachine gameStateMachine, IPersistentProgressService progressService, 
+      ISaveLoadService saveLoadProgress, IAudioFactory audioFactory)
     {
       _gameStateMachine = gameStateMachine;
       _progressService = progressService;
       _saveLoadProgress = saveLoadProgress;
+      _audioFactory = audioFactory;
     }
 
     public void Enter()
     {
       LoadProgressOrInitNew();
+      
+      _audioFactory.SetupAudio();
       _gameStateMachine.Enter<LoadMenuState>();
     }
 

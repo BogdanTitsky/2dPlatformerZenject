@@ -20,9 +20,9 @@ namespace CodeBase.UI.Windows
         {
             _saveLoadService = saveLoadService;
             
-            for (int i = 0; i < sliders.Length; i++)
+            foreach (ChangeVolumeSlider i in sliders)
             {
-                progressesReaders.Add(sliders[i]);
+                progressesReaders.Add(i);
             }
             
             CloseButton.onClick.AddListener(SaveProgress);

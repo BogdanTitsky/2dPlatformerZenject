@@ -54,10 +54,10 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle().NonLazy();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
-            Container.Bind<IUiFactory>().To<UiFactory>().AsSingle();
-            Container.Bind<IAudioFactory>().To<AudioFactory>().AsSingle();
             Container.Bind<IWindowService>().To<WindowService>().AsSingle().NonLazy();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+            Container.Bind<IUiFactory>().To<UiFactory>().AsSingle();
+            Container.Bind<IAudioFactory>().To<AudioFactory>().AsSingle();
 
 
             void RegisterInputService()

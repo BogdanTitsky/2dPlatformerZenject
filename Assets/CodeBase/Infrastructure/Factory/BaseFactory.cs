@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using ModestTree;
 using UnityEngine;
 using Zenject;
 
@@ -13,11 +15,13 @@ namespace CodeBase.Infrastructure.Factory
         
         private readonly DiContainer _container;
         private readonly  IAssetProvider _assets;
+        private readonly  IPersistentProgressService _progress;
 
-        protected BaseFactory(DiContainer container, IAssetProvider assets)
+        protected BaseFactory(DiContainer container, IAssetProvider assets, IPersistentProgressService progressService)
         {
             _container = container;
             _assets = assets;
+            _progress = progressService;
         }
         protected GameObject InstantiateRegistered(GameObject prefab, Vector3 at)
         {
@@ -30,7 +34,6 @@ namespace CodeBase.Infrastructure.Factory
         protected GameObject InstantiateRegistered(GameObject prefab)
         {
             GameObject gameObject = _container.InstantiatePrefab(prefab);
-
             RegisterProgressWatchers(gameObject);
             return gameObject;
         }
@@ -57,6 +60,12 @@ namespace CodeBase.Infrastructure.Factory
             ProgressWriters.Clear();
             
             _assets.Cleanup();
+        }
+        
+        protected void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in ProgressReaders)
+                progressReader.LoadProgress(_progress.Progress);
         }
     }
 }

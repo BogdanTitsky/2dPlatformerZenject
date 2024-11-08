@@ -1,8 +1,5 @@
-﻿using CodeBase.Audio;
-using CodeBase.Infrastructure.AssetManagement;
+﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Logic;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
@@ -21,14 +18,13 @@ namespace CodeBase.Infrastructure.States
         private IAudioFactory _audioFactory;
 
         public LoadMenuState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
-            IUiFactory uiFactory, IGameStateMachine gameStateMachine, IAssetProvider assets, IAudioFactory audioFactory)
+            IUiFactory uiFactory, IGameStateMachine gameStateMachine, IAssetProvider assets)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
             _uiFactory = uiFactory;
             _gameStateMachine = gameStateMachine;
             _assets = assets;
-            _audioFactory = audioFactory;
         }
 
         public async void Enter()
@@ -45,7 +41,6 @@ namespace CodeBase.Infrastructure.States
         private void OnLoaded()
         {
             InitUiRoot();
-            _audioFactory.SetupAudio();
             _loadingCurtain.Hide();
         }
         

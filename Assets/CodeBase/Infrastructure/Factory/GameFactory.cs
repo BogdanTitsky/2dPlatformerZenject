@@ -21,7 +21,7 @@ namespace CodeBase.Infrastructure.Factory
     {
         public override List<ISavedProgressReader> ProgressReaders { get; } = new();
         public override List<ISavedProgress> ProgressWriters { get; } = new();
-        public HeroDeath HeroDeathObject { get; set; }
+        public HeroDeath HeroDeathObject { get; private set; }
         private const string SaveTriggerTag = "SaveTriggerPoint";
         private readonly IGameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
@@ -32,7 +32,7 @@ namespace CodeBase.Infrastructure.Factory
 
         private LootDisplay _lootDisplay;
 
-        public GameFactory(DiContainer container, IGameStateMachine stateMachine, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assets) : base(container, assets)
+        public GameFactory(DiContainer container, IGameStateMachine stateMachine, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assets) : base(container, assets, progressService)
         {
             _progressService = progressService;
             _assets = assets;
@@ -62,11 +62,7 @@ namespace CodeBase.Infrastructure.Factory
             await CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
         }
         
-        private void InformProgressReaders()
-        {
-            foreach (var progressReader in ProgressReaders)
-                progressReader.LoadProgress(_progressService.Progress);
-        }
+        
 
         private async Task TryCreateUncollectedLoot()
         {

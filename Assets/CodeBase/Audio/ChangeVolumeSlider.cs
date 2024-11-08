@@ -13,10 +13,6 @@ namespace CodeBase.Audio
         [SerializeField] private VolumeType type;
         [SerializeField] private Slider slider;
         
-        private const string Master = "Master";
-        private const string Music = "Music";
-        private const string SoundFX = "SoundFX";
-
         private PlayerProgress _progress;
 
         [Inject]
@@ -59,11 +55,11 @@ namespace CodeBase.Audio
                 progress.VolumeData.Music = slider.value;
         }
         
-        private void SetMasterVolume(float value) => audioMixer.SetFloat(Master, value);
+        private void SetMasterVolume(float value) => audioMixer.SetFloat(Constants.Master, value);
 
-        private void SetSoundFxVolume(float value) => audioMixer.SetFloat(Music, value);
+        private void SetSoundFxVolume(float value) => audioMixer.SetFloat(Constants.SoundFX, value);
         
-        private void SetMusicVolume(float value) => audioMixer.SetFloat(SoundFX, value);
+        private void SetMusicVolume(float value) => audioMixer.SetFloat(Constants.Music, value);
         
     }
 }
