@@ -9,7 +9,7 @@ namespace CodeBase.UI.Windows
 {
     public abstract class WindowBase : MonoBehaviour
     {
-        [SerializeField] private Button CloseButton;
+        [SerializeField] protected Button CloseButton;
         protected IPersistentProgressService _progressService;
         protected PlayerProgress Progress => _progressService.Progress;
 

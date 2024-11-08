@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Data;
@@ -18,29 +17,29 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.Factory
 {
-    public class GameFactory : IGameFactory
+    public class GameFactory : BaseFactory, IGameFactory
     {
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        public override List<ISavedProgressReader> ProgressReaders { get; } = new();
+        public override List<ISavedProgress> ProgressWriters { get; } = new();
         public HeroDeath HeroDeathObject { get; set; }
         private const string SaveTriggerTag = "SaveTriggerPoint";
         private readonly IGameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
-        private DiContainer _container;
         private readonly IStaticDataService _staticData;
         private LoadLevelState _loadLevelState;
         private IAssetProvider _assets;
+        private DiContainer _container;
 
         private LootDisplay _lootDisplay;
 
-        public GameFactory(IGameStateMachine stateMachine,DiContainer sceneContainer, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assetProvider)
+        public GameFactory(DiContainer container, IGameStateMachine stateMachine, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assets) : base(container, assets)
         {
             _progressService = progressService;
-            _assets = assetProvider;
+            _assets = assets;
             _stateMachine = stateMachine;
-            _container = sceneContainer;
             _staticData = staticData;
             _loadLevelState = loadLevelState;
+            _container = container;
             _loadLevelState.OnLoaded += LoadGame;
         }
 
@@ -51,7 +50,6 @@ namespace CodeBase.Infrastructure.Factory
             InformProgressReaders();
             _stateMachine.Enter<GameLoopState>();
             _loadLevelState.OnLoaded -= LoadGame;
-
         }
         
         private async Task InitGameWorld()
@@ -115,7 +113,7 @@ namespace CodeBase.Infrastructure.Factory
            attack.AttackCooldown = enemyData.AttackCooldown;
            attack.Distance = enemyData.Distance;
 
-           var lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
+           LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
            lootSpawner.SetLootValue(enemyData.MinLoot, enemyData.MaxLoot);
            
            return enemy;
@@ -155,54 +153,11 @@ namespace CodeBase.Infrastructure.Factory
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Spawner);
 
-            var spawner = InstantiateRegistered(prefab, at)
+            EnemySpawnPoint spawner = InstantiateRegistered(prefab, at)
                 .GetComponent<EnemySpawnPoint>();
 
             spawner.Id = spawnerId;
             spawner.EnemyTypeId = enemyTypeId;
         }
-
-        public void Cleanup()
-        {
-            ProgressReaders.Clear();
-            ProgressWriters.Clear();
-            
-            _assets.Cleanup();
-        }
-
-        private GameObject InstantiateRegistered(GameObject prefab, Vector3 at)
-        {
-            GameObject gameObject = _container.InstantiatePrefab(prefab);
-            gameObject.transform.position = at;
-            RegisterProgressWatchers(gameObject);
-            return gameObject;
-        }
-
-        private GameObject InstantiateRegistered(GameObject prefab)
-        {
-            GameObject gameObject = _container.InstantiatePrefab(prefab);
-
-            RegisterProgressWatchers(gameObject);
-            return gameObject;
-        }
-
-        private void RegisterProgressWatchers(GameObject gameObject)
-        {
-            foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
-            {
-                Register(progressReader);
-            }
-        }
-
-        public void Register(ISavedProgressReader progressReader)
-        {
-            if(progressReader is ISavedProgress progressWriter)
-                ProgressWriters.Add(progressWriter);
-      
-            ProgressReaders.Add(progressReader);
-        }
-
-
-        
     }
 }

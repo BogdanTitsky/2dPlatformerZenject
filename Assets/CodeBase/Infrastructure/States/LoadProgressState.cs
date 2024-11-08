@@ -2,6 +2,7 @@ using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -39,7 +40,7 @@ namespace CodeBase.Infrastructure.States
 
     private PlayerProgress NewProgress()
     {
-      var progress = new PlayerProgress(initialLevel: InitialLevel);
+      PlayerProgress progress = new(InitialLevel);
 
       progress.HeroStats.ResetHp();
       return progress;

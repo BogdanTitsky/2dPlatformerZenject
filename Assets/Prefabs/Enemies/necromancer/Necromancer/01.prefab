@@ -768,7 +768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8016826791162140270}
   - component: {fileID: 6108788663323439100}
-  - component: {fileID: 2277737165477274911}
+  - component: {fileID: 8267623980027393546}
   m_Layer: 0
   m_Name: Face 01
   m_TagString: Untagged
@@ -846,7 +846,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2277737165477274911
+--- !u!114 &8267623980027393546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

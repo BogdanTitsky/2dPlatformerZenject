@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e643b4b7a6ee4b9fa762d8b6913f8e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIMenuRoot: {fileID: 4354363628861168310, guid: dac42ece9d64c7f4181dac27f8bee023, type: 3}
-  _gameBootstrapperPrefab: {fileID: 2797032679983567818, guid: 1796456e341f028459142a37ba4161cf, type: 3}
-  _loadingCurtain: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2, type: 3}
+  gameBootstrapperPrefab: {fileID: 2797032679983567818, guid: 1796456e341f028459142a37ba4161cf, type: 3}
+  loadingCurtain: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2, type: 3}
+  backgroundMusic: {fileID: 6312743474979626124, guid: e3ac132e2e96c7a438b81ea6f948f0b6, type: 3}
+  audioMixer: {fileID: 24100000, guid: 4bb86723ba399334196e18466390477a, type: 2}

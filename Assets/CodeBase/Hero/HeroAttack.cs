@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
@@ -18,7 +17,10 @@ namespace CodeBase.Hero
         [SerializeField] private Vector2 Distance = Vector2.one;
         [SerializeField] private GroundChecker groundChecker;
         [SerializeField] private HeroMove heroMover;
+        [SerializeField] private AudioSource audioSource;
 
+        [SerializeField] private AudioClip attackClip;
+        
         private bool IsAttackHitBox
         {
             get => _isAttackHitBox;
@@ -108,16 +110,21 @@ namespace CodeBase.Hero
 
         private void HandleInput()
         {
-            if (_input.IsAttackButtonDown()) 
+            if (_input.IsAttackButtonDown())
+            {
                 heroAnimator.IsAttackingOn();
+            } 
             
             if (_input.IsAttackButtonDown() && heroAnimator.State == AnimatorState.Attack) 
                 heroAnimator.ContinueCombo();
             
         }
 
-        public void EnableAttackHitBox() => 
+        public void EnableAttackHitBox()
+        {
             IsAttackHitBox = true;
+            audioSource.PlayOneShot(attackClip);
+        }
 
         public void DisableAttackHitBox()
         {

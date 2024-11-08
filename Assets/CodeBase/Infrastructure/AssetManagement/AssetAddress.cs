@@ -11,5 +11,9 @@ namespace CodeBase.Infrastructure.AssetManagement
     
     // UI
     public const string UIRoot = "UIRootCanvas";
+    public const string UIMenu = "UIMenu";
+    
+    //Music
+    public const string BackgroundMusic = "BackgroundMusic";
   }
 }

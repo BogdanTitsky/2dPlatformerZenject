@@ -916,6 +916,7 @@ GameObject:
   - component: {fileID: 4000011096439704}
   - component: {fileID: 95000010568731208}
   - component: {fileID: -4820137000759361564}
+  - component: {fileID: 6368745763822402927}
   - component: {fileID: 6364520551492253135}
   - component: {fileID: 114000011419280334}
   - component: {fileID: -881292060972320408}
@@ -924,7 +925,7 @@ GameObject:
   - component: {fileID: 4724316378514082194}
   - component: {fileID: 7401110200598906667}
   - component: {fileID: 4792438638703222910}
-  - component: {fileID: 6368745763822402927}
+  - component: {fileID: -3768041093211151369}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -1000,6 +1001,43 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &6368745763822402927
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013360577858}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.04786539, y: 1.1966329}
+  m_Size: {x: 1.6077399, y: 2.4633112}
+  m_Direction: 0
 --- !u!114 &6364520551492253135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,7 +1083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 8
   _rigidbody2D: {fileID: -4820137000759361564}
-  AbleMove: 0
+  AbleMove: 1
 --- !u!114 &-1881666878790873495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1107,6 +1145,8 @@ MonoBehaviour:
   Distance: {x: 1.4, y: 0.8}
   groundChecker: {fileID: 5382132951234650652}
   heroMover: {fileID: -881292060972320408}
+  audioSource: {fileID: -3768041093211151369}
+  attackClip: {fileID: 8300000, guid: 1f454e0fcdad4ce439a8a2e4fbaac1d1, type: 3}
 --- !u!114 &4792438638703222910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,43 +1159,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d826304403e1afe42979bbe5ba11fcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!70 &6368745763822402927
-CapsuleCollider2D:
+--- !u!82 &-3768041093211151369
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000013360577858}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -1526336294860853287, guid: 4bb86723ba399334196e18466390477a, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
     serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
     serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.04786539, y: 1.1966329}
-  m_Size: {x: 1.6077399, y: 2.4633112}
-  m_Direction: 0
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1000013552469458
 GameObject:
   m_ObjectHideFlags: 0

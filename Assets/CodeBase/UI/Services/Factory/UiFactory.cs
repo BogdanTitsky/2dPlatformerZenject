@@ -36,7 +36,6 @@ namespace CodeBase.UI.Services.Factory
         {
             WindowConfig config = _staticData.ForWindow(windowId);
             _container.InstantiatePrefab(config.Prefab, _uiRoot);
-        } 
-      
+        }
     }
 }

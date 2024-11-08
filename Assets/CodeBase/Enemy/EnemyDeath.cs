@@ -44,7 +44,7 @@ namespace CodeBase.Enemy
         {
             _enemyMove.Enabled = false;
             _rb.linearVelocity = Vector2.zero;
-            _rb.isKinematic = true;
+            _rb.bodyType = RigidbodyType2D.Kinematic;
             _collider.enabled = false;
         }
 

@@ -6,5 +6,6 @@
         Shop,
         Pause,
         Lose,
+        Settings,
     }
 }

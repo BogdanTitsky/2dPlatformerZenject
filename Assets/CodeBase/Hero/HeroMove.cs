@@ -11,7 +11,7 @@ namespace CodeBase.Hero
     {
         [SerializeField] private float _movementSpeed;
         [SerializeField] private Rigidbody2D _rigidbody2D;
-        public bool AbleMove;
+        public bool AbleMove = true;
         private IInputService _inputService;
         private Vector3 _inputDirection;
         
@@ -42,7 +42,7 @@ namespace CodeBase.Hero
         }
 
         public void MoveOff() => AbleMove = false;
-
+        
         public void MoveOn() => AbleMove = true;
 
         private void LookAtMoveDirection()

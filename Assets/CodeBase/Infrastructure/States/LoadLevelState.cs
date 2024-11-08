@@ -15,15 +15,13 @@ namespace CodeBase.Infrastructure.States
 
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
-        private readonly IUiFactory _uiFactory;
         private IAssetProvider _assets;
 
 
-        public LoadLevelState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IUiFactory uiFactory, IAssetProvider assets)
+        public LoadLevelState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IAssetProvider assets)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
-            _uiFactory = uiFactory;
             _assets = assets;
         }
 
@@ -37,7 +35,6 @@ namespace CodeBase.Infrastructure.States
         private void SceneLoaded()
         {
             OnLoaded?.Invoke();
-            InitUiRoot();
         }
 
         public void Exit()
@@ -53,10 +50,8 @@ namespace CodeBase.Infrastructure.States
             await _assets.Load<GameObject>(AssetAddress.CheckPoint);
             await _assets.Load<GameObject>(AssetAddress.LootCoin);
             await _assets.Load<GameObject>(AssetAddress.Spawner);
-            await _assets.Load<GameObject>(AssetAddress.UIRoot);
         }
 
-        private void InitUiRoot() => 
-            _uiFactory.CreateUiRoot();
+        
     }
 }
