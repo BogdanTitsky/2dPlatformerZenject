@@ -46,6 +46,7 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<LoadProgressState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
             Container.Bind<ReloadLevelState>().AsSingle();
+            Container.Bind<PauseGameState>().AsSingle();
         }
 
         private void RegisterServices()

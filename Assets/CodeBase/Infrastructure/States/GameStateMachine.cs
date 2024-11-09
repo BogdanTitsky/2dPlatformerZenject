@@ -6,8 +6,11 @@ namespace CodeBase.Infrastructure.States
 {
     public class GameStateMachine : IGameStateMachine
     {
+        public Type GetActiveStateType => _activeState?.GetType();
+        
         private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
+
 
         [Inject]
         public void Init(DiContainer container)
@@ -20,6 +23,7 @@ namespace CodeBase.Infrastructure.States
                 [typeof(LoadProgressState)] = container.Resolve<LoadProgressState>(),
                 [typeof(GameLoopState)] = container.Resolve<GameLoopState>(),
                 [typeof(ReloadLevelState)] = container.Resolve<ReloadLevelState>(),
+                [typeof(PauseGameState)] = container.Resolve<PauseGameState>(),
             };
         }
 

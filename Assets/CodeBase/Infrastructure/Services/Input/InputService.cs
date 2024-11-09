@@ -8,6 +8,7 @@ namespace CodeBase.Services.Input
     protected const string Vertical = "Vertical";
     private const string AttackButton = "Fire1";
     private const string JumpButton = "Jump";
+    private const string EscapeButton = "Cancel";
 
     public abstract Vector2 Axis { get; }
 
@@ -18,6 +19,9 @@ namespace CodeBase.Services.Input
       SimpleInput.GetButtonDown(JumpButton);
     public bool IsJumpButtonUp() => 
       SimpleInput.GetButtonUp(JumpButton);
+
+    public bool IsEscapeButtonDown() =>
+      SimpleInput.GetButtonDown(EscapeButton);
 
     protected static Vector2 SimpleInputAxis()
     {

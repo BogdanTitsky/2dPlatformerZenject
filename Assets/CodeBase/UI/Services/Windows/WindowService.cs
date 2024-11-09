@@ -16,5 +16,4 @@ namespace CodeBase.UI.Services.Windows
             _uiFactory.CreateWindow(windowId);
         }
     }
-
 }

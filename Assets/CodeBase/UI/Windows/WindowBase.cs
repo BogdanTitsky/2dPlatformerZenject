@@ -30,7 +30,7 @@ namespace CodeBase.UI.Windows
 
         private void OnDisable()
         {
-            Cleanup();
+            OnWindowClose();
         }
 
         protected virtual void OnAwake() => 
@@ -45,8 +45,7 @@ namespace CodeBase.UI.Windows
         {
             
         }
-
-        protected virtual void Cleanup()
+        protected virtual void OnWindowClose()
         {
             
         }

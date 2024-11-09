@@ -11,5 +11,6 @@ namespace CodeBase.Services.Input
     bool IsAttackButtonDown();
     bool IsJumpButtonDown();
     bool IsJumpButtonUp();
+    bool IsEscapeButtonDown();
   }
 }
