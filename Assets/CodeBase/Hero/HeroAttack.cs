@@ -86,7 +86,9 @@ namespace CodeBase.Hero
         private void CheckEnteredState(AnimatorState obj)
         {
             if (obj == AnimatorState.Attack)
+            {
                 heroMover.MoveOff();
+            }
             else if (obj == AnimatorState.SecondAttack)
             {
                 heroAnimator.IsAttackingOn();
@@ -106,14 +108,13 @@ namespace CodeBase.Hero
 
         private void OnAttackingChanged()
         {
+           
         }
 
         private void HandleInput()
         {
-            if (_input.IsAttackButtonDown())
-            {
-                heroAnimator.IsAttackingOn();
-            } 
+            if (_input.IsAttackButtonDown()) 
+                heroAnimator.IsAttackingOn(); 
             
             if (_input.IsAttackButtonDown() && heroAnimator.State == AnimatorState.Attack) 
                 heroAnimator.ContinueCombo();
@@ -122,8 +123,8 @@ namespace CodeBase.Hero
 
         public void EnableAttackHitBox()
         {
-            IsAttackHitBox = true;
             audioSource.PlayOneShot(attackClip);
+            IsAttackHitBox = true;
         }
 
         public void DisableAttackHitBox()
@@ -135,6 +136,7 @@ namespace CodeBase.Hero
 
         private void ApplyAttack()
         {
+
             for (var i = 0; i < Hit(); i++)
             {
                 Collider2D hit = _hits[i];

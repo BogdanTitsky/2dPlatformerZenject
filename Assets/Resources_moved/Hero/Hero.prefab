@@ -1146,7 +1146,7 @@ MonoBehaviour:
   groundChecker: {fileID: 5382132951234650652}
   heroMover: {fileID: -881292060972320408}
   audioSource: {fileID: -3768041093211151369}
-  attackClip: {fileID: 8300000, guid: 1f454e0fcdad4ce439a8a2e4fbaac1d1, type: 3}
+  attackClip: {fileID: 8300000, guid: 9c5c7e3be4d010c48adcc440a909494f, type: 3}
 --- !u!114 &4792438638703222910
 MonoBehaviour:
   m_ObjectHideFlags: 0
