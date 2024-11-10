@@ -41,9 +41,10 @@ namespace CodeBase.Infrastructure.Installers
         {
             //Don't forget to add new states into state machine
             Container.Bind<BootstrapState>().AsSingle();
-            Container.Bind<LoadMenuState>().AsSingle();               
-            Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<LoadProgressState>().AsSingle();
+            Container.Bind<InitGameState>().AsSingle();
+            Container.Bind<LoadMenuState>().AsSingle();
+            Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
             Container.Bind<ReloadLevelState>().AsSingle();
             Container.Bind<PauseGameState>().AsSingle();

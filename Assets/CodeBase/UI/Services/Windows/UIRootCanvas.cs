@@ -7,7 +7,6 @@ namespace CodeBase.UI.Services.Windows
 {
     public class UIRootCanvas : MonoBehaviour
     {
-
         private IGameStateMachine _stateMachine;
         private IInputService _inputService;
         private IWindowService _windowService;
@@ -27,7 +26,8 @@ namespace CodeBase.UI.Services.Windows
                 if (_stateMachine.GetActiveStateType == typeof(GameLoopState))
                 {
                    _windowService.Open(WindowId.Pause);
-                }
+                }else if (_stateMachine.GetActiveStateType == typeof(PauseGameState))
+                    _windowService.Hide(WindowId.Pause);
             }
         }
     }

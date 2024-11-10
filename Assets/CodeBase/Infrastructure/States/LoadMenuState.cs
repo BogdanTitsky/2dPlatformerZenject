@@ -12,25 +12,16 @@ namespace CodeBase.Infrastructure.States
 
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
-        private readonly IUiFactory _uiFactory;
-        private readonly IGameStateMachine _gameStateMachine;
-        private IAssetProvider _assets;
-        private IAudioFactory _audioFactory;
 
-        public LoadMenuState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
-            IUiFactory uiFactory, IGameStateMachine gameStateMachine, IAssetProvider assets)
+        public LoadMenuState(SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
             _sceneLoader = sceneLoader;
             _loadingCurtain = loadingCurtain;
-            _uiFactory = uiFactory;
-            _gameStateMachine = gameStateMachine;
-            _assets = assets;
         }
 
-        public async void Enter()
+        public void Enter()
         {
             _loadingCurtain.Show();
-            await _assets.Load<GameObject>(AssetAddress.UIRoot);
             _sceneLoader.Load(Menu, OnLoaded);
         }
 
@@ -40,11 +31,7 @@ namespace CodeBase.Infrastructure.States
 
         private void OnLoaded()
         {
-            InitUiRoot();
             _loadingCurtain.Hide();
         }
-        
-        private void InitUiRoot() => 
-            _uiFactory.CreateUiRoot();
     }
 }

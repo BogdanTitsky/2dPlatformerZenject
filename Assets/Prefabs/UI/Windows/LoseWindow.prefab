@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2916703950293089897, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
+      propertyPath: windowId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3667744993032711819, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
       propertyPath: m_Name
       value: LoseWindow
@@ -102,45 +106,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2441870184736902324, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7249035765215619156}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3667744993032711819, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6715259570176101414}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
---- !u!114 &12262404517292699 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2323661260746609459, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
-  m_PrefabInstance: {fileID: 2311715558539344296}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &141756682562139420 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2441870184736902324, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
   m_PrefabInstance: {fileID: 2311715558539344296}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1365346799108593443 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3667744993032711819, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
-  m_PrefabInstance: {fileID: 2311715558539344296}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6715259570176101414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365346799108593443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bf7c5dcd8058f64c8666357011ce76f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CloseButton: {fileID: 12262404517292699}
 --- !u!1001 &4094937362013313972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -278,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 2633668312211141823}
-  Window: {fileID: 6715259570176101414}
+  Window: {fileID: 0}
 --- !u!224 &7249035765215619156 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6651144069248463840, guid: a798a889505837d45ab105dfd02db87d, type: 3}

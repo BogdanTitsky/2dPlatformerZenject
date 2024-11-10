@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2459287489282895750}
-  - component: {fileID: 1724916385639586252}
+  - component: {fileID: 6243850213931866301}
   m_Layer: 5
   m_Name: PauseWindow
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -760, y: -356}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1724916385639586252
+--- !u!114 &6243850213931866301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf7c5dcd8058f64c8666357011ce76f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CloseButton: {fileID: 1905646309229038648}
+  closeButton: {fileID: 1905646309229038648}
 --- !u!1001 &2636666550361806600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,6 +58,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1342626285710501265}
     m_Modifications:
+    - target: {fileID: 3199638127719146065, guid: a798a889505837d45ab105dfd02db87d, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 6307160306335115547, guid: a798a889505837d45ab105dfd02db87d, type: 3}
       propertyPath: m_Name
       value: TextToMainMenu
@@ -183,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 4093731344733124611}
-  Window: {fileID: 9020414264184438373}
+  Window: {fileID: 6243850213931866301}
 --- !u!224 &8708499366064186600 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6651144069248463840, guid: a798a889505837d45ab105dfd02db87d, type: 3}
@@ -277,6 +281,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2916703950293089897, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
+      propertyPath: windowId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3266489234369583450, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
       propertyPath: m_Name
       value: CloseButton
@@ -289,35 +297,15 @@ PrefabInstance:
       propertyPath: m_text
       value: Menu
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2916703950293089897, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2948887833963838106, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8708499366064186600}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3667744993032711819, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9020414264184438373}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
---- !u!1 &624601774856892800 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3667744993032711819, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}
-  m_PrefabInstance: {fileID: 4201148864549543691}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9020414264184438373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 624601774856892800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bf7c5dcd8058f64c8666357011ce76f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CloseButton: {fileID: 1905646309229038648}
 --- !u!224 &1342626285710501265 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2948887833963838106, guid: 13a5ccb095c7649468dcbf82d3fad357, type: 3}

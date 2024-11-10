@@ -1,6 +1,7 @@
 ﻿using System;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,14 +10,16 @@ namespace CodeBase.UI.Windows
 {
     public abstract class WindowBase : MonoBehaviour
     {
-        [SerializeField] protected Button CloseButton;
+        [SerializeField] protected Button closeButton;
         protected IPersistentProgressService _progressService;
+        protected IWindowService _windowService;
         protected PlayerProgress Progress => _progressService.Progress;
-
+        
         [Inject]
-        public void Init(IPersistentProgressService progressService)
+        public void Init(IPersistentProgressService progressService, IWindowService windowService)
         {
             _progressService = progressService;
+            _windowService = windowService;
         }
         
         private void Awake() => 
@@ -24,7 +27,7 @@ namespace CodeBase.UI.Windows
 
         private void OnEnable()
         {
-            Initialize();
+            OnEnableWindow();
             SubscribeUpdates();
         }
 
@@ -33,10 +36,17 @@ namespace CodeBase.UI.Windows
             OnWindowClose();
         }
 
-        protected virtual void OnAwake() => 
-            CloseButton.onClick.AddListener(() => Destroy(gameObject));
+        protected virtual void OnAwake()
+        {
+            closeButton.onClick.AddListener(HideWindow);
+        }
 
-        protected virtual void Initialize()
+        private void HideWindow()
+        {
+            gameObject.SetActive(false);
+        }
+
+        protected virtual void OnEnableWindow()
         {
             
         }

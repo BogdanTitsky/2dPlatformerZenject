@@ -46,5 +46,7 @@ namespace CodeBase.Infrastructure.Services.StaticData
             _windowConfigs.TryGetValue(windowId, out WindowConfig windowConfig)
                 ? windowConfig
                 : null;
+        
+        public Dictionary<WindowId, WindowConfig> GetWindowConfigs() => _windowConfigs;
     }
 }

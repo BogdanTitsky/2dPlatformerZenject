@@ -25,7 +25,7 @@ namespace CodeBase.UI.Windows
                 progressesReaders.Add(i);
             }
             
-            CloseButton.onClick.AddListener(SaveProgress);
+            closeButton.onClick.AddListener(SaveProgress);
         }
 
         private void SaveProgress()

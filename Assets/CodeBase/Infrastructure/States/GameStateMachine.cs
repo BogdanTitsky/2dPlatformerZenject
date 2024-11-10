@@ -10,17 +10,17 @@ namespace CodeBase.Infrastructure.States
         
         private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
-
-
+        
         [Inject]
         public void Init(DiContainer container)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = container.Resolve<BootstrapState>(),
+                [typeof(LoadProgressState)] = container.Resolve<LoadProgressState>(),
+                [typeof(InitGameState)] = container.Resolve<InitGameState>(),
                 [typeof(LoadMenuState)] = container.Resolve<LoadMenuState>(),
                 [typeof(LoadLevelState)] = container.Resolve<LoadLevelState>(),
-                [typeof(LoadProgressState)] = container.Resolve<LoadProgressState>(),
                 [typeof(GameLoopState)] = container.Resolve<GameLoopState>(),
                 [typeof(ReloadLevelState)] = container.Resolve<ReloadLevelState>(),
                 [typeof(PauseGameState)] = container.Resolve<PauseGameState>(),

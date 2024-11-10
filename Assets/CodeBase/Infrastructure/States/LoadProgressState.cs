@@ -28,9 +28,7 @@ namespace CodeBase.Infrastructure.States
     public void Enter()
     {
       LoadProgressOrInitNew();
-      
-      _audioFactory.SetupAudio();
-      _gameStateMachine.Enter<LoadMenuState>();
+      _gameStateMachine.Enter<InitGameState>();
     }
 
     public void Exit()

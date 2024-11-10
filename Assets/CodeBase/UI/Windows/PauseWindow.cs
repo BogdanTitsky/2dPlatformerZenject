@@ -15,9 +15,8 @@ namespace CodeBase.UI.Windows
             _stateMachine = stateMachine;
         }
 
-        protected override void OnAwake()
+        protected override void OnEnableWindow()
         {
-            base.OnAwake();
             _stateMachine.Enter<PauseGameState>();
         }
 

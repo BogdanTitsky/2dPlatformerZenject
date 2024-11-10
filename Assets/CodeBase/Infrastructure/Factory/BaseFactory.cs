@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Data;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using ModestTree;
 using UnityEngine;
 using Zenject;
 
