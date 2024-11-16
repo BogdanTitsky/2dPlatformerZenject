@@ -1,6 +1,7 @@
 ﻿using CodeBase.Audio;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -17,17 +18,18 @@ namespace CodeBase.Infrastructure.Installers
 {
     public class BootstrapInstaller : MonoInstaller
     {
-        [SerializeField] private GameBootstrapper gameBootstrapperPrefab;
-        [SerializeField] private LoadingCurtain loadingCurtain;
-        [SerializeField] private AudioMixer audioMixer;
+        [SerializeField] private GameBootstrapper _gameBootstrapperPrefab;
+        [SerializeField] private LoadingCurtain _loadingCurtain;
+        [SerializeField] private AudioMixer _audioMixer;
+        [SerializeField] private BackgroundMusic _backgroundMusic;
 
         public override void InstallBindings()
         {
-            Container.Bind<ICoroutineRunner>().To<GameBootstrapper>().FromComponentInNewPrefab(gameBootstrapperPrefab)
+            Container.Bind<ICoroutineRunner>().To<GameBootstrapper>().FromComponentInNewPrefab(_gameBootstrapperPrefab)
                 .AsSingle().NonLazy();
-            Container.Bind<LoadingCurtain>().FromComponentInNewPrefab(loadingCurtain).AsSingle().NonLazy();
-            Container.Bind<AudioMixer>().FromInstance(audioMixer).AsSingle().NonLazy();
-
+            Container.Bind<LoadingCurtain>().FromComponentInNewPrefab(_loadingCurtain).AsSingle().NonLazy();
+            Container.Bind<AudioMixer>().FromInstance(_audioMixer).AsSingle().NonLazy();
+            Container.Bind<BackgroundMusic>().FromComponentInNewPrefab(_backgroundMusic).AsSingle();
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<Game>().AsSingle();
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
@@ -46,13 +48,13 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<LoadMenuState>().AsSingle();
             Container.Bind<LoadLevelState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
-            Container.Bind<ReloadLevelState>().AsSingle();
-            Container.Bind<PauseGameState>().AsSingle();
+            Container.Bind<ReloadLevelState>().AsSingle();  
         }
 
         private void RegisterServices()
         {
             RegisterInputService();
+            Container.Bind<IPauseService>().To<PauseService>().AsSingle().NonLazy();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle().NonLazy();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
@@ -64,10 +66,10 @@ namespace CodeBase.Infrastructure.Installers
 
             void RegisterInputService()
             {
-                if (Application.isEditor)
-                    Container.Bind<IInputService>().To<StandaloneInputService>().AsSingle();
-                else
+                if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
                     Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
+                else
+                    Container.Bind<IInputService>().To<StandaloneInputService>().AsSingle();
             }
         }
     }

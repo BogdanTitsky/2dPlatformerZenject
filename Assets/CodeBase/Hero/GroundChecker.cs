@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -7,7 +8,21 @@ namespace CodeBase.Hero
         [SerializeField] private LayerMask _layerGround; 
         [SerializeField] private float checkDistance = 0.1f;
         [SerializeField] private Vector2 boxSize = new(1f, 0.1f);
-        public bool IsGrounded { get; private set; }
+
+        public bool IsGrounded
+        {
+            get => isGrounded;
+            private set
+            {
+                if (isGrounded == value)
+                    return;
+                isGrounded = value;
+                GroundedChanged?.Invoke();
+            }
+        }
+
+        private bool isGrounded;
+        public event Action GroundedChanged;
 
         private void Update() => CheckIfGrounded();
 

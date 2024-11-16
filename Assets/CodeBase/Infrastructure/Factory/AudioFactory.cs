@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CodeBase.Audio;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
@@ -12,24 +13,23 @@ namespace CodeBase.Infrastructure.Factory
         public override List<ISavedProgressReader> ProgressReaders { get; } = new();
         public override List<ISavedProgress> ProgressWriters { get; } = new();
 
-        private readonly IAssetProvider _assets;
+        private readonly BackgroundMusic _backgroundMusic;
 
-        public AudioFactory(DiContainer container, IAssetProvider assets, IPersistentProgressService progressService) : base(container, assets, progressService)
+        public AudioFactory(DiContainer container, IAssetProvider assets, IPersistentProgressService progressService, BackgroundMusic backgroundMusic) : base(container, assets, progressService)
         {
-            _assets = assets;
+            _backgroundMusic = backgroundMusic;
         }
 
-        public async void SetupAudio()
+        public void SetupAudio()
         {
             Cleanup();
-            await LoadBackgroundMusic();
+            LoadBackgroundMusic();
             InformProgressReaders();
         }
 
-        private async Task LoadBackgroundMusic()
+        private void LoadBackgroundMusic()
         {
-            GameObject prefab = await _assets.Load<GameObject>(AssetAddress.BackgroundMusic);
-            InstantiateRegistered(prefab);
+            RegisterProgressWatchers(_backgroundMusic.gameObject);
         }
     }
 }

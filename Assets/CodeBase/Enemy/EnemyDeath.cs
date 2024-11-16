@@ -13,7 +13,6 @@ namespace CodeBase.Enemy
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Collider2D _collider;
         [SerializeField] private EnemyMoveToPlayer _enemyMove;
-        
 
         public event Action OnDeath;
 

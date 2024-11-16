@@ -19,16 +19,17 @@ namespace CodeBase.UI.Services.Windows
             _windowService = windowService;
         }
 
-        private void Update()
-        {
-            if (_inputService.IsEscapeButtonDown())
-            {
-                if (_stateMachine.GetActiveStateType == typeof(GameLoopState))
-                {
-                   _windowService.Open(WindowId.Pause);
-                }else if (_stateMachine.GetActiveStateType == typeof(PauseGameState))
-                    _windowService.Hide(WindowId.Pause);
-            }
-        }
+        // private void Update()
+        // {
+        //     if (_inputService.IsEscapeButtonDown())
+        //     {
+        //         if (_stateMachine.GetActiveStateType == typeof(GameLoopState))
+        //         {
+        //            _windowService.Open(WindowId.Pause);
+        //         }
+        //         else if (_stateMachine.GetActiveStateType == typeof(PauseGameState))
+        //             _windowService.Hide(WindowId.Pause);
+        //     }
+        // }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
 using UnityEngine;
@@ -32,14 +33,30 @@ namespace CodeBase.Hero
     public AnimatorState State { get; private set; }
 
     private IInputService _inputService;
+    private IPauseService _pauseService;
 
     [Inject]
-    private void Init(IInputService inputService)
+    private void Init(IInputService inputService, IPauseService pauseService)
     {
+      _pauseService = pauseService;
       _inputService = inputService;
+      
+      _pauseService.PauseChanged += PauseServiceOnPauseChanged;
     }
+
+    private void OnDisable()
+    {
+      _pauseService.PauseChanged -= PauseServiceOnPauseChanged;
+    }
+
+    private void PauseServiceOnPauseChanged() => 
+      animator.speed = _pauseService.IsPaused ? 0 : 1;
+
     private void Update()
     {
+      if (_pauseService.IsPaused)
+        return;
+
       animator.SetFloat(Speed, Math.Abs(_inputService.Axis.x), 0.1f, Time.deltaTime);
       animator.SetBool(IsMovingHash, Math.Abs(_inputService.Axis.x) > 0);
     }

@@ -1,5 +1,6 @@
 ﻿using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Logic;
 using UnityEngine;
 using Zenject;
@@ -25,9 +26,13 @@ namespace CodeBase.Enemy
         private IHealth _heroHealth;
         private int layerMask;
         
+        private IPauseService _pauseService;
+
+
         [Inject]
-        public void Init(IGameFactory gameFactory)
+        public void Init(IGameFactory gameFactory, IPauseService pauseService)
         {
+            _pauseService = pauseService;
             _gameFactory = gameFactory;
             _heroHealth = _gameFactory.HeroDeathObject.GetComponent<IHealth>();
         }
@@ -39,6 +44,9 @@ namespace CodeBase.Enemy
 
         private void Update()
         {
+            if (_pauseService.IsPaused)
+                return;
+            
             UpdateCooldown();
             if (InRange && CanAttack()) 
                 StartAttack();

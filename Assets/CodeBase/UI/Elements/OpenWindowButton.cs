@@ -16,10 +16,8 @@ namespace CodeBase.UI.Elements
         public void Init(IWindowService windowService)
         {
             _windowService = windowService;
-        }
-
-        private void Awake() => 
             button.onClick.AddListener(Open);
+        }
 
         private void Open() => 
             _windowService.Open(windowId);

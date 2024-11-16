@@ -139,6 +139,13 @@ namespace CodeBase.Infrastructure.Factory
 
         public async Task CreateHud()
         {
+            if (Application.platform == RuntimePlatform.WindowsPlayer ||
+                Application.platform == RuntimePlatform.OSXPlayer ||
+                Application.platform == RuntimePlatform.LinuxPlayer)
+            {
+                return;
+            }
+            
             GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Hud);
             GameObject instance = InstantiateRegistered(prefab);
             _lootDisplay = instance.GetComponentInChildren<LootDisplay>();

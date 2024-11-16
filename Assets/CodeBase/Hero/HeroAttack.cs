@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Data;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
@@ -12,10 +13,8 @@ namespace CodeBase.Hero
     public class HeroAttack : MonoBehaviour, ISavedProgressReader
     {
         [SerializeField] private HeroAnimator heroAnimator;
-        [SerializeField] private new Rigidbody2D rigidbody2D;
         [SerializeField] private float Cleavage = 1f;
         [SerializeField] private Vector2 Distance = Vector2.one;
-        [SerializeField] private GroundChecker groundChecker;
         [SerializeField] private HeroMove heroMover;
         [SerializeField] private AudioSource audioSource;
 
@@ -36,29 +35,22 @@ namespace CodeBase.Hero
 
         private bool _isAttackHitBox;
         private const string LayerName = Constants.Hittable;
-        private IInputService _input;
         private readonly Collider2D[] _hits = new Collider2D[3];
         private Stats _stats;
         private HashSet<Collider2D> _uniqueHits = new();
         ContactFilter2D contactFilter;
-        
+        private IInputService _input;
+        private IPauseService _pauseService;
+
         [Inject]
-        public void Init(IInputService input)
+        public void Init(IInputService input, IPauseService pauseService)
         {
+            _pauseService = pauseService;
             _input = input;
             
             contactFilter.SetLayerMask(1 << LayerMask.NameToLayer(LayerName));
             contactFilter.useTriggers = true;
         }
-
-        private void Update()
-        {           
-            if (IsAttackHitBox)
-                ApplyAttack();
-
-            HandleInput();
-        }
-
         private void OnEnable()
         {
             heroAnimator.StateEntered += CheckEnteredState;
@@ -69,6 +61,16 @@ namespace CodeBase.Hero
         {
             heroAnimator.StateEntered -= CheckEnteredState;
             heroAnimator.StateExited -= CheckExitedState;
+        }
+        private void Update()
+        {           
+            HandleInput();
+        }
+
+        private void FixedUpdate()
+        {
+            if (IsAttackHitBox && !_pauseService.IsPaused)
+                ApplyAttack();
         }
 
         private void CheckExitedState(AnimatorState obj)
@@ -118,7 +120,6 @@ namespace CodeBase.Hero
             
             if (_input.IsAttackButtonDown() && heroAnimator.State == AnimatorState.Attack) 
                 heroAnimator.ContinueCombo();
-            
         }
 
         public void EnableAttackHitBox()

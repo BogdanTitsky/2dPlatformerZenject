@@ -1,5 +1,7 @@
 using System.Collections;
+using CodeBase.Infrastructure.Services.Pause;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Enemy
 {
@@ -11,7 +13,15 @@ namespace CodeBase.Enemy
         private Coroutine _aggroCoroutine;
 
         private bool _hasAggroTarget;
-        
+
+        private IPauseService _pauseService;
+
+        [Inject]
+        public void Init(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
+        }
+
         private void Start()
         {
             triggerObserver.TriggerExit += TriggerExit;
@@ -54,7 +64,16 @@ namespace CodeBase.Enemy
 
         private IEnumerator FollowOffAfterCooldown()
         {
-            yield return new WaitForSeconds(cooldown);
+            float timePassed = 0f;
+
+            while (timePassed < cooldown)
+            {
+                if (!_pauseService.IsPaused)
+                    timePassed += Time.deltaTime;
+        
+                yield return null;
+            }
+    
             FollowOff();
         }
 

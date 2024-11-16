@@ -1,28 +1,26 @@
-﻿using System;
-using CodeBase.Infrastructure.States;
-using UnityEngine;
+﻿using CodeBase.Infrastructure.Services.Pause;
 using Zenject;
 
 namespace CodeBase.UI.Windows
 {
     public class PauseWindow : WindowBase
     {
-        private IGameStateMachine _stateMachine;
+        private IPauseService _pauseService;
 
         [Inject]
-        public void Init(IGameStateMachine stateMachine)
+        public void Init(IPauseService pauseService)
         {
-            _stateMachine = stateMachine;
+            _pauseService = pauseService;
         }
 
         protected override void OnEnableWindow()
         {
-            _stateMachine.Enter<PauseGameState>();
+            _pauseService.SetPaused(true);
         }
 
         protected override void OnWindowClose()
         {
-            _stateMachine.Enter<GameLoopState>();
+            _pauseService.SetPaused(false);
         }
     }
 }

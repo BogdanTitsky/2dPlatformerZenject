@@ -241,7 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32fba32ade5741b1a70ddd1ae8868df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 4bb86723ba399334196e18466390477a, type: 2}
   type: 0
   slider: {fileID: 4020096947975876165}
 --- !u!1 &1171280553695380550

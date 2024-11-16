@@ -1,4 +1,6 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Services.Input;
 using UnityEngine;
@@ -14,15 +16,24 @@ namespace CodeBase.Hero
         public bool AbleMove = true;
         private IInputService _inputService;
         private Vector3 _inputDirection;
-        
+        private IPauseService _pauseService;
+
         [Inject]
-        public void Init(IInputService inputService)
+        public void Init(IInputService inputService, IPauseService pauseService)
         {
+            _pauseService = pauseService;
             _inputService = inputService;
+            _pauseService.PauseChanged += OnPauseChanged;
         }
+
+        private void OnDisable() => 
+            _pauseService.PauseChanged -= OnPauseChanged;
 
         private void Update()
         {
+            if (_pauseService.IsPaused)
+                return;
+            
             _inputDirection = Vector2.zero;
 
             if (_inputService.Axis.sqrMagnitude > Constants.Epsilon && AbleMove)
@@ -36,6 +47,9 @@ namespace CodeBase.Hero
 
         private void FixedUpdate()
         {
+            if (_pauseService.IsPaused)
+                return;
+            
             Vector2 velocity = _rigidbody2D.linearVelocity;
             velocity.x = _movementSpeed * _inputDirection.x;
             _rigidbody2D.linearVelocity = velocity;
@@ -44,6 +58,17 @@ namespace CodeBase.Hero
         public void MoveOff() => AbleMove = false;
         
         public void MoveOn() => AbleMove = true;
+
+        private void OnPauseChanged()
+        {
+            if (_pauseService.IsPaused)
+            {
+                _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+                _rigidbody2D.linearVelocity = Vector2.zero;
+            }
+            else
+                _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+        }
 
         private void LookAtMoveDirection()
         {

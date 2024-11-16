@@ -363,7 +363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 7082020306169186510}
-  windowId: 4
   sliders:
   - {fileID: 8271791798141356417}
   - {fileID: 5621703251857095604}

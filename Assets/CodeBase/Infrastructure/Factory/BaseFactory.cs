@@ -36,7 +36,7 @@ namespace CodeBase.Infrastructure.Factory
             return gameObject;
         }
         
-        private void RegisterProgressWatchers(GameObject gameObject)
+        protected void RegisterProgressWatchers(GameObject gameObject)
         {
             foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
             {

@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
 using UnityEngine;
@@ -22,18 +23,32 @@ namespace CodeBase.Enemy
     private readonly int _heroDieStateHash = Animator.StringToHash("Taunt");
 
     private Animator _animator;
+    private IPauseService _pauseService;
     public event Action<AnimatorState> StateEntered;
     public event Action<AnimatorState> StateExited;
 
     public AnimatorState State { get; private set; }
     
+    [Inject]
+    private void Init(IPauseService pauseService)
+    {
+      _pauseService = pauseService;
+      
+      _pauseService.PauseChanged += PauseServiceOnPauseChanged;
+    }
 
-  private void Awake() => 
+    private void PauseServiceOnPauseChanged() => 
+      _animator.speed = _pauseService.IsPaused ? 0 : 1;
+
+    private void Awake() => 
       _animator = GetComponent<Animator>();
+    
   private void OnDisable()
   {
     if (_animator != null)
       _animator.Rebind(); 
+    
+    _pauseService.PauseChanged -= PauseServiceOnPauseChanged;
   }
     public void PlayHit() => _animator.SetTrigger(Hit);
     public void PlayDeath() => _animator.SetTrigger(Die);
