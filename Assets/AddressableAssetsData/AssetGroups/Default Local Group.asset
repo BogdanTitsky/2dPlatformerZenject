@@ -45,11 +45,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e3ac132e2e96c7a438b81ea6f948f0b6
-    m_Address: BackgroundMusic
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e3f9f22bfc99bd943931aa2d611458ff
     m_Address: LootCoin
     m_ReadOnly: 0

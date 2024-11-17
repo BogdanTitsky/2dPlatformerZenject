@@ -29,7 +29,7 @@ namespace CodeBase.Infrastructure.Installers
                 .AsSingle().NonLazy();
             Container.Bind<LoadingCurtain>().FromComponentInNewPrefab(_loadingCurtain).AsSingle().NonLazy();
             Container.Bind<AudioMixer>().FromInstance(_audioMixer).AsSingle().NonLazy();
-            Container.Bind<BackgroundMusic>().FromComponentInNewPrefab(_backgroundMusic).AsSingle();
+            Container.Bind<BackgroundMusic>().FromComponentInNewPrefab(_backgroundMusic).AsSingle().NonLazy();
             Container.Bind<SceneLoader>().AsSingle();
             Container.Bind<Game>().AsSingle();
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();

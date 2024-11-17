@@ -57,11 +57,10 @@ namespace CodeBase.Audio
                 progress.VolumeData.Music = slider.value;
         }
         
-        private void SetMasterVolume(float value) => _audioMixer.SetFloat(Constants.Master, value);
+        private void SetMasterVolume(float value) => _audioMixer.SetFloat(Constants.Master, Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20);
 
-        private void SetSoundFxVolume(float value) => _audioMixer.SetFloat(Constants.SoundFX, value);
+        private void SetSoundFxVolume(float value) => _audioMixer.SetFloat(Constants.SoundFX, Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20);
         
-        private void SetMusicVolume(float value) => _audioMixer.SetFloat(Constants.Music, value);
-        
+        private void SetMusicVolume(float value) => _audioMixer.SetFloat(Constants.Music, Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20);
     }
 }
