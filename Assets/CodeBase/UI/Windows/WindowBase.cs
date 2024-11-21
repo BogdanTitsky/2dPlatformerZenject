@@ -41,7 +41,7 @@ namespace CodeBase.UI.Windows
             closeButton.onClick.AddListener(HideWindow);
         }
 
-        private void HideWindow()
+        public void HideWindow()
         {
             gameObject.SetActive(false);
         }

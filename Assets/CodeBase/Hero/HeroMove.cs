@@ -55,10 +55,20 @@ namespace CodeBase.Hero
             _rigidbody2D.linearVelocity = velocity;
         }
 
-        public void MoveOff() => AbleMove = false;
-        
+        public void MoveOff()
+        {
+            AbleMove = false;
+            _rigidbody2D.linearVelocity = Vector2.zero;
+        }
+
         public void MoveOn() => AbleMove = true;
 
+        public void KnockUp()
+        {
+            if (!AbleMove)
+                return;
+            _rigidbody2D.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
+        }
         private void OnPauseChanged()
         {
             if (_pauseService.IsPaused)
@@ -78,10 +88,11 @@ namespace CodeBase.Hero
                 transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        public void UpdateProgress(PlayerProgress progress)
-        {
+        
+        #region Progress
+        
+        public void UpdateProgress(PlayerProgress progress) => 
             progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
-        }
 
         public void LoadProgress(PlayerProgress progress)
         {
@@ -91,8 +102,11 @@ namespace CodeBase.Hero
             if (savedPosition != null)
                 transform.position = savedPosition.AsUnityVector();
         }
-
+        
         private static string CurrentLevel() =>
             SceneManager.GetActiveScene().name;
+        
+        #endregion
+        
     }
 }

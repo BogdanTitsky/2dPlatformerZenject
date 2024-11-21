@@ -374,6 +374,10 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3199638127719146065, guid: a798a889505837d45ab105dfd02db87d, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 6307160306335115547, guid: a798a889505837d45ab105dfd02db87d, type: 3}
       propertyPath: m_Name
       value: Text_PlayUIButton

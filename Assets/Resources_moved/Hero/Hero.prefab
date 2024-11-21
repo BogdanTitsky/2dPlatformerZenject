@@ -1140,10 +1140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroAnimator: {fileID: -1881666878790873495}
-  rigidbody2D: {fileID: -4820137000759361564}
   Cleavage: 1.6
   Distance: {x: 1.4, y: 0.8}
-  groundChecker: {fileID: 5382132951234650652}
   heroMover: {fileID: -881292060972320408}
   audioSource: {fileID: -3768041093211151369}
   attackClip: {fileID: 8300000, guid: 9c5c7e3be4d010c48adcc440a909494f, type: 3}
@@ -12544,7 +12542,14 @@ AnimationClip:
     flags: 0
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.5
+    functionName: ShowGameEndPopUp
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
 --- !u!74 &74000011191481996
 AnimationClip:
   m_ObjectHideFlags: 0

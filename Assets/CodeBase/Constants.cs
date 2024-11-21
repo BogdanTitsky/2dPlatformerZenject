@@ -9,5 +9,6 @@ namespace CodeBase
     public const string Master = "Master";
     public const string Music = "Music";
     public const string SoundFX = "SoundFX";
+
   }
 }

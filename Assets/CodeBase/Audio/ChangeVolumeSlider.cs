@@ -30,15 +30,15 @@ namespace CodeBase.Audio
             {
                 case VolumeType.Master:
                     slider.onValueChanged.AddListener(SetMasterVolume);
-                    slider.value = _progress.VolumeData.Master;
+                    slider.value = DecibelToSlider(_progress.VolumeData.Master);
                     break;
                 case VolumeType.SoundFx:
                     slider.onValueChanged.AddListener(SetSoundFxVolume);
-                    slider.value = _progress.VolumeData.SoundFX;
+                    slider.value = DecibelToSlider(_progress.VolumeData.SoundFX);
                     break;
                 case VolumeType.Music:
                     slider.onValueChanged.AddListener(SetMusicVolume);
-                    slider.value = _progress.VolumeData.Music;
+                    slider.value = DecibelToSlider(_progress.VolumeData.Music);
                     break;
             }
         }
@@ -50,17 +50,23 @@ namespace CodeBase.Audio
         public void UpdateProgress(PlayerProgress progress)
         {
             if (type == VolumeType.Master)
-                progress.VolumeData.Master = slider.value;
+                progress.VolumeData.Master = SliderToDecibel();
             else if (type == VolumeType.SoundFx)
-                progress.VolumeData.SoundFX = slider.value;
+                progress.VolumeData.SoundFX = SliderToDecibel();
             else if (type == VolumeType.Music) 
-                progress.VolumeData.Music = slider.value;
+                progress.VolumeData.Music = SliderToDecibel();
         }
         
-        private void SetMasterVolume(float value) => _audioMixer.SetFloat(Constants.Master, Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20);
+        private void SetMasterVolume(float value) => _audioMixer.SetFloat(Constants.Master, SliderToDecibel());
 
-        private void SetSoundFxVolume(float value) => _audioMixer.SetFloat(Constants.SoundFX, Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20);
+        private void SetSoundFxVolume(float value) => _audioMixer.SetFloat(Constants.SoundFX, SliderToDecibel());
         
-        private void SetMusicVolume(float value) => _audioMixer.SetFloat(Constants.Music, Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20);
+        private void SetMusicVolume(float value) => _audioMixer.SetFloat(Constants.Music, SliderToDecibel());
+
+        private float SliderToDecibel() => 
+            Mathf.Log10(Mathf.Clamp(slider.value, 0.0001f, 1f)) * 20;
+        
+        private float DecibelToSlider(float decibelValue) => 
+            Mathf.Pow(10, decibelValue / 20f);
     }
 }

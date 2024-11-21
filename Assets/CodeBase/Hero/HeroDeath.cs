@@ -42,15 +42,18 @@ namespace CodeBase.Hero
 
         private void Die()
         {
-            _windowService.Open(WindowId.Lose);
             OnHeroDeath?.Invoke();
             _isDead = true;
-            heroMove.enabled = false;
             attack.enabled = false;
             heroMove.MoveOff();
             heroAnimator.PlayDeath();
             
             Instantiate(DeathFx, transform.position, Quaternion.identity);
+        }
+
+        private void ShowGameEndPopUp()
+        {
+            _windowService.Open(WindowId.Lose);
         }
     }
 }

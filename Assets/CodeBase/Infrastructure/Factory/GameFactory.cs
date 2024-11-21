@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Data;
@@ -17,7 +18,7 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.Factory
 {
-    public class GameFactory : BaseFactory, IGameFactory
+    public class GameFactory : BaseFactory, IGameFactory, IDisposable
     {
         public override List<ISavedProgressReader> ProgressReaders { get; } = new();
         public override List<ISavedProgress> ProgressWriters { get; } = new();
@@ -49,9 +50,10 @@ namespace CodeBase.Infrastructure.Factory
             await TryCreateUncollectedLoot();
             InformProgressReaders();
             _stateMachine.Enter<GameLoopState>();
-            _loadLevelState.OnLoaded -= LoadGame;
         }
-        
+        public void Dispose() => 
+            _loadLevelState.OnLoaded -= LoadGame;
+
         private async Task InitGameWorld()
         {
             Cleanup();
@@ -162,5 +164,7 @@ namespace CodeBase.Infrastructure.Factory
             spawner.Id = spawnerId;
             spawner.EnemyTypeId = enemyTypeId;
         }
+
+        
     }
 }

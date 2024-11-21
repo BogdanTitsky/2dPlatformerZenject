@@ -25,7 +25,7 @@ namespace CodeBase.UI.Menu
         {
             _stateMachine.Enter<ReloadLevelState, string>(SceneManager.GetActiveScene().name);
             if(Window != null)
-                Destroy(Window.gameObject);
+                Window.HideWindow();
         }
     }
 }

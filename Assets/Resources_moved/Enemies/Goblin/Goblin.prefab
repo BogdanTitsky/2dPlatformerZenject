@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 392460403638215128, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 8040219642420525326, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       propertyPath: m_FillAmount
       value: 1

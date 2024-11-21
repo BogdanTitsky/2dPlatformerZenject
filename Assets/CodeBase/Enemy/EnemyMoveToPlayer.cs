@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Hero;
+﻿using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
 using UnityEngine;
@@ -11,14 +10,14 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float speed;
-        [SerializeField] private float minimalDistance = 4;
         [SerializeField] private EnemyAnimator animator;
-        
+        [SerializeField] private EnemyAttack enemyAttack;
+
         private HeroDeath hero;
         private Transform _targetTransform;
         private IGameFactory _gameFactory;
-        public bool Enabled = true;
         private IPauseService _pauseService;
+        public bool Enabled = true;
 
         [Inject]
         private void Init(IGameFactory gameFactory, IPauseService pauseService)
@@ -32,8 +31,11 @@ namespace CodeBase.Enemy
             _pauseService.PauseChanged += OnPauseChanged;
         }
 
-        private void OnDisable() => 
+        private void OnDisable()
+        {
+            hero.OnHeroDeath -= HeroDie;
             _pauseService.PauseChanged -= OnPauseChanged;
+        }
 
         private void OnPauseChanged()
         {
@@ -49,6 +51,7 @@ namespace CodeBase.Enemy
         private void HeroDie()
         {
            Enabled = false;
+           _rb.linearVelocity = Vector2.zero;
            animator.PlayOnHeroDie();
         }
 
@@ -56,14 +59,16 @@ namespace CodeBase.Enemy
         {
             if (_pauseService.IsPaused)
                 return;
-            float distance = Vector2.Distance(_rb.transform.position, _targetTransform.position);
-            if (distance >= minimalDistance && Enabled) 
-                Chase();
+            Chase();
+            if (enemyAttack.CanAttack()) 
+                _rb.linearVelocity = Vector2.zero;
         }
 
         private void Chase()
         {
-            Vector2 direction = (_targetTransform.position - _rb.transform.position).normalized;
+            if (!Enabled) return;
+            
+            Vector2 direction = (_targetTransform.position  - _rb.transform.position).normalized;
             LookAtTarget(direction);
             Vector2 velocity = _rb.linearVelocity;
             velocity.x = speed * direction.x;

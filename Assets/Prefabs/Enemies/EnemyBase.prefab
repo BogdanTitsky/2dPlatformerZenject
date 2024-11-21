@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6236726579714639725}
   - component: {fileID: 5346917436593603264}
   - component: {fileID: 3046340783006520658}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: EnemyBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,8 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 3416992784277949871}
   speed: 2
-  minimalDistance: 2.5
   animator: {fileID: 7393210776034395062}
+  enemyAttack: {fileID: 1817112971516816003}
   Enabled: 1
 --- !u!114 &1817112971516816003
 MonoBehaviour:

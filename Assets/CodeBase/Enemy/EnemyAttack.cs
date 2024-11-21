@@ -37,10 +37,8 @@ namespace CodeBase.Enemy
             _heroHealth = _gameFactory.HeroDeathObject.GetComponent<IHealth>();
         }
 
-        private void Awake()
-        {
+        private void Awake() => 
             layerMask = 1 << LayerMask.NameToLayer("Player");
-        }
 
         private void Update()
         {
@@ -48,7 +46,7 @@ namespace CodeBase.Enemy
                 return;
             
             UpdateCooldown();
-            if (InRange && CanAttack()) 
+            if (CanAttack()) 
                 StartAttack();
         }
 
@@ -69,9 +67,9 @@ namespace CodeBase.Enemy
             _currentAttackCooldown = AttackCooldown;
             _isAttacking = false;
         }
-        
-        private bool CanAttack() => 
-            !_isAttacking && CooldownIsUp()  && groundChecker.IsGrounded;
+
+        public bool CanAttack() => 
+            !_isAttacking && CooldownIsUp()  && groundChecker.IsGrounded && InRange; 
         
         private void UpdateCooldown()
         {

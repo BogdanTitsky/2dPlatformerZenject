@@ -1,8 +1,4 @@
-﻿using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Logic;
-using CodeBase.UI.Services.Factory;
-using UnityEngine;
+﻿using CodeBase.Logic;
 
 namespace CodeBase.Infrastructure.States
 {

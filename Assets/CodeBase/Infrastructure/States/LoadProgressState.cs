@@ -9,8 +9,7 @@ namespace CodeBase.Infrastructure.States
 {
   public class LoadProgressState : IState
   {
-    private const string InitialLevel = "Main";
-    private const string MenuKey = "Menu";
+    private const string InitialLevel = "Level1";
     private readonly IGameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadProgress;
