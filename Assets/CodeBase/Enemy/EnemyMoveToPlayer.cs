@@ -17,7 +17,8 @@ namespace CodeBase.Enemy
         private Transform _targetTransform;
         private IGameFactory _gameFactory;
         private IPauseService _pauseService;
-        public bool Enabled = true;
+        
+        public bool Enabled { get; set; } = true;
 
         [Inject]
         private void Init(IGameFactory gameFactory, IPauseService pauseService)
@@ -60,14 +61,14 @@ namespace CodeBase.Enemy
             if (_pauseService.IsPaused)
                 return;
             Chase();
-            if (enemyAttack.CanAttack()) 
+            if (enemyAttack.InRange)
                 _rb.linearVelocity = Vector2.zero;
         }
 
         private void Chase()
         {
             if (!Enabled) return;
-            
+
             Vector2 direction = (_targetTransform.position  - _rb.transform.position).normalized;
             LookAtTarget(direction);
             Vector2 velocity = _rb.linearVelocity;

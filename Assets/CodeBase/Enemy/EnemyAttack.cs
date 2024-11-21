@@ -69,7 +69,7 @@ namespace CodeBase.Enemy
         }
 
         public bool CanAttack() => 
-            !_isAttacking && CooldownIsUp()  && groundChecker.IsGrounded && InRange; 
+            !_isAttacking && CooldownIsUp() && groundChecker.IsGrounded && InRange; 
         
         private void UpdateCooldown()
         {
