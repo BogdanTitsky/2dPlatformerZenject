@@ -2,6 +2,7 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using CodeBase.Services.Input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,9 +12,10 @@ namespace CodeBase.Hero
 {
     public class HeroMove : MonoBehaviour, ISavedProgress
     {
-        [SerializeField] private float _movementSpeed;
-        [SerializeField] private Rigidbody2D _rigidbody2D;
-        public bool AbleMove = true;
+        [SerializeField] private HeroAnimator heroAnimator;
+        [SerializeField] private float movementSpeed;
+        [SerializeField] private Rigidbody2D rb;
+        private bool AbleMove = true;
         private IInputService _inputService;
         private Vector3 _inputDirection;
         private IPauseService _pauseService;
@@ -25,9 +27,17 @@ namespace CodeBase.Hero
             _inputService = inputService;
             _pauseService.PauseChanged += OnPauseChanged;
         }
+        private void OnEnable()
+        {
+            heroAnimator.StateEntered += CheckEnteredState;
+        }
 
-        private void OnDisable() => 
+        private void OnDisable()
+        {
+            heroAnimator.StateEntered -= CheckEnteredState;
             _pauseService.PauseChanged -= OnPauseChanged;
+
+        }
 
         private void Update()
         {
@@ -40,7 +50,6 @@ namespace CodeBase.Hero
             {
                 _inputDirection = _inputService.Axis;
                 _inputDirection.y = 0;
-
                 LookAtMoveDirection();
             }
         }
@@ -50,34 +59,50 @@ namespace CodeBase.Hero
             if (_pauseService.IsPaused)
                 return;
             
-            Vector2 velocity = _rigidbody2D.linearVelocity;
-            velocity.x = _movementSpeed * _inputDirection.x;
-            _rigidbody2D.linearVelocity = velocity;
+            Vector2 velocity = rb.linearVelocity;
+            velocity.x = movementSpeed * _inputDirection.x;
+            rb.linearVelocity = velocity;
         }
 
-        public void MoveOff()
+        private void CheckEnteredState(AnimatorState state)
+        {
+            Debug.Log(state);
+            switch (state)
+            {
+                case AnimatorState.Attack:
+                case AnimatorState.SecondAttack:
+                case AnimatorState.Block: 
+                case AnimatorState.Died:
+                    MoveOff();
+                    break;
+                default:
+                    MoveOn();
+                    break;
+            }
+        }
+        private void MoveOff()
         {
             AbleMove = false;
-            _rigidbody2D.linearVelocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
         }
 
-        public void MoveOn() => AbleMove = true;
+        private void MoveOn() => AbleMove = true;
 
         public void KnockUp()
         {
             if (!AbleMove)
                 return;
-            _rigidbody2D.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
         }
         private void OnPauseChanged()
         {
             if (_pauseService.IsPaused)
             {
-                _rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
-                _rigidbody2D.linearVelocity = Vector2.zero;
+                rb.bodyType = RigidbodyType2D.Kinematic;
+                rb.linearVelocity = Vector2.zero;
             }
             else
-                _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
         private void LookAtMoveDirection()

@@ -19,13 +19,16 @@ namespace CodeBase.Hero
     private static readonly int IsComboContinueHash = Animator.StringToHash("IsComboContinue");
     private static readonly int HitHash = Animator.StringToHash("Hit");
     private static readonly int DieHash = Animator.StringToHash("Die");
+    private static readonly int IsBlockingHash = Animator.StringToHash("IsBlocking");
 
     private readonly int _idleStateHash = Animator.StringToHash("Idle");
     private readonly int _attackStateHash = Animator.StringToHash("Attack");
     private readonly int _secondAttackStateHash = Animator.StringToHash("SecondAttack");
-    private readonly int _walkingStateHash = Animator.StringToHash("Run");
+    private readonly int _walkingStateHash = Animator.StringToHash("Walking");
     private readonly int _deathStateHash = Animator.StringToHash("Die");
     private readonly int _midAirAttack = Animator.StringToHash("MidAirAttack");
+    private readonly int _blockStateHash = Animator.StringToHash("Block");
+    private readonly int _jumpingHash = Animator.StringToHash("Jumping");
 
     public event Action<AnimatorState> StateEntered;
     public event Action<AnimatorState> StateExited;
@@ -72,6 +75,12 @@ namespace CodeBase.Hero
     public void IsAttackingOff() => 
       animator.SetBool(IsAttackingHash, false);
 
+    public void IsBlockingOn() => 
+      animator.SetBool(IsBlockingHash, true);
+
+    public void IsBlockingOff() => 
+      animator.SetBool(IsBlockingHash, false);
+    
     public void ContinueCombo() => 
       animator.SetBool(IsComboContinueHash, true);
     
@@ -127,6 +136,14 @@ namespace CodeBase.Hero
       else if (stateHash == _secondAttackStateHash)
       {
         state = AnimatorState.SecondAttack;
+      }
+      else if (stateHash == _blockStateHash)
+      {
+        state = AnimatorState.Block;
+      }
+      else if (stateHash == _jumpingHash)
+      {
+        state = AnimatorState.Jumping;
       }
       else
       {

@@ -9,6 +9,8 @@ namespace CodeBase.Logic
     Died,
     SecondAttack,
     MidAirAttack,
-    Taunt
+    Taunt,
+    Block,
+    Jumping
   }
 }

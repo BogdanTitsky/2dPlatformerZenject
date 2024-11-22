@@ -87,18 +87,11 @@ namespace CodeBase.Hero
 
         private void CheckEnteredState(AnimatorState obj)
         {
-            if (obj == AnimatorState.Attack)
-            {
-                heroMover.MoveOff();
-            }
-            else if (obj == AnimatorState.SecondAttack)
+            if (obj == AnimatorState.SecondAttack)
             {
                 heroAnimator.IsAttackingOn();
                 heroAnimator.OffCombo();
-                heroMover.MoveOff();
             }
-            else
-                heroMover.MoveOn();
         }
 
         public void LoadProgress(PlayerProgress progress)

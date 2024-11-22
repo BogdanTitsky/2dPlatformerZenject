@@ -45,7 +45,6 @@ namespace CodeBase.Hero
             OnHeroDeath?.Invoke();
             _isDead = true;
             attack.enabled = false;
-            heroMove.MoveOff();
             heroAnimator.PlayDeath();
             
             Instantiate(DeathFx, transform.position, Quaternion.identity);
