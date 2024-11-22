@@ -1,5 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using CodeBase.Services.Input;
 using CodeBase.UI.Elements;
 using UnityEngine;
@@ -77,6 +78,7 @@ namespace CodeBase.Hero
             _maxBlockStamina = progress.HeroStats.BlockStamina;
             CurrentStamina = _maxBlockStamina;
             _blockStaminaRegenPerSec = progress.HeroStats.BlockStaminaRegenPerSec;
+            HideBar();
         }
 
         private void OnBlockBtnDownChanged()
@@ -100,16 +102,21 @@ namespace CodeBase.Hero
                 if (CurrentStamina >= _maxBlockStamina)
                 {
                     CurrentStamina = _maxBlockStamina;
-                    blockBar.gameObject.SetActive(false);
+                    HideBar();
                 }
             }
             blockBar.SetValue(CurrentStamina, _maxBlockStamina);
         }
 
+        private void HideBar() => 
+            blockBar.gameObject.SetActive(false);
+
         private void HandleInput()
         {
-            if (_inputService.IsBlockButtonUp()) IsBlockBtnDown = false;
-            if (_inputService.IsBlockButtonDown()) IsBlockBtnDown = true;
+            if (_inputService.IsBlockButtonUp())
+                IsBlockBtnDown = false;
+            if (_inputService.IsBlockButtonDown() && _heroAnimator.State != AnimatorState.Jumping)
+                IsBlockBtnDown = true;
         }
     }
 }

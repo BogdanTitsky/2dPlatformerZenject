@@ -96,11 +96,16 @@ namespace CodeBase.Hero
         {
             if (_pauseService.IsPaused)
             {
-                rb.bodyType = RigidbodyType2D.Kinematic;
-                rb.linearVelocity = Vector2.zero;
+                TurnOffHeroMove();
             }
             else
                 rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+
+        public void TurnOffHeroMove()
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.linearVelocity = Vector2.zero;
         }
 
         private void LookAtMoveDirection()

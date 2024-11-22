@@ -2,6 +2,7 @@
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
@@ -78,7 +79,7 @@ namespace CodeBase.Hero
 
         private void JumpIfGrounded()
         {
-            if (_isJumpBtnDown && groundChecker.IsGrounded)
+            if (_isJumpBtnDown && groundChecker.IsGrounded && heroAnimator.State != AnimatorState.Block)
             {
                 heroAnimator.PlayJump();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, _stats.JumpPower);
