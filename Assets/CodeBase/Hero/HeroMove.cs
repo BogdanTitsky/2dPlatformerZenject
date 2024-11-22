@@ -1,5 +1,4 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
@@ -66,7 +65,6 @@ namespace CodeBase.Hero
 
         private void CheckEnteredState(AnimatorState state)
         {
-            Debug.Log(state);
             switch (state)
             {
                 case AnimatorState.Attack:

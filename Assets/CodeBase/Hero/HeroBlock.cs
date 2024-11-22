@@ -7,6 +7,10 @@ using Zenject;
 
 namespace CodeBase.Hero
 {
+    /// <summary>
+    /// This class represents the hero's block functionality. It handles the hero's block stamina,
+    /// block bar UI, and block animation. It also loads the hero's block stamina progress from the player's save data.
+    /// </summary>
     public class HeroBlock : MonoBehaviour, ISavedProgressReader
     {
         [SerializeField] private HeroAnimator _heroAnimator;
@@ -19,16 +23,20 @@ namespace CodeBase.Hero
         }
 
         private IInputService _inputService;
-        private float _currentStamina;
+
+        private const float BlockConsumptionPerSec = 36;
         private float _maxBlockStamina;
         private float _blockStaminaRegenPerSec;
-        private const float BlockConsumptionPerSec = 36;
         private bool _isBlockBtnDown;
+        private float _currentStamina;
 
-        private bool IsBlockBtnDown
+        /// <summary>
+        /// Gets or sets a value indicating whether the block button is currently down.
+        /// </summary>
+        public bool IsBlockBtnDown
         {
             get => _isBlockBtnDown;
-            set
+            private set
             {
                 if (_isBlockBtnDown != value)
                 {
@@ -37,6 +45,26 @@ namespace CodeBase.Hero
                 }
             }
         }
+
+        private float CurrentStamina
+        {
+            get => _currentStamina;
+            set
+            {
+                _currentStamina = value;
+                if (_currentStamina <=0)
+                {
+                    IsBlockBtnDown = false;
+                    _currentStamina = 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Reduces the hero's block stamina by the given damage amount.
+        /// </summary>
+        /// <param name="damage">The amount of damage to reduce the block stamina by.</param>
+        public void BlockDamage(float damage) => CurrentStamina -= damage;
 
         private void Update()
         {
@@ -47,7 +75,7 @@ namespace CodeBase.Hero
         public void LoadProgress(PlayerProgress progress)
         {
             _maxBlockStamina = progress.HeroStats.BlockStamina;
-            _currentStamina = _maxBlockStamina;
+            CurrentStamina = _maxBlockStamina;
             _blockStaminaRegenPerSec = progress.HeroStats.BlockStaminaRegenPerSec;
         }
 
@@ -64,22 +92,18 @@ namespace CodeBase.Hero
 
         private void UpdateHpBar()
         {
-            if (IsBlockBtnDown && _currentStamina >= 0)
+            if (IsBlockBtnDown && CurrentStamina >= 0)
+                CurrentStamina -= BlockConsumptionPerSec * Time.deltaTime;
+            else if (CurrentStamina < _maxBlockStamina)
             {
-                _currentStamina -= BlockConsumptionPerSec * Time.deltaTime;
-                blockBar.SetValue(_currentStamina, _maxBlockStamina);
-            }
-            else if (_currentStamina < _maxBlockStamina)
-            {
-                IsBlockBtnDown = false;
-                _currentStamina += _blockStaminaRegenPerSec * Time.deltaTime;
-                blockBar.SetValue(_currentStamina, _maxBlockStamina);
-                if (_currentStamina >= _maxBlockStamina)
+                CurrentStamina += _blockStaminaRegenPerSec * Time.deltaTime;
+                if (CurrentStamina >= _maxBlockStamina)
                 {
-                    _currentStamina = _maxBlockStamina;
+                    CurrentStamina = _maxBlockStamina;
                     blockBar.gameObject.SetActive(false);
                 }
             }
+            blockBar.SetValue(CurrentStamina, _maxBlockStamina);
         }
 
         private void HandleInput()

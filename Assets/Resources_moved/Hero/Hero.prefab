@@ -1112,6 +1112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: -1881666878790873495}
+  heroBlock: {fileID: 6641895898066186293}
 --- !u!114 &4724316378514082194
 MonoBehaviour:
   m_ObjectHideFlags: 0
