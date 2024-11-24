@@ -14,10 +14,12 @@ namespace CodeBase.Hero
         [SerializeField] private HeroAnimator heroAnimator;
         [SerializeField] private float movementSpeed;
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private GameObject nonRotatable;
         private bool AbleMove = true;
         private IInputService _inputService;
         private Vector3 _inputDirection;
         private IPauseService _pauseService;
+        private Vector3 mirrored = new(-1, 1, 1);
 
         [Inject]
         public void Init(IInputService inputService, IPauseService pauseService)
@@ -71,6 +73,8 @@ namespace CodeBase.Hero
                 case AnimatorState.SecondAttack:
                 case AnimatorState.Block: 
                 case AnimatorState.Died:
+                case AnimatorState.Stunned:
+                case AnimatorState.Hurt:
                     MoveOff();
                     break;
                 default:
@@ -78,6 +82,7 @@ namespace CodeBase.Hero
                     break;
             }
         }
+        
         private void MoveOff()
         {
             AbleMove = false;
@@ -95,9 +100,7 @@ namespace CodeBase.Hero
         private void OnPauseChanged()
         {
             if (_pauseService.IsPaused)
-            {
                 TurnOffHeroMove();
-            }
             else
                 rb.bodyType = RigidbodyType2D.Dynamic;
         }
@@ -111,11 +114,16 @@ namespace CodeBase.Hero
         private void LookAtMoveDirection()
         {
             if (_inputDirection.x > 0)
-                transform.localScale = new Vector3(1, 1, 1);
+            {
+                transform.localScale = Vector3.one;
+                nonRotatable.transform.localScale = Vector3.one;
+            }
             else if (_inputDirection.x < 0)
-                transform.localScale = new Vector3(-1, 1, 1);
+            {
+                transform.localScale = mirrored;
+                nonRotatable.transform.localScale = mirrored;
+            }
         }
-
         
         #region Progress
         

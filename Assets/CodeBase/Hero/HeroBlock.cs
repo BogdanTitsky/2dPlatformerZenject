@@ -1,4 +1,5 @@
-﻿using CodeBase.Data;
+﻿using System.Collections;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
 using CodeBase.Services.Input;
@@ -28,6 +29,8 @@ namespace CodeBase.Hero
         private const float BlockConsumptionPerSec = 36;
         private float _maxBlockStamina;
         private float _blockStaminaRegenPerSec;
+        private bool _blockBroken;
+        
         private bool _isBlockBtnDown;
         private float _currentStamina;
 
@@ -65,12 +68,17 @@ namespace CodeBase.Hero
         /// Reduces the hero's block stamina by the given damage amount.
         /// </summary>
         /// <param name="damage">The amount of damage to reduce the block stamina by.</param>
-        public void BlockDamage(float damage) => CurrentStamina -= damage;
+        public void BlockDamage(float damage)
+        {
+            damage *= 3;
+            if (damage > CurrentStamina) StartCoroutine(BlockBreakerRecoveryRoutine());
+            CurrentStamina -= damage;
+        }
 
         private void Update()
         {
             HandleInput();
-            UpdateHpBar();
+            UpdateBlockBar();
         }
 
         public void LoadProgress(PlayerProgress progress)
@@ -92,7 +100,7 @@ namespace CodeBase.Hero
                 _heroAnimator.IsBlockingOff();
         }
 
-        private void UpdateHpBar()
+        private void UpdateBlockBar()
         {
             if (IsBlockBtnDown && CurrentStamina >= 0)
                 CurrentStamina -= BlockConsumptionPerSec * Time.deltaTime;
@@ -115,8 +123,17 @@ namespace CodeBase.Hero
         {
             if (_inputService.IsBlockButtonUp())
                 IsBlockBtnDown = false;
-            if (_inputService.IsBlockButtonDown() && _heroAnimator.State != AnimatorState.Jumping)
+            if (_inputService.IsBlockButtonDown() && !_blockBroken && _heroAnimator.State != AnimatorState.Jumping)
                 IsBlockBtnDown = true;
+        }
+
+        private IEnumerator BlockBreakerRecoveryRoutine()
+        {
+            _blockBroken = true;
+            _heroAnimator.IsStunnedOn();
+            yield return new WaitForSeconds(_maxBlockStamina / _blockStaminaRegenPerSec);
+            _heroAnimator.IsStunnedOff();
+            _blockBroken = false;
         }
     }
 }

@@ -294,7 +294,6 @@ GameObject:
   - component: {fileID: 1198110311400335402}
   - component: {fileID: 1198110311400335405}
   - component: {fileID: 1198110311400335404}
-  - component: {fileID: 2830632936340164633}
   m_Layer: 0
   m_Name: Hud
   m_TagString: Untagged
@@ -392,19 +391,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2830632936340164633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198110311400335407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93f0b87cd144416bb90ec19b16f6fea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBar: {fileID: 1087001932428841338}
 --- !u!1 &1291032576489258680
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3671893351136173472}
+  - component: {fileID: 5188747378445645221}
   m_Layer: 0
   m_Name: PlayersBars
   m_TagString: Untagged
@@ -517,6 +504,19 @@ RectTransform:
   m_AnchoredPosition: {x: 486.02502, y: -90}
   m_SizeDelta: {x: 592.3483, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5188747378445645221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2179906573781025993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93f0b87cd144416bb90ec19b16f6fea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBar: {fileID: 1087001932428841338}
 --- !u!1 &3204788233545915480
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ namespace CodeBase.Logic
     MidAirAttack,
     Taunt,
     Block,
-    Jumping
+    Jumping,
+    Stunned,
+    Hurt
   }
 }
