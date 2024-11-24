@@ -84,7 +84,6 @@ namespace CodeBase.Hero
                 && heroAnimator.State != AnimatorState.Stunned
                 && heroAnimator.State != AnimatorState.Hurt)
             {
-                heroAnimator.PlayJump();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, _stats.JumpPower);
             }
         }

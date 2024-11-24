@@ -105,9 +105,6 @@ namespace CodeBase.Hero
     public void PlayInAir() => 
       animator.SetBool(InAirHash, true);
     
-    public void PlayJump() => 
-      animator.SetTrigger(JumpHash);
-
     public void StopInAir() => 
       animator.SetBool(InAirHash, false);
 
