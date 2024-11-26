@@ -11,7 +11,8 @@ namespace CodeBase.Enemy
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float speed;
         [SerializeField] private EnemyAnimator animator;
-        [SerializeField] private EnemyAttack enemyAttack;
+        //TODO apply state machine for this
+        [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
 
         private HeroDeath hero;
         private Transform _targetTransform;
@@ -61,7 +62,7 @@ namespace CodeBase.Enemy
             if (_pauseService.IsPaused)
                 return;
             Chase();
-            if (enemyAttack.InRange)
+            if (enemyAttackBehaviour.InRange)
                 _rb.linearVelocity = Vector2.zero;
         }
 

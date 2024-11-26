@@ -16,8 +16,6 @@ GameObject:
   - component: {fileID: 7042087419200008445}
   - component: {fileID: 6028376381153043153}
   - component: {fileID: 3989596259458929831}
-  - component: {fileID: 1817112971516816003}
-  - component: {fileID: 1775375404571585241}
   - component: {fileID: 617963568173254324}
   - component: {fileID: 6236726579714639725}
   - component: {fileID: 5346917436593603264}
@@ -193,39 +191,7 @@ MonoBehaviour:
   _rb: {fileID: 3416992784277949871}
   speed: 2
   animator: {fileID: 7393210776034395062}
-  enemyAttack: {fileID: 1817112971516816003}
---- !u!114 &1817112971516816003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392460403638215128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b11ccdaf4f47ed8e8b9c184ba2d6e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7393210776034395062}
-  groundChecker: {fileID: 2754219626506802508}
-  Cleavage: 1.7
-  Distance: {x: 1.15, y: 0.8}
-  AttackCooldown: 1.5
-  Damage: 5
---- !u!114 &1775375404571585241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392460403638215128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f11af0d665c4983b37254ce2a4b4134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyAttack: {fileID: 1817112971516816003}
-  triggerObserver: {fileID: 4330152824594259854}
+  enemyMeleeAttackBehaviour: {fileID: 0}
 --- !u!114 &617963568173254324
 MonoBehaviour:
   m_ObjectHideFlags: 0

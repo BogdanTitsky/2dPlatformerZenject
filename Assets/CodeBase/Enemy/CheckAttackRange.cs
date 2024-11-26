@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(EnemyAttack))]
+    [RequireComponent(typeof(EnemyMeleeAttackBehaviour))]
     public class CheckAttackRange : MonoBehaviour
     {
-        [SerializeField] private EnemyAttack EnemyAttack;
+        [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
         [SerializeField] private TriggerObserver triggerObserver;
 
         private void OnEnable()
@@ -23,12 +23,12 @@ namespace CodeBase.Enemy
         
         private void TriggerEnter(Collider2D obj)
         {
-            EnemyAttack.InRange = true;
+            enemyAttackBehaviour.InRange = true;
         }
 
         private void TriggerExit(Collider2D obj)
         {
-            EnemyAttack.InRange = false;
+            enemyAttackBehaviour.InRange = false;
         }
     }
 }

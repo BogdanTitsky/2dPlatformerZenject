@@ -105,10 +105,12 @@ namespace CodeBase.Infrastructure.Factory
            health.Current = enemyData.Hp;
            health.Max = enemyData.Hp;
            
-           EnemyAttack attack = enemy.GetComponent<EnemyAttack>();
-           attack.Damage = enemyData.Damage;
-           attack.Cleavage = enemyData.Cleavage;
-           attack.AttackCooldown = enemyData.AttackCooldown;
+           EnemyMeleeAttackBehaviour meleeAttackBehaviour = enemy.GetComponent<EnemyMeleeAttackBehaviour>();
+           IEnemyStateMachine stateMachine = new EnemyStateMachine();
+           
+           meleeAttackBehaviour.Damage = enemyData.Damage;
+           meleeAttackBehaviour.AttackCooldown = enemyData.AttackCooldown;
+           meleeAttackBehaviour.StateMachine = stateMachine;
 
            LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
            lootSpawner.SetLootValue(enemyData.MinLoot, enemyData.MaxLoot);
