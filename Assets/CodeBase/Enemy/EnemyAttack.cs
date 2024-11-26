@@ -15,7 +15,6 @@ namespace CodeBase.Enemy
 
         public bool InRange { get; set; }
         public float Cleavage = 1f;
-        public Vector2 Distance;
         public float AttackCooldown = 1.5f;
         public float Damage = 5f;
         
@@ -68,7 +67,7 @@ namespace CodeBase.Enemy
             _isAttacking = false;
         }
 
-        public bool CanAttack() => 
+        private bool CanAttack() => 
             !_isAttacking && CooldownIsUp() && groundChecker.IsGrounded && InRange; 
         
         private void UpdateCooldown()
@@ -88,9 +87,13 @@ namespace CodeBase.Enemy
 
         private Vector2 Size() => new(Cleavage, Cleavage);
           
-        private Vector2 StartPoint() => new Vector2(transform.position.x, transform.position.y) 
-                                        + Distance * transform.localScale;
- 
+        private Vector2 StartPoint()
+        {
+            Transform transformCached = transform;
+            Vector3 positionCached = transformCached.position;
+            return new Vector2(positionCached.x, positionCached.y) * transformCached.localScale;
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;

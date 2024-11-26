@@ -109,7 +109,6 @@ namespace CodeBase.Infrastructure.Factory
            attack.Damage = enemyData.Damage;
            attack.Cleavage = enemyData.Cleavage;
            attack.AttackCooldown = enemyData.AttackCooldown;
-           attack.Distance = enemyData.Distance;
 
            LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
            lootSpawner.SetLootValue(enemyData.MinLoot, enemyData.MaxLoot);
