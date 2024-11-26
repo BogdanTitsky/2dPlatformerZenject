@@ -3003,7 +3003,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.35
-    functionName: AttackEnd
+    functionName: HitBoxOff
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

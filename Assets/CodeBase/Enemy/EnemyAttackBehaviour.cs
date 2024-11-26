@@ -21,8 +21,7 @@ namespace CodeBase.Enemy
         protected IPauseService _pauseService;
         protected IHealth _heroHealth;
         protected int layerMask;
-        protected bool _isAttacking;
-        protected HashSet<Collider2D> _uniqueHits = new();
+        protected readonly HashSet<Collider2D> _uniqueHits = new();
 
         private IGameFactory _gameFactory;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Enemy
@@ -13,8 +14,18 @@ namespace CodeBase.Enemy
 
         private void Start()
         {
+            animator.StateExited += CheckStateExited;
             hitBox.TriggerEnter += CheckPlayerHit;
             hitBoxCollider.enabled = false;
+        }
+
+        private void CheckStateExited(AnimatorState obj)
+        {
+            if (obj == AnimatorState.Attack)
+            {
+                _currentAttackCooldown = AttackCooldown;
+                _uniqueHits.Clear();
+            }
         }
 
         private void OnDisable() => 
@@ -42,21 +53,15 @@ namespace CodeBase.Enemy
         private void StartAttack()
         {
             animator.PlayAttack();
-            _isAttacking = true;
         }
         
         private void HitBoxOn() => hitBoxCollider.enabled = true;
         
-        private void AttackEnd()
-        {
-            hitBoxCollider.enabled = false;
-            _currentAttackCooldown = AttackCooldown;
-            _isAttacking = false;
-            _uniqueHits.Clear();
-        }
+        private void HitBoxOff() => hitBoxCollider.enabled = false;
 
         private bool CanAttack() => 
-            !_isAttacking && CooldownIsUp() && groundChecker.IsGrounded && InRange; 
+                            animator.State != AnimatorState.Attack 
+                            && CooldownIsUp() && groundChecker.IsGrounded && InRange; 
         
         private void UpdateCooldown()
         {
