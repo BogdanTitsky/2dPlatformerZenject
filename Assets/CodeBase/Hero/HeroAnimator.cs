@@ -28,7 +28,7 @@ namespace CodeBase.Hero
     private readonly int _secondAttackStateHash = Animator.StringToHash("SecondAttack");
     private readonly int _walkingStateHash = Animator.StringToHash("Walking");
     private readonly int _hurtStateHash = Animator.StringToHash("Hurt");
-    private readonly int _deathStateHash = Animator.StringToHash("Die");
+    private readonly int _deathStateHash = Animator.StringToHash("PlayerDeath");
     private readonly int _midAirAttack = Animator.StringToHash("MidAirAttack");
     private readonly int _blockStateHash = Animator.StringToHash("Block");
     private readonly int _jumpingHash = Animator.StringToHash("Jumping");

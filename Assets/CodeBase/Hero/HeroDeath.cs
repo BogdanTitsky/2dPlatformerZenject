@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
@@ -47,15 +48,10 @@ namespace CodeBase.Hero
             attack.enabled = false;
             heroMove.TurnOffHeroMove();
             heroMove.enabled = false;
-            
             heroAnimator.PlayDeath();
-            
             Instantiate(DeathFx, transform.position, Quaternion.identity);
         }
 
-        private void ShowGameEndPopUp()
-        {
-            _windowService.Open(WindowId.Lose);
-        }
+        private void ShowGameEndPopUp() => _windowService.Open(WindowId.Lose);
     }
 }

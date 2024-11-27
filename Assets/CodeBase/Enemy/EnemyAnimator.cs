@@ -58,7 +58,6 @@ namespace CodeBase.Enemy
     public void Move()
     {
       _animator.SetBool(IsMoving, true);
-      // _animator.SetFloat(Speed, speed);
     }
 
     public void StopMoving() => _animator.SetBool(IsMoving, false);
@@ -85,7 +84,7 @@ namespace CodeBase.Enemy
         state = AnimatorState.Walking;
       else if (stateHash == _deathStateHash)
         state = AnimatorState.Died;
-      else if (stateHash == _deathStateHash)
+      else if (stateHash == _heroDieStateHash)
         state = AnimatorState.Taunt;
       else
         state = AnimatorState.Unknown;

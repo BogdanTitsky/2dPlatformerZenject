@@ -74,9 +74,11 @@ namespace CodeBase.Hero
                 case AnimatorState.Block: 
                 case AnimatorState.Died:
                 case AnimatorState.Stunned:
-                case AnimatorState.Hurt:
                     MoveOff();
                     break;
+                case AnimatorState.Hurt:
+                    AbleMove = false;
+                    break;        
                 default:
                     MoveOn();
                     break;
@@ -93,10 +95,9 @@ namespace CodeBase.Hero
 
         public void KnockUp()
         {
-            if (!AbleMove)
-                return;
             rb.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
         }
+
         private void OnPauseChanged()
         {
             if (_pauseService.IsPaused)
