@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CodeBase.Hero;
+﻿using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Logic;
@@ -17,13 +16,14 @@ namespace CodeBase.Enemy
         public float Damage = 5f;
         public bool InRange { get; set; }
         public IEnemyStateMachine StateMachine;
-        
-        protected IPauseService _pauseService;
+
+        private IPauseService _pauseService;
         protected IHealth _heroHealth;
         protected int layerMask;
-        protected readonly HashSet<Collider2D> _uniqueHits = new();
 
-        private IGameFactory _gameFactory;
+        protected IGameFactory _gameFactory;
+
+        protected float _currentAttackCooldown;
 
         [Inject]
         public void Init(IGameFactory gameFactory, IPauseService pauseService)
@@ -35,5 +35,41 @@ namespace CodeBase.Enemy
 
         private void Awake() => 
             layerMask = LayerMask.NameToLayer("Player");
+        
+        protected virtual void OnEnable()
+        {
+            animator.StateExited += CheckStateExited;
+        }
+
+        protected virtual void OnDisable()
+        {
+            animator.StateExited -= CheckStateExited;
+        }
+
+        protected virtual void Update()
+        {
+            if (_pauseService.IsPaused)
+                return;
+            
+            UpdateCooldown();
+            if (CanAttack()) 
+                StartAttack();
+        }
+
+        protected abstract void CheckStateExited(AnimatorState obj);
+
+        protected abstract void StartAttack();
+
+        
+        protected abstract bool CanAttack();
+
+        protected bool CooldownIsUp() => 
+            _currentAttackCooldown <= 0;
+
+        private void UpdateCooldown()
+        {
+            if (!CooldownIsUp())
+                _currentAttackCooldown -= Time.deltaTime;
+        }
     }
 }

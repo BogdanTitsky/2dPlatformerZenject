@@ -6,7 +6,7 @@ namespace CodeBase.CameraLogic
     public class CameraStats : MonoBehaviour
     {
         [SerializeField] private new Camera camera;
-         
+
         public float Offset = 0;
         public float CameraSpeed = 5;
         public float CameraZoomSpeed = 2;

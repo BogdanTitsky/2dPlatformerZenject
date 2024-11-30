@@ -105,7 +105,7 @@ namespace CodeBase.Infrastructure.Factory
            health.Current = enemyData.Hp;
            health.Max = enemyData.Hp;
            
-           EnemyMeleeAttackBehaviour meleeAttackBehaviour = enemy.GetComponent<EnemyMeleeAttackBehaviour>();
+           EnemyAttackBehaviour meleeAttackBehaviour = enemy.GetComponent<EnemyAttackBehaviour>();
            IEnemyStateMachine stateMachine = new EnemyStateMachine();
            
            meleeAttackBehaviour.Damage = enemyData.Damage;

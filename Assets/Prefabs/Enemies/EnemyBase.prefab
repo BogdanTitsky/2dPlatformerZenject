@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6028376381153043153}
   - component: {fileID: 3989596259458929831}
   - component: {fileID: 617963568173254324}
+  - component: {fileID: 3326205945373272638}
   - component: {fileID: 6236726579714639725}
   - component: {fileID: 5346917436593603264}
   - component: {fileID: 3046340783006520658}
@@ -191,7 +192,7 @@ MonoBehaviour:
   _rb: {fileID: 3416992784277949871}
   speed: 2
   animator: {fileID: 7393210776034395062}
-  enemyMeleeAttackBehaviour: {fileID: 0}
+  enemyAttackBehaviour: {fileID: 0}
 --- !u!114 &617963568173254324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +208,20 @@ MonoBehaviour:
   enemyAnimator: {fileID: 7393210776034395062}
   _current: 20
   _max: 20
+--- !u!114 &3326205945373272638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392460403638215128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f11af0d665c4983b37254ce2a4b4134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAttackBehaviour: {fileID: 0}
+  triggerObserver: {fileID: 4330152824594259854}
 --- !u!114 &6236726579714639725
 MonoBehaviour:
   m_ObjectHideFlags: 0

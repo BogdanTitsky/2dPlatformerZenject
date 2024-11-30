@@ -10,6 +10,7 @@ namespace CodeBase.Enemy
   public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
   {
     private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Shoot = Animator.StringToHash("Shoot");
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -18,8 +19,9 @@ namespace CodeBase.Enemy
 
     private readonly int _idleStateHash = Animator.StringToHash("idle");
     private readonly int _attackStateHash = Animator.StringToHash("Attack");
+    private readonly int _shootStateHash = Animator.StringToHash("Shoot");
     private readonly int _walkingStateHash = Animator.StringToHash("Move");
-    private readonly int _deathStateHash = Animator.StringToHash("die");
+    private readonly int _deathStateHash = Animator.StringToHash("Death");
     private readonly int _heroDieStateHash = Animator.StringToHash("Taunt");
 
     private Animator _animator;
@@ -63,7 +65,8 @@ namespace CodeBase.Enemy
     public void StopMoving() => _animator.SetBool(IsMoving, false);
 
     public void PlayAttack() => _animator.SetTrigger(Attack);
-
+    
+    public void PlayShoot() => _animator.SetTrigger(Shoot);
     public void EnteredState(int stateHash)
     {
       State = StateFor(stateHash);
@@ -80,6 +83,8 @@ namespace CodeBase.Enemy
         state = AnimatorState.Idle;
       else if (stateHash == _attackStateHash)
         state = AnimatorState.Attack;
+      else if (stateHash == _shootStateHash)
+        state = AnimatorState.Shoot;
       else if (stateHash == _walkingStateHash)
         state = AnimatorState.Walking;
       else if (stateHash == _deathStateHash)
@@ -91,5 +96,7 @@ namespace CodeBase.Enemy
       
       return state;
     }
+
+    
   }
 }

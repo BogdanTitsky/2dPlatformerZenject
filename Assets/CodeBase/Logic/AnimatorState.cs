@@ -13,6 +13,7 @@ namespace CodeBase.Logic
     Block,
     Jumping,
     Stunned,
-    Hurt
+    Hurt,
+    Shoot
   }
 }

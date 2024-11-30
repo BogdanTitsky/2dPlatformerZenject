@@ -1378,6 +1378,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 21
       objectReference: {fileID: 0}
+    - target: {fileID: 3326205945373272638, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+      propertyPath: enemyAttackBehaviour
+      value: 
+      objectReference: {fileID: 642232718192400365}
     - target: {fileID: 3989596259458929831, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       propertyPath: enemyAttackBehaviour
       value: 
@@ -1453,9 +1457,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 392460403638215128, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       insertIndex: 9
       addedObject: {fileID: 642232718192400365}
-    - targetCorrespondingSourceObject: {fileID: 392460403638215128, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
-      insertIndex: 10
-      addedObject: {fileID: 4705166583475818901}
   m_SourcePrefab: {fileID: 100100000, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
 --- !u!114 &719701539425859613 stripped
 MonoBehaviour:
@@ -1484,17 +1485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6c1cd1eced9c47b9e973168811740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6013107829471257637 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4330152824594259854, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
-  m_PrefabInstance: {fileID: 8026842505475095467}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 992d9cde587b4bbfbd5a07ea516cee38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7644682330020928115 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 392460403638215128, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
@@ -1518,17 +1508,3 @@ MonoBehaviour:
   Damage: 5
   hitBox: {fileID: 309503853281757684}
   hitBoxCollider: {fileID: 4254693403134544456}
---- !u!114 &4705166583475818901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7644682330020928115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f11af0d665c4983b37254ce2a4b4134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAttackBehaviour: {fileID: 642232718192400365}
-  triggerObserver: {fileID: 6013107829471257637}
