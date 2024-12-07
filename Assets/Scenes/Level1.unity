@@ -322,10 +322,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455675169}
     m_Modifications:
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4.8144
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2.2621
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.82
+      objectReference: {fileID: 0}
     - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_text
-      value: By holding the jump button <sprite=1>, you can extend your jump and
-        reach further.
+      value: Hold to extend extend <sprite=1>
       objectReference: {fileID: 0}
     - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -22551,9 +22566,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455675169}
     m_Modifications:
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 3.4233
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.5894
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.2947
+      objectReference: {fileID: 0}
     - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_text
-      value: Be aware of spikes! They can damage or even kill you.
+      value: Avoid spikes
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_fontSize
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -22599,9 +22642,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3878319017540378772, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -0.6047
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878319017540378772, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -0.7424
+      objectReference: {fileID: 0}
+    - target: {fileID: 3878319017540378772, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00000061095
+      objectReference: {fileID: 0}
     - target: {fileID: 4375542271828902550, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4413836392234204586, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_Name
@@ -22743,11 +22798,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7644250710122646162, guid: c97f1ad81e47fab46a6a65b992a4225c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 16.56
       objectReference: {fileID: 0}
     - target: {fileID: 7644250710122646162, guid: c97f1ad81e47fab46a6a65b992a4225c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.67
+      value: -1.11
       objectReference: {fileID: 0}
     - target: {fileID: 7644250710122646162, guid: c97f1ad81e47fab46a6a65b992a4225c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22803,9 +22858,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455675169}
     m_Modifications:
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 3.0537
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.745
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.3725
+      objectReference: {fileID: 0}
     - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_text
-      value: Try to jump by pressing the button <sprite=1>.
+      value: Jump <sprite=1>.
       objectReference: {fileID: 0}
     - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -23017,11 +23088,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7644250710122646162, guid: c97f1ad81e47fab46a6a65b992a4225c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.22
+      value: -2.21
       objectReference: {fileID: 0}
     - target: {fileID: 7644250710122646162, guid: c97f1ad81e47fab46a6a65b992a4225c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.67
+      value: -5.15
       objectReference: {fileID: 0}
     - target: {fileID: 7644250710122646162, guid: c97f1ad81e47fab46a6a65b992a4225c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23068,6 +23139,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 455675169}
     m_Modifications:
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 3.2388
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.8507
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 355022256458722106, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201008659852900147, guid: e07afc18bcc58f743901352001c029d8, type: 3}
+      propertyPath: m_text
+      value: <sprite=0> to attack.
+      objectReference: {fileID: 0}
     - target: {fileID: 3658476850800397981, guid: e07afc18bcc58f743901352001c029d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.683513

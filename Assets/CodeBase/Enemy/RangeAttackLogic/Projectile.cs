@@ -1,23 +1,24 @@
 ﻿using CodeBase.Logic;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Enemy.RangeAttackLogic
 {
     public abstract class Projectile : MonoBehaviour
     {
-        [SerializeField] internal float Speed = 10f;
         [SerializeField] private LayerMask playerLayer;
         [SerializeField] private TriggerObserver triggerObserver;
         private float _damage;
         private ProjectilePool _projectilePool;
 
-        public abstract void Launch(Vector2 direction);
-        public void Init(float damage, ProjectilePool projectilePool)
+        [Inject]
+        public void Init(ProjectilePool projectilePool)
         {
-            _damage = damage;
             _projectilePool = projectilePool;
-            triggerObserver.TriggerEnter += OnTriggerObsEnter;
         }
+        public virtual void Launch(Vector2 target, float speed, float damage) => _damage = damage;
+
+        private void Start() => triggerObserver.TriggerEnter += OnTriggerObsEnter;
 
         private void OnDestroy() => triggerObserver.TriggerEnter -= OnTriggerObsEnter;
 

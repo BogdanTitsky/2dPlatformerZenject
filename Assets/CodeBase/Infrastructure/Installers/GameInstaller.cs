@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.Enemy.RangeAttackLogic;
 using CodeBase.Environment;
 using CodeBase.Infrastructure.Factory;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace CodeBase.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<GameFactory>().AsSingle().NonLazy();
+            Container.Bind<ProjectilePool>().AsSingle();
         }
     }
 }

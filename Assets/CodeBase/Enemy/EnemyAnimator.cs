@@ -9,8 +9,7 @@ namespace CodeBase.Enemy
 {
   public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
   {
-    private static readonly int Attack = Animator.StringToHash("Attack");
-    private static readonly int Shoot = Animator.StringToHash("Shoot");
+    private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
     private static readonly int Hit = Animator.StringToHash("Hit");
@@ -64,9 +63,8 @@ namespace CodeBase.Enemy
 
     public void StopMoving() => _animator.SetBool(IsMoving, false);
 
-    public void PlayAttack() => _animator.SetTrigger(Attack);
-    
-    public void PlayShoot() => _animator.SetTrigger(Shoot);
+    public void PlayAttacking(bool value) => _animator.SetBool(IsAttacking, value);
+
     public void EnteredState(int stateHash)
     {
       State = StateFor(stateHash);
@@ -96,7 +94,5 @@ namespace CodeBase.Enemy
       
       return state;
     }
-
-    
   }
 }

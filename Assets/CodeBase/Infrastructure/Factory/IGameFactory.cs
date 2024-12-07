@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData.Data;
 using UnityEngine;
+using Projectile = CodeBase.Enemy.RangeAttackLogic.Projectile;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -22,5 +23,6 @@ namespace CodeBase.Infrastructure.Factory
         HeroDeath HeroDeathObject { get; }
         void Cleanup();
         Task<LootCollector> CreateLoot();
+        Task<Projectile> CreateProjectile();
     }
 }

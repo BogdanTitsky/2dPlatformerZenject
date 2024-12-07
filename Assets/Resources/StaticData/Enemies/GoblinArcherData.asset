@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxLoot: 7
   Hp: 20
   Damage: 8.7
-  AttackCooldown: 0.5
+  AttackCooldown: 1
   prefabReference:
     m_AssetGUID: 844aed0987f7c554d84a4c2e9dfce7bd
     m_SubObjectName: 

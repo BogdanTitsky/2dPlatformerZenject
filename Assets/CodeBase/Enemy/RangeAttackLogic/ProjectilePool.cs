@@ -1,29 +1,32 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using CodeBase.Infrastructure.Factory;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Enemy.RangeAttackLogic
 {
-    public class ProjectilePool : MonoBehaviour
+    public class ProjectilePool
     {
-        [SerializeField] private Projectile projectilePrefab;
-        [SerializeField] private int poolSize = 2;
-        [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
-        
         private readonly Queue<Projectile> _pool = new();
+        private IGameFactory _factory;
 
-        private void Awake() => InitProjectiles();
-
-        public Projectile GetProjectile()
+        [Inject]
+        public ProjectilePool( IGameFactory factory)
+        {
+            _factory = factory;
+        }
+        
+        public async Task<Projectile> GetProjectile(Vector3 initPos)
         {
             Projectile projectile;
             if (_pool.Count > 0)
-            {
                 projectile = _pool.Dequeue();
-                projectile.gameObject.SetActive(true);
-                return projectile;
-            }
+            else
+                projectile = await _factory.CreateProjectile();
 
-            projectile = InstantiateProjectile();
+            projectile.transform.position = initPos;
+            projectile.gameObject.SetActive(true);
             return projectile;
         }
 
@@ -31,23 +34,6 @@ namespace CodeBase.Enemy.RangeAttackLogic
         {
             projectile.gameObject.SetActive(false);
             _pool.Enqueue(projectile);
-        }
-
-        private void InitProjectiles()
-        {
-            for (int i = 0; i < poolSize; i++)
-            {
-                Projectile projectile = InstantiateProjectile();
-                projectile.gameObject.SetActive(false);
-                _pool.Enqueue(projectile);
-            }
-        }
-
-        private Projectile InstantiateProjectile()
-        {
-            Projectile projectile = Instantiate(projectilePrefab, transform);
-            projectile.Init(enemyAttackBehaviour.Damage, this);
-            return projectile;
         }
     }
 }

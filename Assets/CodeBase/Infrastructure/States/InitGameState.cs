@@ -27,9 +27,16 @@ namespace CodeBase.Infrastructure.States
             _uiFactory.InitWindows();
 
             //Tools/Scene Launch Settings
-            string sceneName = EditorPrefs.GetString(LaunchScene, DefaultSceneName);
+            string sceneName;
 
-            if (sceneName == Menu)
+#if UNITY_EDITOR
+            sceneName = EditorPrefs.GetString(LaunchScene,
+                DefaultSceneName);
+#else
+            sceneName = DefaultSceneName;
+#endif
+
+            if (sceneName is Menu or DefaultSceneName)
                 _stateMachine.Enter<LoadMenuState>();
             else
                 _stateMachine.Enter<LoadLevelState, string>(sceneName);

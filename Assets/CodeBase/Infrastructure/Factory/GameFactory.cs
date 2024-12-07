@@ -15,6 +15,7 @@ using CodeBase.UI.Elements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
+using Projectile = CodeBase.Enemy.RangeAttackLogic.Projectile;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -27,9 +28,9 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IGameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
-        private LoadLevelState _loadLevelState;
-        private IAssetProvider _assets;
-        private DiContainer _container;
+        private readonly LoadLevelState _loadLevelState;
+        private readonly IAssetProvider _assets;
+        private readonly DiContainer _container;
 
         private LootDisplay _lootDisplay;
 
@@ -63,8 +64,6 @@ namespace CodeBase.Infrastructure.Factory
             await CreateHud();
             await CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
         }
-        
-        
 
         private async Task TryCreateUncollectedLoot()
         {
@@ -124,6 +123,12 @@ namespace CodeBase.Infrastructure.Factory
             LootCollector lootCollector = InstantiateRegistered(prefab).GetComponent<LootCollector>();
 
             return lootCollector;
+        }
+
+        public async Task<Projectile> CreateProjectile()
+        {
+            GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Arrow);
+            return InstantiateRegistered(prefab.gameObject).GetComponent<Projectile>();
         }
 
         public async Task CreateCheckPoints(GameObject[] atPoints)

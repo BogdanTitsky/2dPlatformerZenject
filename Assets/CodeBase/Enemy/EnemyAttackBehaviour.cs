@@ -1,4 +1,5 @@
-﻿using CodeBase.Hero;
+﻿using System;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Logic;
@@ -11,10 +12,27 @@ namespace CodeBase.Enemy
     {
         [SerializeField] protected EnemyAnimator animator;
         [SerializeField] protected GroundChecker groundChecker;
-        
-        public float AttackCooldown = 1.5f;
+
+        public float AttackCooldown = 1f;
         public float Damage = 5f;
-        public bool InRange { get; set; }
+
+        private bool _inRange;
+        public bool InRange
+        {
+            get => _inRange;
+            set
+            {
+                if (_inRange == value) return;
+                _inRange = value;
+                InRangeChanged();
+            }
+        }
+
+        private void InRangeChanged()
+        {
+            if (!InRange) animator.PlayAttacking(false);
+        }
+
         public IEnemyStateMachine StateMachine;
 
         private IPauseService _pauseService;
@@ -31,6 +49,13 @@ namespace CodeBase.Enemy
             _pauseService = pauseService;
             _gameFactory = gameFactory;
             _heroHealth = _gameFactory.HeroDeathObject.GetComponent<IHealth>();
+        }
+        
+        //Animator event
+        public void ResetCooldown()
+        {
+            _currentAttackCooldown = AttackCooldown;
+            animator.PlayAttacking(false);
         }
 
         private void Awake() => 
@@ -58,9 +83,8 @@ namespace CodeBase.Enemy
 
         protected abstract void CheckStateExited(AnimatorState obj);
 
-        protected abstract void StartAttack();
+        private void StartAttack() => animator.PlayAttacking(true);
 
-        
         protected abstract bool CanAttack();
 
         protected bool CooldownIsUp() => 

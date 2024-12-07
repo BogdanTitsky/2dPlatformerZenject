@@ -28,7 +28,6 @@ namespace CodeBase.Enemy
         {
             if (obj == AnimatorState.Attack)
             {
-                _currentAttackCooldown = AttackCooldown;
                 _uniqueHits.Clear();
             }
         }
@@ -42,10 +41,6 @@ namespace CodeBase.Enemy
             }
         }
 
-        protected override void StartAttack()
-        {
-            animator.PlayAttack();
-        }
 
         protected override bool CanAttack() =>
             animator.State != AnimatorState.Attack
