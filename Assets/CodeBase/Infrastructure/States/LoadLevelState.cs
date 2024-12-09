@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -50,8 +49,7 @@ namespace CodeBase.Infrastructure.States
             await _assets.Load<GameObject>(AssetAddress.CheckPoint);
             await _assets.Load<GameObject>(AssetAddress.LootCoin);
             await _assets.Load<GameObject>(AssetAddress.Spawner);
+            await _assets.Load<GameObject>(AssetAddress.Arrow);
         }
-
-        
     }
 }

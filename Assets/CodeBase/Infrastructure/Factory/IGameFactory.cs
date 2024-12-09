@@ -23,6 +23,6 @@ namespace CodeBase.Infrastructure.Factory
         HeroDeath HeroDeathObject { get; }
         void Cleanup();
         Task<LootCollector> CreateLoot();
-        Task<Projectile> CreateProjectile();
+        Projectile CreateProjectile();
     }
 }

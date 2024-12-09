@@ -29,20 +29,24 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticData;
         private readonly LoadLevelState _loadLevelState;
+        private readonly ReloadLevelState _reloadLevelState;
         private readonly IAssetProvider _assets;
         private readonly DiContainer _container;
 
         private LootDisplay _lootDisplay;
+        private GameObject _projectilePrefab;
 
-        public GameFactory(DiContainer container, IGameStateMachine stateMachine, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assets) : base(container, assets, progressService)
+        public GameFactory(DiContainer container, IGameStateMachine stateMachine, IStaticDataService staticData, LoadLevelState loadLevelState, IPersistentProgressService progressService, IAssetProvider assets, ReloadLevelState reloadLevelState) : base(container, assets, progressService)
         {
             _progressService = progressService;
             _assets = assets;
+            _reloadLevelState = reloadLevelState;
             _stateMachine = stateMachine;
             _staticData = staticData;
             _loadLevelState = loadLevelState;
             _container = container;
             _loadLevelState.OnLoaded += LoadGame;
+            _reloadLevelState.ReloadLevel += InformProgressReaders;
         }
 
         private async void LoadGame()
@@ -52,18 +56,24 @@ namespace CodeBase.Infrastructure.Factory
             InformProgressReaders();
             _stateMachine.Enter<GameLoopState>();
         }
-        public void Dispose() => 
+        public void Dispose()
+        {
             _loadLevelState.OnLoaded -= LoadGame;
+            _reloadLevelState.ReloadLevel -= InformProgressReaders;
+        }
 
         private async Task InitGameWorld()
         {
             Cleanup();
             LevelStaticData levelData = GetLevelStaticData();
+            await PreloadProjectile();
             await InitSpawners(levelData);
             await CreateHero(levelData.InitialHeroPosition);
             await CreateHud();
             await CreateCheckPoints(GameObject.FindGameObjectsWithTag(SaveTriggerTag));
         }
+        
+        private async Task PreloadProjectile() => _projectilePrefab  = await _assets.Load<GameObject>(AssetAddress.Arrow);
 
         private async Task TryCreateUncollectedLoot()
         {
@@ -121,15 +131,11 @@ namespace CodeBase.Infrastructure.Factory
         {
             GameObject prefab = await _assets.Load<GameObject>(AssetAddress.LootCoin);
             LootCollector lootCollector = InstantiateRegistered(prefab).GetComponent<LootCollector>();
-
             return lootCollector;
         }
 
-        public async Task<Projectile> CreateProjectile()
-        {
-            GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Arrow);
-            return InstantiateRegistered(prefab.gameObject).GetComponent<Projectile>();
-        }
+        public Projectile CreateProjectile() => 
+            InstantiateRegistered(_projectilePrefab).GetComponent<Projectile>();
 
         public async Task CreateCheckPoints(GameObject[] atPoints)
         {

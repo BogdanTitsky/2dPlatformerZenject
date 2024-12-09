@@ -16,9 +16,9 @@ namespace CodeBase.Enemy.RangeAttackLogic
         public void Init(ProjectilePool projectilePool) => _projectilePool = projectilePool;
 
         //Animator event
-        public async void Shoot()
+        public void Shoot()
         {
-            Projectile projectile = await _projectilePool.GetProjectile(firePoint.position);
+            Projectile projectile = _projectilePool.GetProjectile(firePoint.position);
             projectile.Launch(_gameFactory.HeroDeathObject.transform.position, projectileSpeed, Damage );
             _currentAttackCooldown = AttackCooldown;
         }

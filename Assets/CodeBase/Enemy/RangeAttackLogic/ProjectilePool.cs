@@ -17,13 +17,13 @@ namespace CodeBase.Enemy.RangeAttackLogic
             _factory = factory;
         }
         
-        public async Task<Projectile> GetProjectile(Vector3 initPos)
+        public Projectile GetProjectile(Vector3 initPos)
         {
             Projectile projectile;
             if (_pool.Count > 0)
                 projectile = _pool.Dequeue();
             else
-                projectile = await _factory.CreateProjectile();
+                projectile = _factory.CreateProjectile();
 
             projectile.transform.position = initPos;
             projectile.gameObject.SetActive(true);

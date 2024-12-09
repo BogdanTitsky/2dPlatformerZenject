@@ -106,11 +106,7 @@ namespace CodeBase.Hero
                 rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
-        public void TurnOffHeroMove()
-        {
-            rb.bodyType = RigidbodyType2D.Kinematic;
-            rb.linearVelocity = Vector2.zero;
-        }
+        public void TurnOffHeroMove() => rb.linearVelocity = Vector2.zero;
 
         private void LookAtMoveDirection()
         {
