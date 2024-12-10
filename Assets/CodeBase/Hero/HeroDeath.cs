@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
+using CodeBase.Data;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Hero
 {
-    public class HeroDeath : MonoBehaviour
+    public class HeroDeath : MonoBehaviour, ISavedProgressReader
     {
         [SerializeField] private HeroHealth health;
         [SerializeField] private HeroMove heroMove;
@@ -40,7 +42,14 @@ namespace CodeBase.Hero
             if(!_isDead && health.Current <= 0)
                 Die();
         }
-
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _isDead = false;
+            heroAnimator.animator.Play("Idle");
+            attack.enabled = true;
+            heroMove.enabled = true;
+        }
+        
         private void Die()
         {
             OnHeroDeath?.Invoke();
@@ -53,5 +62,7 @@ namespace CodeBase.Hero
         }
 
         private void ShowGameEndPopUp() => _windowService.Open(WindowId.Lose);
+        
+        
     }
 }
