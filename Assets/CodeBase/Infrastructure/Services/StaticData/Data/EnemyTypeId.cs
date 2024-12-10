@@ -2,6 +2,7 @@
 {
     public enum EnemyTypeId
     {
-        Goblin = 0,
+        Goblin,
+        GoblinArcher,
     }
 }

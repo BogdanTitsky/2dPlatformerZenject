@@ -1,5 +1,7 @@
 ﻿using System;
+using CodeBase.Infrastructure.Services.Pause;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Enemy
 {
@@ -13,6 +15,14 @@ namespace CodeBase.Enemy
         
         private const float MinimalVelocity = 0.1f;
 
+        private IPauseService _pauseService;
+
+        [Inject]
+        public void Init(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
+        }
+
         private void Update()
         {
             if (ShouldMove())
@@ -23,7 +33,7 @@ namespace CodeBase.Enemy
 
         private bool ShouldMove()
         {
-            return Math.Abs(_rb.velocity.x) > MinimalVelocity;
+            return Math.Abs(_rb.linearVelocity.x) > MinimalVelocity && !_pauseService.IsPaused;
         }
     }
 }

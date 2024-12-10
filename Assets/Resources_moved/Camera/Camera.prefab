@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8538416078658729655}
   - component: {fileID: 5817185306689556493}
-  - component: {fileID: 3983360674100330364}
-  - component: {fileID: 3379734058788081105}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -85,34 +83,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3983360674100330364
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866833293992283177}
-  m_Enabled: 1
---- !u!114 &3379734058788081105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866833293992283177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ed545fb4b254b498a8e46ef3259076, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targets: []
-  multiTargetAutoZoomDampening: 1.5
-  targetOffset: {x: 0, y: 3}
-  followDampeningX: 0.4
-  followDampeningY: 0.6
-  multiTargetDampening: 3
-  minZoom: 5
-  maxZoom: 5
-  ceilingStopLimit: 11
-  floorStopLimit: -10.5
-  lookAheadAmount: 0.4

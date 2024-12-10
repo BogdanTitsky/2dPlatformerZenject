@@ -17,7 +17,8 @@ namespace CodeBase.Logic.EnemySpawner
         public bool IsSlain;
         private IGameFactory _factory;
         private EnemyDeath _enemyDeath;
-
+        private GameObject _enemyObject;
+        
         [Inject]
         private void Init(IGameFactory factory)
         {
@@ -29,7 +30,6 @@ namespace CodeBase.Logic.EnemySpawner
             if (progress.KillData.ClearedSpawners.Contains(Id))
             {
                 IsSlain = true;
-                
             }
             else
                 Spawn();
@@ -43,9 +43,17 @@ namespace CodeBase.Logic.EnemySpawner
 
         private async void Spawn()
         {
-            GameObject enemy = await _factory.CreateEnemy(EnemyTypeId, transform);
-            _enemyDeath = enemy.GetComponent<EnemyDeath>();
-            _enemyDeath.OnDeath += Slay;
+            if (_enemyObject == null)
+            {
+                _enemyObject = await _factory.CreateEnemy(EnemyTypeId, transform);
+                _enemyDeath = _enemyObject.GetComponent<EnemyDeath>();
+                _enemyDeath.OnDeath += Slay;
+            }
+            else
+            {
+                _enemyObject.transform.position = transform.position;
+                _enemyObject.GetComponent<EnemyHealth>().Reset();
+            }
         }
 
         private void Slay()

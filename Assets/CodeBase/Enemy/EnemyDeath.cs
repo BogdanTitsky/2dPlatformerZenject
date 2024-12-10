@@ -13,7 +13,6 @@ namespace CodeBase.Enemy
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Collider2D _collider;
         [SerializeField] private EnemyMoveToPlayer _enemyMove;
-        
 
         public event Action OnDeath;
 
@@ -42,9 +41,9 @@ namespace CodeBase.Enemy
 
         private void DisableMove()
         {
-            _enemyMove.enabled = false;
-            _rb.velocity = Vector2.zero;
-            _rb.isKinematic = true;
+            _enemyMove.Enabled = false;
+            _rb.linearVelocity = Vector2.zero;
+            _rb.bodyType = RigidbodyType2D.Kinematic;
             _collider.enabled = false;
         }
 

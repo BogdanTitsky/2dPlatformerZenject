@@ -7,5 +7,13 @@ namespace CodeBase.Logic
     Attack,
     Walking,
     Died,
+    SecondAttack,
+    MidAirAttack,
+    Taunt,
+    Block,
+    Jumping,
+    Stunned,
+    Hurt,
+    Shoot
   }
 }

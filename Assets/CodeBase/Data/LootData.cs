@@ -6,14 +6,5 @@ namespace CodeBase.Data
     public class LootData
     {
         public int Collected;
-        public Action OnChange;
-
-        public void Collect(Loot loot)
-        {
-            Collected += loot.Value;
-            OnChange?.Invoke();
-        }
-
-        
     }
 }

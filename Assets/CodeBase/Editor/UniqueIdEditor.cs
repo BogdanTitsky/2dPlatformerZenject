@@ -18,7 +18,7 @@ namespace CodeBase.Editor
                 GenerateUniqueId(uniqueId);
             else
             {
-                UniqueId[] uniqueIds = FindObjectsOfType<UniqueId>();
+                UniqueId[] uniqueIds = FindObjectsByType<UniqueId>(FindObjectsSortMode.None);
 
                 if (uniqueIds.Any(other => other.Id == uniqueId.Id && other != uniqueId))
                     GenerateUniqueId(uniqueId);

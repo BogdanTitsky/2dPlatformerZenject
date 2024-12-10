@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.Services.PersistentProgress;
+﻿using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.States;
 using CodeBase.UI.Windows;
 using UnityEngine;
@@ -9,31 +10,19 @@ namespace CodeBase.UI.Menu
 {
     public class LoadSceneButton : MonoBehaviour
     {
-        [SerializeField] private Button button;
-        [SerializeField] private string sceneName;
-        [SerializeField] private WindowBase window;
+        [SerializeField] private Button Button;
+        [SerializeField] private string SceneName;
         
-        private IPersistentProgressService _progressService;
         private IGameStateMachine _stateMachine;
 
         [Inject]
-        public void Init(IGameStateMachine stateMachine, IPersistentProgressService progressService)
-        {
+        public void Init(IGameStateMachine stateMachine) => 
             _stateMachine = stateMachine;
-            _progressService = progressService;
-        }
 
         private void Awake() => 
-            button.onClick.AddListener(LoadLevel);
+            Button.onClick.AddListener(LoadLevel);
 
-        private void LoadLevel()
-        {
-            if (sceneName == "Menu")
-                _stateMachine.Enter<LoadMenuState>();
-            else
-                _stateMachine.Enter<LoadLevelState, string>(sceneName);
-            if(window != null)
-                Destroy(window.gameObject);
-        }
+        private void LoadLevel() => 
+            _stateMachine.Enter<LoadLevelState, string>(SceneName);
     }
 }

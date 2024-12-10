@@ -1,3 +1,5 @@
+using UnityEngine.AddressableAssets;
+
 namespace CodeBase.Infrastructure.AssetManagement
 {
   public static class AssetAddress
@@ -8,10 +10,13 @@ namespace CodeBase.Infrastructure.AssetManagement
     public const string CheckPoint = "SaveTrigger";
     public const string LootCoin = "LootCoin";
     public const string Spawner = "EnemySpawnPoint";
+    public const string Arrow = "Arrow";
     
     // UI
     public const string UIRoot = "UIRootCanvas";
-    public const string UIMenuRootPath = "UI/UIMenuRootCanvas";
-    public const string UiShopWindowPath = "UI/Shop";
+    public const string UIMenu = "UIMenu";
+    
+    //Music
+    public const string BackgroundMusic = "BackgroundMusic";
   }
 }

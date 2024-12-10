@@ -2,12 +2,13 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - LoadingCurtain
   - InitialPoint
   - FxTemporaire
   - SaveTriggerPoint
+  - CameraChangePoint
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Background
   - Player
   - Aggro
   - AttackZone
@@ -28,10 +29,10 @@ TagManager:
   - Pickup
   - Ground
   - GroundChecker
-  - 
-  - 
-  - 
-  - 
+  - CameraChangePoint
+  - Trap
+  - Enemy
+  - EnemiesProjectile
   - 
   - 
   - 
@@ -42,6 +43,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3913294101
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Characters
+    uniqueID: 552360773
+    locked: 0
+  - name: Player
+    uniqueID: 1876478451
+    locked: 0
+  - name: UI
+    uniqueID: 3895980473
+    locked: 0
+  m_RenderingLayers:
+  - Default

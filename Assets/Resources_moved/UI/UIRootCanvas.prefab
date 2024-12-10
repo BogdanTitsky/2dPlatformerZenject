@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7356722172106565854}
   - component: {fileID: 9120187022391584472}
   - component: {fileID: 1037330625544175551}
+  - component: {fileID: 5982537895720223955}
   m_Layer: 5
   m_Name: UIRootCanvas
   m_TagString: Untagged
@@ -101,3 +102,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5982537895720223955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759021073118446775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ee77cede170f94a9df49882ae48cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

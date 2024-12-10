@@ -25,16 +25,11 @@ namespace CodeBase.Infrastructure.States
         {
             _staticDataService.LoadStaticData();
             _assets.Initialize();
-            _sceneLoader.Load("Menu", EnterLoadLevel);
+            _stateMachine.Enter<LoadProgressState>();
         }
 
         public void Exit()
         {
-        }
-
-        private void EnterLoadLevel()
-        {
-            _stateMachine.Enter<LoadProgressState>();
         }
     }
 }

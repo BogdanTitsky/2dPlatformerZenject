@@ -1,5 +1,8 @@
-﻿using CodeBase.Data;
+﻿using System;
+using CodeBase.Data;
+using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic;
 using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
@@ -11,87 +14,95 @@ namespace CodeBase.Hero
         [SerializeField] private GroundChecker groundChecker;
         [SerializeField] private HeroAnimator heroAnimator;
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private float _jumpMultiplierOnHoldingBtn = 45f;
+        [SerializeField] private float _maxJumpTime = 0.3f;
 
         private IInputService _input;
+        private IPauseService _pauseService;
         private Stats _stats;
-
         private bool _isJumpBtnDown;
-        private float _maxJumpTime = 0.2f;
         private float _currentJumpTime;
-        
-        private float _jumpMultiplierOnHoldingBtn = 20f;
-        public float _gravityScale = 5f;
+
 
         [Inject]
-        public void Init(IInputService input) => 
+        public void Init(IInputService input, IPauseService pauseService)
+        {
+            _pauseService = pauseService;
             _input = input;
+        }
+
+        private void OnEnable() => groundChecker.GroundedChanged += OnGroundedChanged;
+
+        private void OnDisable() => groundChecker.GroundedChanged -= OnGroundedChanged;
+
+        private void OnGroundedChanged()
+        {
+            if (groundChecker.IsGrounded)
+                _currentJumpTime = 0;
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _stats = progress.HeroStats;
+        }
 
         private void Update()
         {
             JumpInput();
         }
 
-        private void FixedUpdate() => 
-            WhileJumping();
-
-        public void LoadProgress(PlayerProgress progress) => 
-            _stats = progress.HeroStats;
-
-        private void WhileJumping()
+        private void FixedUpdate()
         {
+            JumpIfGrounded();
             TryExtendJump();
-            AddGravityOnFalling();
-        }
-
-        private void AddGravityOnFalling()
-        {
-            if (rb.velocity.y < 1f)
-                rb.gravityScale = _gravityScale;
-            else
-                rb.gravityScale = 1;
-        }
-
-        private void TryExtendJump()
-        {
-            if (_isJumpBtnDown && rb.velocity.y > 0 && _currentJumpTime < _maxJumpTime)
-            {
-                rb.velocity += Vector2.up * (_jumpMultiplierOnHoldingBtn * Time.fixedDeltaTime);
-                _currentJumpTime += Time.fixedDeltaTime;
-            }
+            PlayJumpAnimation();
         }
 
         private void JumpInput()
         {
-            JumpIfGrounded();
+            if (_pauseService.IsPaused)
+            {
+                JumpButtonUp();
+                return;
+            }
 
             if (_input.IsJumpButtonUp())
-            {
-                _isJumpBtnDown = false;
-                _currentJumpTime = 0;
-            } 
-            
-            PlayJumpAnimation();
+                JumpButtonUp();
+            else if (_input.IsJumpButtonDown())
+                _isJumpBtnDown = true;
+        }
+
+        private void JumpButtonUp()
+        {
+            _isJumpBtnDown = false;
         }
 
         private void JumpIfGrounded()
         {
-            if (_input.IsJumpButtonDown())
+            if (_isJumpBtnDown && groundChecker.IsGrounded 
+                && heroAnimator.State != AnimatorState.Block
+                && heroAnimator.State != AnimatorState.Stunned
+                && heroAnimator.State != AnimatorState.Hurt)
             {
-                Debug.Log("Jump");
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, _stats.JumpPower);
             }
-            if (_input.IsJumpButtonDown() && groundChecker.IsGrounded)
+        }
+
+        private void TryExtendJump()
+        {
+            if (_isJumpBtnDown && rb.linearVelocity.y > 0 && _currentJumpTime < _maxJumpTime)
             {
-                rb.velocity = new Vector2(rb.velocity.x, _stats.JumpPower);
-                _isJumpBtnDown = true;
+                rb.linearVelocity += Vector2.up * (_jumpMultiplierOnHoldingBtn * Time.deltaTime);
+                _currentJumpTime += Time.deltaTime;
             }
         }
 
         private void PlayJumpAnimation()
         {
             if (groundChecker.IsGrounded)
-                heroAnimator.StopJump();
+                heroAnimator.StopInAir();
             else
-                heroAnimator.PlayJump();
+                heroAnimator.PlayInAir();
         }
     }
 }
