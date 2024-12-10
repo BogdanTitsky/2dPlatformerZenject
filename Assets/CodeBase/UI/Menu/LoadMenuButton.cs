@@ -24,9 +24,9 @@ namespace CodeBase.UI.Menu
 
         private void LoadLevel()
         {
-                _stateMachine.Enter<LoadMenuState>();
                 if(Window != null)
-                    Destroy(Window.gameObject);
+                    Window.gameObject.SetActive(false);
+                _stateMachine.Enter<LoadMenuState>();
         }
     }
 }

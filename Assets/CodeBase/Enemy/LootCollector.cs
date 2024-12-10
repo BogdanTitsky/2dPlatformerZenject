@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.UI.Elements;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -16,11 +17,13 @@ namespace CodeBase.Enemy
         
         private Loot _loot;
         private bool _isPickedUp;
-        private WorldData _worldData;
+        private LootDisplay _lootDisplay;
 
         [Inject]
-        public void Init(IPersistentProgressService progressService) => 
-            _worldData = progressService.Progress.WorldData;
+        public void Init(LootDisplay lootDisplay)
+        { 
+            _lootDisplay = lootDisplay;
+        }
 
         public void InitLootItem(Loot loot)
         {
@@ -64,15 +67,12 @@ namespace CodeBase.Enemy
                 return;
             
             _isPickedUp = true;
-            UpdateWorldData();
+            _lootDisplay.CurrentLoot += _loot.Value;
             HideCoin();
             PlayPickupFx();
             ShowText();
             StartCoroutine(StartDestroyTimer());
         }
-
-        private void UpdateWorldData() => 
-            _worldData.LootData.Collect(_loot);
 
         private void HideCoin() => 
             collectableSprite.SetActive(false);

@@ -10,19 +10,23 @@ namespace CodeBase.Hero
     public class HeroHealth : MonoBehaviour, ISavedProgress, IHealth
     {
         [SerializeField] private HeroAnimator animator;
+        [SerializeField] private HeroBlock heroBlock;
         
         private Stats _stats;
-        
         public event Action HealthChanged;
+
+        private float _current;
+        
+        private bool IsBlocking => heroBlock.IsBlockBtnDown;
 
         public float Current
         {
-            get => _stats.CurrentHp;
+            get => _current;
             set
             {
-                if (_stats.CurrentHp != value)
+                if (_current != value)
                 {
-                    _stats.CurrentHp = value;
+                    _current = value;
                     HealthChanged?.Invoke();
                 }
             }
@@ -34,10 +38,10 @@ namespace CodeBase.Hero
             set => _stats.MaxHp = value;
         }
 
-
         public void LoadProgress(PlayerProgress progress)
         {
             _stats = progress.HeroStats;
+            Current = _stats.CurrentHp;
             HealthChanged?.Invoke();
         }
 
@@ -49,6 +53,11 @@ namespace CodeBase.Hero
 
         public void TakeDamage(float damage)
         {
+            if (IsBlocking)
+            {
+                heroBlock.BlockDamage(damage);
+                return;
+            }
             if (Current <= 0)
                 return;
             Current -= damage;

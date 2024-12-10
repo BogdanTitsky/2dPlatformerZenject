@@ -13,8 +13,12 @@ namespace CodeBase.UI.Services.Windows
         }
         public void Open(WindowId windowId)
         {
-            _uiFactory.CreateWindow(windowId);
+            _uiFactory.ShowWindow(windowId);
+        }
+        
+        public void Hide(WindowId windowId)
+        {
+            _uiFactory.HideWindow(windowId);
         }
     }
-
 }

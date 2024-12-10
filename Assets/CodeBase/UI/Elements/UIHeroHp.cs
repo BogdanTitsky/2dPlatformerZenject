@@ -17,7 +17,7 @@ namespace CodeBase.UI.Elements
         public void Init(IGameFactory gameFactory)
         {
             _gameFactory = gameFactory;
-            _heroHealth = _gameFactory.HeroGameObject.GetComponent<IHealth>();
+            _heroHealth = _gameFactory.HeroDeathObject.GetComponent<IHealth>();
         }
         
         private void OnEnable() => 

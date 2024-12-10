@@ -3,18 +3,15 @@ using UnityEngine;
 
 namespace CodeBase.Enemy
 {
-    [RequireComponent(typeof(EnemyAttack))]
     public class CheckAttackRange : MonoBehaviour
     {
-        [SerializeField] private EnemyAttack EnemyAttack;
+        [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
         [SerializeField] private TriggerObserver triggerObserver;
 
         private void OnEnable()
         {
             triggerObserver.TriggerEnter += TriggerEnter;
             triggerObserver.TriggerExit += TriggerExit;
-            
-            EnemyAttack.DisableAttack();
         }
         
         private void OnDisable()
@@ -25,12 +22,12 @@ namespace CodeBase.Enemy
         
         private void TriggerEnter(Collider2D obj)
         {
-            EnemyAttack.EnableAttack();
+            enemyAttackBehaviour.InRange = true;
         }
 
         private void TriggerExit(Collider2D obj)
         {
-            EnemyAttack.DisableAttack();
+            enemyAttackBehaviour.InRange = false;
         }
     }
 }

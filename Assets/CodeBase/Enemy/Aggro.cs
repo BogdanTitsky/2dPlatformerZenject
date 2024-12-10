@@ -1,5 +1,7 @@
 using System.Collections;
+using CodeBase.Infrastructure.Services.Pause;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Enemy
 {
@@ -11,12 +13,25 @@ namespace CodeBase.Enemy
         private Coroutine _aggroCoroutine;
 
         private bool _hasAggroTarget;
-        
-        void Start()
+
+        private IPauseService _pauseService;
+
+        [Inject]
+        public void Init(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
+        }
+
+        private void Start()
         {
             triggerObserver.TriggerExit += TriggerExit;
             triggerObserver.TriggerEnter += TriggerEnter;
             FollowOff();
+        }
+        
+        private void OnDisable()
+        {
+            StopAggroCoroutine();
         }
 
         private void TriggerEnter(Collider2D obj)
@@ -33,7 +48,9 @@ namespace CodeBase.Enemy
             if (!_hasAggroTarget)
                 return;
             _hasAggroTarget = false;
-            _aggroCoroutine = StartCoroutine(FollowOffAfterCooldown());
+            
+            if (gameObject.activeInHierarchy)
+                _aggroCoroutine = StartCoroutine(FollowOffAfterCooldown());
         }
 
         private void StopAggroCoroutine()
@@ -47,7 +64,16 @@ namespace CodeBase.Enemy
 
         private IEnumerator FollowOffAfterCooldown()
         {
-            yield return new WaitForSeconds(cooldown);
+            float timePassed = 0f;
+
+            while (timePassed < cooldown)
+            {
+                if (!_pauseService.IsPaused)
+                    timePassed += Time.deltaTime;
+        
+                yield return null;
+            }
+    
             FollowOff();
         }
 

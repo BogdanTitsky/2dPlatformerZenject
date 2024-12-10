@@ -21,7 +21,7 @@ namespace CodeBase.Editor
 
             if (GUILayout.Button("Collect"))
             {
-                levelData.EnemySpawnerData = FindObjectsOfType<SpawnMarker>()
+                levelData.EnemySpawnerData = FindObjectsByType<SpawnMarker>(FindObjectsSortMode.None)
                     .Select(x =>
                         new EnemySpawnerData(x.GetComponent<UniqueId>().Id, x.EnemyTypeId, x.transform.position))
                     .ToList();

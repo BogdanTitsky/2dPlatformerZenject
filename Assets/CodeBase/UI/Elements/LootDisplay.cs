@@ -1,51 +1,39 @@
-﻿using System;
-using CodeBase.Data;
-using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services.SaveLoad;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.UI.Elements
 {
-    public class LootDisplay : MonoBehaviour
+    public class LootDisplay : MonoBehaviour, ISavedProgress
     {
         [SerializeField] private TextMeshProUGUI Counter;
-        
-        private WorldData _worldData;
-        private ISaveLoadService _saveLoadService;
-        private IGameFactory _gameFactory;
 
-        [Inject]
-        public void Init(IPersistentProgressService progressService, ISaveLoadService saveLoadService, IGameFactory gameFactory)
+        public int CurrentLoot
         {
-            _worldData = progressService.Progress.WorldData;
-            _worldData.LootData.OnChange += UpdateCounter;
-            _worldData.LootData.OnChange += Save;
-            _saveLoadService = saveLoadService;
-            _gameFactory = gameFactory;
+            get => _currentLoot;
+            set
+            {
+                _currentLoot = value;
+                UpdateCounter();
+            } 
         }
+        private int _currentLoot;
 
-        private void OnDisable()
+        public void LoadProgress(PlayerProgress progress)
         {
-            _worldData.LootData.OnChange -= UpdateCounter;
-            _worldData.LootData.OnChange -= Save;
-        }
-
-        private void Start()
-        {
+            CurrentLoot = progress.WorldData.LootData.Collected;
             UpdateCounter();
         }
 
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            progress.WorldData.LootData.Collected = CurrentLoot;
+        }
+        
         private void UpdateCounter()
         {
-            Counter.text = $"{_worldData.LootData.Collected}";
-        }
-
-        private void Save()
-        {
-            _saveLoadService.SaveProgress(_gameFactory.ProgressWriters);
+            Counter.text = $"{CurrentLoot}";
         }
     }
 }
