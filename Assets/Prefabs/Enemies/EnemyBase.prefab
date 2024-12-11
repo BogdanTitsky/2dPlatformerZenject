@@ -207,7 +207,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 7393210776034395062}
   _current: 20
-  _max: 20
 --- !u!114 &3326205945373272638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +403,7 @@ MonoBehaviour:
     m_Bits: 131072
   checkDistance: 0.1
   boxSize: {x: 1, y: 0.1}
+  rb: {fileID: 3416992784277949871}
 --- !u!1 &3368320829077650164
 GameObject:
   m_ObjectHideFlags: 0

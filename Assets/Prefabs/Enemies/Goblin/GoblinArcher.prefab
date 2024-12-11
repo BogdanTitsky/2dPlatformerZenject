@@ -1271,6 +1271,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 49dad1c47aff71d4e8caed69e7fd5af2, type: 2}
+    - target: {fileID: 2754219626506802508, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 6190738638668800581}
     - target: {fileID: 3326205945373272638, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       propertyPath: enemyAttackBehaviour
       value: 
@@ -1415,6 +1419,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbdf6fee082049c7a4c62e27214b9200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &6190738638668800581 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 3416992784277949871, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+  m_PrefabInstance: {fileID: 8827744838420426730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6681801434894088870 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2754219626506802508, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
