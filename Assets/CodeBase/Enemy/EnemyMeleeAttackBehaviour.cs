@@ -8,14 +8,13 @@ namespace CodeBase.Enemy
     public class EnemyMeleeAttackBehaviour : EnemyAttackBehaviour
     {
         [SerializeField] private TriggerObserver hitBox;
-        [SerializeField] private Collider2D hitBoxCollider;
         private readonly HashSet<Collider2D> _uniqueHits = new();
 
         protected override void OnEnable()
         {
             base.OnEnable();
             hitBox.TriggerEnter += CheckPlayerHit;
-            hitBoxCollider.enabled = false;
+            hitBox.HitBoxCollider.enabled = false;
         }
 
         protected override void OnDisable()
@@ -41,15 +40,12 @@ namespace CodeBase.Enemy
             }
         }
 
-
         protected override bool CanAttack() =>
             animator.State != AnimatorState.Attack
             && CooldownIsUp() && groundChecker.IsGrounded && InRange;
 
-        private void HitBoxOn() => hitBoxCollider.enabled = true;
+        private void HitBoxOn() => hitBox.HitBoxCollider.enabled = true;
         
-        private void HitBoxOff() => hitBoxCollider.enabled = false;
-
-     
+        private void HitBoxOff() => hitBox.HitBoxCollider.enabled = false;
     }
 }

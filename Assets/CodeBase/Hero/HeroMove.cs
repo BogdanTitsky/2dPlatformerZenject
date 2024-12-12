@@ -37,7 +37,6 @@ namespace CodeBase.Hero
         {
             heroAnimator.StateEntered -= CheckEnteredState;
             _pauseService.PauseChanged -= OnPauseChanged;
-
         }
 
         private void Update()
@@ -71,6 +70,7 @@ namespace CodeBase.Hero
             {
                 case AnimatorState.Attack:
                 case AnimatorState.SecondAttack:
+                case AnimatorState.ThirdAttack:
                 case AnimatorState.Block: 
                 case AnimatorState.Died:
                 case AnimatorState.Stunned:
@@ -98,13 +98,8 @@ namespace CodeBase.Hero
             rb.AddForce(Vector2.up * 30, ForceMode2D.Impulse);
         }
 
-        private void OnPauseChanged()
-        {
-            if (_pauseService.IsPaused)
-                TurnOffHeroMove();
-            else
-                rb.bodyType = RigidbodyType2D.Dynamic;
-        }
+        private void OnPauseChanged() => 
+            rb.bodyType = _pauseService.IsPaused ? RigidbodyType2D.Static : RigidbodyType2D.Dynamic;
 
         public void TurnOffHeroMove() => rb.linearVelocity = Vector2.zero;
 

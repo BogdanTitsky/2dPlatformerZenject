@@ -226,7 +226,6 @@ MonoBehaviour:
   AttackCooldown: 1.5
   Damage: 5
   hitBox: {fileID: 6009317568821663697}
-  hitBoxCollider: {fileID: 767938759618912436}
 --- !u!114 &3326205945373272638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992d9cde587b4bbfbd5a07ea516cee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitBoxCollider: {fileID: 767938759618912436}
 --- !u!1 &3881906327417820301
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,6 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992d9cde587b4bbfbd5a07ea516cee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitBoxCollider: {fileID: 1924588084498226600}
 --- !u!1 &8279408805259626392
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992d9cde587b4bbfbd5a07ea516cee38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitBoxCollider: {fileID: 6307313509064804438}
 --- !u!1 &9076372604659353819
 GameObject:
   m_ObjectHideFlags: 0

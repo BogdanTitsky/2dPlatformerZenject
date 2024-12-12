@@ -6,7 +6,7 @@ namespace CodeBase.Hero
     public class GroundChecker : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private Collider2D collider;
+        [SerializeField] private Collider2D colliderChecker;
         
         public bool IsGrounded
         {
@@ -25,9 +25,6 @@ namespace CodeBase.Hero
 
         private void OnTriggerStay2D(Collider2D other) => IsGrounded = rb.linearVelocity.y <= 0.1f;
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            IsGrounded = false;
-        }
+        private void OnTriggerExit2D(Collider2D other) => IsGrounded = false;
     }
 }

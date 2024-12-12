@@ -15,7 +15,6 @@ namespace CodeBase.Hero
     private static readonly int Speed = Animator.StringToHash("Speed");
     private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
     private static readonly int InAirHash = Animator.StringToHash("InAir");
-    private static readonly int JumpHash = Animator.StringToHash("Jump");
     private static readonly int IsAttackingHash = Animator.StringToHash("IsAttacking");
     private static readonly int IsComboContinueHash = Animator.StringToHash("IsComboContinue");
     private static readonly int DieHash = Animator.StringToHash("Die");

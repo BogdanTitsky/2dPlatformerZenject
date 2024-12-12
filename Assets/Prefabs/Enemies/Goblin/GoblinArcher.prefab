@@ -1283,6 +1283,10 @@ PrefabInstance:
       propertyPath: enemyAttackBehaviour
       value: 
       objectReference: {fileID: 692227819286410316}
+    - target: {fileID: 4330152824594259854, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+      propertyPath: HitBoxCollider
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5930263475730109812, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.2

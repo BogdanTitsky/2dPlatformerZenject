@@ -5,6 +5,8 @@ namespace CodeBase.Enemy
 {
     public class TriggerObserver : MonoBehaviour
     {
+        public Collider2D HitBoxCollider;
+        
         public event Action<Collider2D> TriggerEnter;
         public event Action<Collider2D> TriggerExit;
 
