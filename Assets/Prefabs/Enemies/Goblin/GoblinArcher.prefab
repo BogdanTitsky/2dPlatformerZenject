@@ -1333,7 +1333,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6307313509064804438, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6202159778995489695, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+    - {fileID: 9106276803833752806, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+    - {fileID: 8847876988173146263, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8518483782511002548, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
       insertIndex: 0
@@ -1408,6 +1411,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8518483782511002548, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
   m_PrefabInstance: {fileID: 8827744838420426730}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1742589293090665446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7110225664573643788, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
+  m_PrefabInstance: {fileID: 8827744838420426730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6c1cd1eced9c47b9e973168811740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2025358894792485980 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7393210776034395062, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
@@ -1424,17 +1438,6 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 3416992784277949871, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
   m_PrefabInstance: {fileID: 8827744838420426730}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6681801434894088870 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2754219626506802508, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
-  m_PrefabInstance: {fileID: 8827744838420426730}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f6c1cd1eced9c47b9e973168811740, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &9218938259950095922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 392460403638215128, guid: 8693e30c0b38df848ac3973c043ad8ae, type: 3}
@@ -1453,7 +1456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2025358894792485980}
-  groundChecker: {fileID: 6681801434894088870}
+  groundChecker: {fileID: 1742589293090665446}
   AttackCooldown: 1.5
   Damage: 5
   firePoint: {fileID: 54886118667635763}

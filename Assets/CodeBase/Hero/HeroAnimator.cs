@@ -26,6 +26,7 @@ namespace CodeBase.Hero
     private readonly int _idleStateHash = Animator.StringToHash("Idle");
     private readonly int _attackStateHash = Animator.StringToHash("Attack");
     private readonly int _secondAttackStateHash = Animator.StringToHash("SecondAttack");
+    private readonly int _thirdAttackStateHash = Animator.StringToHash("ThirdAttack");
     private readonly int _walkingStateHash = Animator.StringToHash("Walking");
     private readonly int _hurtStateHash = Animator.StringToHash("Hurt");
     private readonly int _deathStateHash = Animator.StringToHash("PlayerDeath");
@@ -73,11 +74,8 @@ namespace CodeBase.Hero
       animator.Play(_hurtStateHash);
     }
 
-    public void IsAttackingOn() => 
-      animator.SetBool(IsAttackingHash, true);
-
-    public void IsAttackingOff() => 
-      animator.SetBool(IsAttackingHash, false);
+    public void IsAttacking(bool value) => 
+      animator.SetBool(IsAttackingHash, value);
 
     public void IsStunnedOn() => 
       animator.SetBool(IsStunnedHash, true);
@@ -91,12 +89,9 @@ namespace CodeBase.Hero
     public void IsBlockingOff() => 
       animator.SetBool(IsBlockingHash, false);
     
-    public void ContinueCombo() => 
-      animator.SetBool(IsComboContinueHash, true);
+    public void ContinueCombo(bool value) => 
+      animator.SetBool(IsComboContinueHash, value);
     
-    public void OffCombo() => 
-      animator.SetBool(IsComboContinueHash, false);
-
     public void PlayDeath()
     {
       animator.SetTrigger(DieHash);
@@ -147,6 +142,10 @@ namespace CodeBase.Hero
       else if (stateHash == _secondAttackStateHash)
       {
         state = AnimatorState.SecondAttack;
+      }
+      else if (stateHash == _thirdAttackStateHash)
+      {
+        state = AnimatorState.ThirdAttack;
       }
       else if (stateHash == _blockStateHash)
       {

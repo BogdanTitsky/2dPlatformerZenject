@@ -14,6 +14,7 @@ namespace CodeBase.Logic
     Jumping,
     Stunned,
     Hurt,
-    Shoot
+    Shoot,
+    ThirdAttack
   }
 }

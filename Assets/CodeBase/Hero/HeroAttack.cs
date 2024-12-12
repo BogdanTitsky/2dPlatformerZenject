@@ -87,10 +87,11 @@ namespace CodeBase.Hero
 
         private void CheckEnteredState(AnimatorState obj)
         {
-            if (obj == AnimatorState.SecondAttack)
+            if (obj == AnimatorState.SecondAttack ||
+                obj == AnimatorState.ThirdAttack)
             {
-                heroAnimator.IsAttackingOn();
-                heroAnimator.OffCombo();
+                heroAnimator.IsAttacking(true);
+                heroAnimator.ContinueCombo(false);
             }
         }
 
@@ -109,22 +110,26 @@ namespace CodeBase.Hero
         private void HandleInput()
         {
             if (_input.IsAttackButtonDown()) 
-                heroAnimator.IsAttackingOn(); 
+                heroAnimator.IsAttacking(true); 
             
-            if (_input.IsAttackButtonDown() && heroAnimator.State == AnimatorState.Attack) 
-                heroAnimator.ContinueCombo();
+            if (_input.IsAttackButtonDown() && 
+                (heroAnimator.State == AnimatorState.Attack ||
+                 heroAnimator.State == AnimatorState.SecondAttack)) 
+                heroAnimator.ContinueCombo(true);
         }
 
+        //Animator event
         public void EnableAttackHitBox()
         {
             audioSource.PlayOneShot(attackClip);
             IsAttackHitBox = true;
         }
 
+        //Animator event
         public void DisableAttackHitBox()
         {
             IsAttackHitBox = false;
-            heroAnimator.IsAttackingOff();
+            heroAnimator.IsAttacking(false);
             _uniqueHits.Clear();
         }
 

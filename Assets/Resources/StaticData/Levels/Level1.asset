@@ -14,31 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Level1
   EnemySpawnerData:
-  - Id: Level1_0cee68e9-beef-4bfb-b666-7c3335f63d15
-    EnemyTypeId: 0
-    Position: {x: 99.163925, y: 1.0656493, z: 0.02109161}
-  - Id: Level1_bc874f05-e322-4e2b-88bc-e70cd2f57ca9
-    EnemyTypeId: 0
-    Position: {x: 169.83392, y: 6.7956495, z: 0.02109161}
-  - Id: Main_792f625b-a989-4778-aa87-0746fb79f523
-    EnemyTypeId: 0
-    Position: {x: 35.553925, y: 1.0656493, z: 0.02109161}
-  - Id: Level1_1f801f49-a604-4780-8eb8-d0b06997dd09
-    EnemyTypeId: 0
-    Position: {x: 96.593925, y: 1.0656493, z: 0.02109161}
-  - Id: Level1_f0d2f33a-4ce8-42ce-83cf-e78aa78909f8
-    EnemyTypeId: 0
-    Position: {x: 32.573925, y: 1.0656493, z: 0.02109161}
-  - Id: Level1_56d2595d-4fb4-45cb-8cd8-84feaa4776ad
-    EnemyTypeId: 1
-    Position: {x: 27.293922, y: 0.9356493, z: 0.02109161}
-  - Id: Level1_7a309102-6712-41ce-a3a7-5d34220a2d2a
-    EnemyTypeId: 1
-    Position: {x: 150.85391, y: 6.7956495, z: 0.02109161}
   - Id: Level1_50dca18c-91a8-4892-89fc-2bbf7c65a594
     EnemyTypeId: 0
     Position: {x: 166.29391, y: 6.7956495, z: 0.02109161}
+  - Id: Level1_56d2595d-4fb4-45cb-8cd8-84feaa4776ad
+    EnemyTypeId: 1
+    Position: {x: 27.293922, y: 0.9356493, z: 0.02109161}
+  - Id: Main_792f625b-a989-4778-aa87-0746fb79f523
+    EnemyTypeId: 0
+    Position: {x: 35.553925, y: 1.0656493, z: 0.02109161}
   - Id: _9ad5e8c1-bda6-4b00-b8a9-03f5c2f99753
     EnemyTypeId: 0
     Position: {x: 8.523924, y: -3.1043508, z: 0.02109161}
+  - Id: Level1_7a309102-6712-41ce-a3a7-5d34220a2d2a
+    EnemyTypeId: 1
+    Position: {x: 150.85391, y: 6.7956495, z: 0.02109161}
+  - Id: Level1_f0d2f33a-4ce8-42ce-83cf-e78aa78909f8
+    EnemyTypeId: 0
+    Position: {x: 32.573925, y: 1.0656493, z: 0.02109161}
+  - Id: Level1_bc874f05-e322-4e2b-88bc-e70cd2f57ca9
+    EnemyTypeId: 0
+    Position: {x: 169.83392, y: 6.7956495, z: 0.02109161}
+  - Id: Level1_1f801f49-a604-4780-8eb8-d0b06997dd09
+    EnemyTypeId: 0
+    Position: {x: 96.593925, y: 1.0656493, z: 0.02109161}
+  - Id: Level1_0cee68e9-beef-4bfb-b666-7c3335f63d15
+    EnemyTypeId: 0
+    Position: {x: 99.163925, y: 1.0656493, z: 0.02109161}
   InitialHeroPosition: {x: -7.2760763, y: -2.6243508, z: -0.12153995}
