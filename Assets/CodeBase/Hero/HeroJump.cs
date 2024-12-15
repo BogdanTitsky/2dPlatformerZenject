@@ -23,7 +23,6 @@ namespace CodeBase.Hero
         private bool _isJumpBtnDown;
         private float _currentJumpTime;
 
-
         [Inject]
         public void Init(IInputService input, IPauseService pauseService)
         {

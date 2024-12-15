@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CodeBase.Logic
 {
-  public class AnimatorStateReporter : StateMachineBehaviour
+  public class IAnimatorStateReporter : StateMachineBehaviour
   {
     private IAnimationStateReader _stateReader;
 

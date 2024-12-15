@@ -281,8 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ed22fa5e11f194ba2adc9d1a0741ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxX: 0.881
-  parallaxY: 0.832
+  parallaxX: 0.01
   sprite: {fileID: 105312278}
 --- !u!1 &112713999
 GameObject:
@@ -20976,8 +20975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ed22fa5e11f194ba2adc9d1a0741ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxX: 0.929
-  parallaxY: 0.92
+  parallaxX: 0.082
   sprite: {fileID: 635813241}
 --- !u!1001 &660541920
 PrefabInstance:

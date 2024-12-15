@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3416992784277949871}
-  collider: {fileID: 6508893381750518212}
+  colliderChecker: {fileID: 0}
 --- !u!61 &6508893381750518212
 BoxCollider2D:
   m_ObjectHideFlags: 0

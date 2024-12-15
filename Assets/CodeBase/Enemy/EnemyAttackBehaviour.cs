@@ -33,8 +33,6 @@ namespace CodeBase.Enemy
             if (!InRange) animator.PlayAttacking(false);
         }
 
-        public IEnemyStateMachine StateMachine;
-
         private IPauseService _pauseService;
         protected IHealth _heroHealth;
         protected int layerMask;

@@ -11,7 +11,6 @@ namespace CodeBase.Enemy
         [SerializeField] private float _current;
         public float Max { get; set; }
 
-
         public event Action HealthChanged;
 
         public float Current
@@ -26,7 +25,7 @@ namespace CodeBase.Enemy
                 return;
             Current -= damage;
             if (Current > 0)
-                enemyAnimator.PlayHit();
+                enemyAnimator.PlayStunForSeconds(0.8f);
             HealthChanged?.Invoke();
         }
 
