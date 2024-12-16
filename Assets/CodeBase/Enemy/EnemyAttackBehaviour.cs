@@ -12,7 +12,8 @@ namespace CodeBase.Enemy
     {
         [SerializeField] protected EnemyAnimator animator;
         [SerializeField] protected GroundChecker groundChecker;
-
+        [SerializeField] private TriggerObserver attackRange;
+        
         private bool CooldownIsUp => _currentAttackCooldown >= AttackCooldown;
         public float AttackCooldown = 1f;
         public float Damage = 5f;
@@ -44,12 +45,21 @@ namespace CodeBase.Enemy
         protected virtual void OnEnable()
         {
             animator.StateExited += CheckStateExited;
+            attackRange.TriggerEnter += TriggerEnter;
+            attackRange.TriggerExit += TriggerExit;
         }
-
+        
         protected virtual void OnDisable()
         {
             animator.StateExited -= CheckStateExited;
+            attackRange.TriggerEnter -= TriggerEnter;
+            attackRange.TriggerExit -= TriggerExit;
         }
+
+        private void TriggerExit(Collider2D obj) => InRange = false;
+
+        private void TriggerEnter(Collider2D obj) => InRange = true;
+
 
         public void OnUpdate()
         {

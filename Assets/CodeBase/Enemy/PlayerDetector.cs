@@ -9,10 +9,12 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private TriggerObserver triggerObserver;
         [SerializeField] private EnemyMoveToPlayer moveToPlayer;
-
-        public bool InRange = false;
+        [SerializeField] private float cooldownAfterLost = 10;
+        
+        public bool InSight = false;
 
         private IPauseService _pauseService;
+        private Coroutine _aggroCoroutine;
 
         [Inject]
         public void Init(IPauseService pauseService)
@@ -30,52 +32,43 @@ namespace CodeBase.Enemy
         {
             triggerObserver.TriggerExit -= TriggerExit;
             triggerObserver.TriggerEnter -= TriggerEnter;
-            // StopAggroCoroutine();
+            StopAggroCoroutine();
         }
 
         private void TriggerEnter(Collider2D obj)
         {
-            InRange = true;
-            // StopAggroCoroutine();
-            // FollowOn();
+            InSight = true;
+            StopAggroCoroutine();
         }
 
         private void TriggerExit(Collider2D obj)
         {
-            InRange = false;
-            //
-            // if (gameObject.activeInHierarchy)
-            //     _aggroCoroutine = StartCoroutine(FollowOffAfterCooldown());
+            if (gameObject.activeInHierarchy)
+                _aggroCoroutine = StartCoroutine(FollowOffAfterCooldown());
         }
-
-        // private void StopAggroCoroutine()
-        // {
-        //     if (_aggroCoroutine != null)
-        //     {
-        //         StopCoroutine(_aggroCoroutine);
-        //         _aggroCoroutine = null;
-        //     }
-        // }
-        //
-        // private IEnumerator FollowOffAfterCooldown()
-        // {
-        //     float timePassed = 0f;
-        //
-        //     while (timePassed < cooldown)
-        //     {
-        //         if (!_pauseService.IsPaused)
-        //             timePassed += Time.deltaTime;
-        //
-        //         yield return null;
-        //     }
-        //
-        //     FollowOff();
-        // }
-
-        // private void FollowOn() => 
-        //     moveToPlayer.enabled = true;
-        //
-        // private void FollowOff() => 
-        //     moveToPlayer.enabled = false;
+        
+        private void StopAggroCoroutine()
+        {
+            if (_aggroCoroutine != null)
+            {
+                StopCoroutine(_aggroCoroutine);
+                _aggroCoroutine = null;
+            }
+        }
+        
+        private IEnumerator FollowOffAfterCooldown()
+        {
+            float timePassed = 0f;
+        
+            while (timePassed < cooldownAfterLost)
+            {
+                if (!_pauseService.IsPaused)
+                    timePassed += Time.deltaTime;
+        
+                yield return null;
+            }
+        
+            InSight = false;
+        }
     }
 }

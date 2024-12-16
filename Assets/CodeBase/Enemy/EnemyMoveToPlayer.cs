@@ -1,5 +1,4 @@
-﻿using CodeBase.Hero;
-using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
 using UnityEngine;
 using Zenject;

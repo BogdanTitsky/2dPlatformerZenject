@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 3989596259458929831}
   - component: {fileID: 617963568173254324}
   - component: {fileID: 273393419447361233}
-  - component: {fileID: 3326205945373272638}
   - component: {fileID: 5346917436593603264}
   - component: {fileID: 3046340783006520658}
   - component: {fileID: 7452529184643078851}
@@ -181,7 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerObserver: {fileID: 4639884708970243223}
   moveToPlayer: {fileID: 3989596259458929831}
-  InRange: 0
+  cooldownAfterLost: 10
+  InSight: 0
 --- !u!114 &3989596259458929831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1241102c09940b09e212dbc0df76b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAnimator: {fileID: 7393210776034395062}
   _current: 20
   _deathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
 --- !u!114 &273393419447361233
@@ -227,23 +226,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7393210776034395062}
   groundChecker: {fileID: 7110225664573643788}
+  attackRange: {fileID: 6009317568821663697}
   AttackCooldown: 1.5
   Damage: 5
   hitBox: {fileID: 6009317568821663697}
---- !u!114 &3326205945373272638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392460403638215128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f11af0d665c4983b37254ce2a4b4134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAttackBehaviour: {fileID: 273393419447361233}
-  triggerObserver: {fileID: 4330152824594259854}
 --- !u!114 &5346917436593603264
 MonoBehaviour:
   m_ObjectHideFlags: 0

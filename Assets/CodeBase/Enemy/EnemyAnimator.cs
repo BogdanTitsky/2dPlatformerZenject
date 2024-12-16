@@ -31,19 +31,13 @@ namespace CodeBase.Enemy
         private void Init(IPauseService pauseService)
         {
             _pauseService = pauseService;
-
             _pauseService.PauseChanged += PauseServiceOnPauseChanged;
         }
 
-        private void PauseServiceOnPauseChanged()
-        {
+        private void PauseServiceOnPauseChanged() => 
             _animator.speed = _pauseService.IsPaused ? 0 : 1;
-        }
 
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-        }
+        private void Awake() => _animator = GetComponent<Animator>();
 
         private void OnDisable()
         {
@@ -59,7 +53,7 @@ namespace CodeBase.Enemy
         
         public void PlayIdle() => _animator.CrossFade(_idleStateHash, CrossFadeDuration);
 
-        public void Move() => _animator.CrossFade(_moveStateHash, CrossFadeDuration);
+        public void PlayMove() => _animator.CrossFade(_moveStateHash, CrossFadeDuration);
 
         public void Attack() => _animator.CrossFade(_attackStateHash, CrossFadeDuration);
 
@@ -91,7 +85,6 @@ namespace CodeBase.Enemy
                 state = AnimatorState.Stunned;
             else
                 state = AnimatorState.Unknown;
-
             return state;
         }
     }

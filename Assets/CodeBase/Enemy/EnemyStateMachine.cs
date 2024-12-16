@@ -45,8 +45,8 @@ namespace CodeBase.Enemy
 
         private void AddTransitions()
         {
-            At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.InRange));
-            At(wanderState, chaseState, new FuncPredicate(() => playerDetector.InRange));
+            At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.InSight));
+            At(wanderState, chaseState, new FuncPredicate(() => playerDetector.InSight));
             At(chaseState, attackState, new FuncPredicate(() => attackBehaviour.CanAttack()));
             At(attackState, chaseState, new FuncPredicate(() => !attackBehaviour.CanAttack()));
             At(stunState, wanderState, new FuncPredicate(() => stunState.StunOver()));
@@ -67,6 +67,8 @@ namespace CodeBase.Enemy
 
         #endregion
 
+        #region Death
+
         public event Action OnDeath;
         internal void DestroyEnemy()
         {
@@ -80,6 +82,8 @@ namespace CodeBase.Enemy
             yield return new WaitForSeconds(3);
             Destroy(gameObject);
         }
+
+        #endregion
         
         #region Helpers
 

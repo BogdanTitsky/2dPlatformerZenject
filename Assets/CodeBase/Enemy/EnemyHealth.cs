@@ -7,7 +7,6 @@ namespace CodeBase.Enemy
     [RequireComponent(typeof(EnemyAnimator))]
     public class EnemyHealth : MonoBehaviour, IHealth
     {
-        [SerializeField] private EnemyAnimator enemyAnimator;
         [SerializeField] private float _current;
         [SerializeField] private GameObject _deathFx;
         public float Max { get; set; }

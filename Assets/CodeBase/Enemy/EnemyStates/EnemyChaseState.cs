@@ -14,7 +14,7 @@ namespace CodeBase.Enemy.EnemyStates
         public override void OnEnter()
         {
             Debug.Log("ChaseState");
-            animator.Move();
+            animator.PlayMove();
         }
 
         public override void OnExit()
