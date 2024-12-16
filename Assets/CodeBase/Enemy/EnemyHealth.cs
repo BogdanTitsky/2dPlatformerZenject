@@ -9,6 +9,7 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private EnemyAnimator enemyAnimator;
         [SerializeField] private float _current;
+        [SerializeField] private GameObject _deathFx;
         public float Max { get; set; }
 
         public event Action HealthChanged;
@@ -22,10 +23,12 @@ namespace CodeBase.Enemy
         public void TakeDamage(float damage)
         {
             if (Current <= 0)
+            {
+                Instantiate(_deathFx, transform.position, Quaternion.identity);
                 return;
+            }
+
             Current -= damage;
-            if (Current > 0)
-                enemyAnimator.PlayStunForSeconds(0.8f);
             HealthChanged?.Invoke();
         }
 

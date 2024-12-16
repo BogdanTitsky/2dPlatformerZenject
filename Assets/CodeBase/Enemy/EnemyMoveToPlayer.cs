@@ -13,28 +13,22 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
 
-        private HeroDeath hero;
         private Transform _targetTransform;
         private IGameFactory _gameFactory;
         private IPauseService _pauseService;
         
-        public bool Enabled { get; set; } = true;
-
         [Inject]
         private void Init(IGameFactory gameFactory, IPauseService pauseService)
         {
             _pauseService = pauseService;
             _gameFactory = gameFactory;
-            hero = _gameFactory.HeroDeathObject;
             _targetTransform = _gameFactory.HeroDeathObject.transform;
 
-            hero.OnHeroDeath += HeroDie;
             _pauseService.PauseChanged += OnPauseChanged;
         }
 
         private void OnDisable()
         {
-            hero.OnHeroDeath -= HeroDie;
             _pauseService.PauseChanged -= OnPauseChanged;
         }
 
@@ -49,39 +43,28 @@ namespace CodeBase.Enemy
                 _rb.bodyType = RigidbodyType2D.Dynamic;
         }
 
-        private void HeroDie()
+        public void Chase()
         {
-           Enabled = false;
-           _rb.linearVelocity = Vector2.zero;
-           animator.PlayOnHeroDie();
-        }
+            if (_pauseService.IsPaused) return;
 
-        public void FixedUpdate()
-        {
-            if (_pauseService.IsPaused)
-                return;
-            Chase();
-            if (enemyAttackBehaviour.InRange)
-                _rb.linearVelocityX = 0;
-        }
-
-        private void Chase()
-        {
-            if (!Enabled) return;
-
-            Vector2 direction = (_targetTransform.position  - _rb.transform.position).normalized;
-            LookAtTarget(direction);
+            Vector2 direction = GetDirection();
+            LookAtTarget();
             Vector2 velocity = _rb.linearVelocity;
             velocity.x = speed * direction.x;
             _rb.linearVelocity = velocity;
         }
 
-        private void LookAtTarget(Vector2 direction)
+        public void LookAtTarget()
         {
+            Vector2 direction = GetDirection();
             if (direction.x > 0)
                 transform.localScale = new Vector3(1, 1, 1);
             else if (direction.x < 0)
                 transform.localScale = new Vector3(-1, 1, 1);
         }
+
+        private Vector2 GetDirection()=>(_targetTransform.position  - _rb.transform.position).normalized;
+
+        public void StopMove() => _rb.linearVelocity = Vector2.zero;
     }
 }

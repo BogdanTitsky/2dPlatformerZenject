@@ -40,9 +40,6 @@ namespace CodeBase.Enemy
             }
         }
 
-        protected override bool CanAttack() =>
-            animator.State != AnimatorState.Attack
-            && CooldownIsUp() && groundChecker.IsGrounded && InRange;
 
         private void HitBoxOn() => hitBox.HitBoxCollider.enabled = true;
         

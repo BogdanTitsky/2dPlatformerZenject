@@ -12,14 +12,13 @@ GameObject:
   - component: {fileID: 2233390964922722009}
   - component: {fileID: 3416992784277949871}
   - component: {fileID: 4082673245532882829}
+  - component: {fileID: 8242154814655793496}
   - component: {fileID: 7393210776034395062}
-  - component: {fileID: 7042087419200008445}
   - component: {fileID: 6028376381153043153}
   - component: {fileID: 3989596259458929831}
   - component: {fileID: 617963568173254324}
   - component: {fileID: 273393419447361233}
   - component: {fileID: 3326205945373272638}
-  - component: {fileID: 6236726579714639725}
   - component: {fileID: 5346917436593603264}
   - component: {fileID: 3046340783006520658}
   - component: {fileID: 7452529184643078851}
@@ -138,6 +137,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 1.0894188}
   m_Size: {x: 1.7879014, y: 2.2436345}
   m_Direction: 0
+--- !u!114 &8242154814655793496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392460403638215128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6514b558e8724815932d0dc333b4a4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDetector: {fileID: 6028376381153043153}
+  attackBehaviour: {fileID: 273393419447361233}
+  moveToPlayer: {fileID: 3989596259458929831}
+  enemyHealth: {fileID: 617963568173254324}
+  animator: {fileID: 7393210776034395062}
+  lootSpawner: {fileID: 4269025158063629756}
 --- !u!114 &7393210776034395062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,20 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbdf6fee082049c7a4c62e27214b9200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7042087419200008445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392460403638215128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 387fe6141ad84521909984b32ccad9b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 3416992784277949871}
-  _enemyAnimator: {fileID: 7393210776034395062}
 --- !u!114 &6028376381153043153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerObserver: {fileID: 4639884708970243223}
   moveToPlayer: {fileID: 3989596259458929831}
-  cooldown: 2
+  InRange: 0
 --- !u!114 &3989596259458929831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 7393210776034395062}
   _current: 20
+  _deathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
 --- !u!114 &273393419447361233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,24 +244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackBehaviour: {fileID: 273393419447361233}
   triggerObserver: {fileID: 4330152824594259854}
---- !u!114 &6236726579714639725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392460403638215128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd8cc91b128542308560a6746e7c03a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: {fileID: 617963568173254324}
-  animator: {fileID: 7393210776034395062}
-  DeathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
-  _rb: {fileID: 3416992784277949871}
-  _collider: {fileID: 4082673245532882829}
-  _enemyMove: {fileID: 3989596259458929831}
 --- !u!114 &5346917436593603264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,7 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385238b9d82948e290a27a1331592bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyDeath: {fileID: 6236726579714639725}
   IdComponent: {fileID: 3302727558230395744}
   LootType: 0
 --- !u!114 &3302727558230395744

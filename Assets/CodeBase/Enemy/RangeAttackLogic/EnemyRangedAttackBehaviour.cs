@@ -20,12 +20,7 @@ namespace CodeBase.Enemy.RangeAttackLogic
         {
             Projectile projectile = _projectilePool.GetProjectile(firePoint.position);
             projectile.Launch(_gameFactory.HeroDeathObject.transform.position, projectileSpeed, Damage );
-            _currentAttackCooldown = AttackCooldown;
         }
-
-        protected override bool CanAttack() =>
-            animator.State != AnimatorState.Shoot
-            && CooldownIsUp() && groundChecker.IsGrounded && InRange;
 
         protected override void CheckStateExited(AnimatorState obj)
         {

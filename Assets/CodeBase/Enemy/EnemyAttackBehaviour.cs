@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
@@ -13,33 +13,19 @@ namespace CodeBase.Enemy
         [SerializeField] protected EnemyAnimator animator;
         [SerializeField] protected GroundChecker groundChecker;
 
+        private bool CooldownIsUp => _currentAttackCooldown >= AttackCooldown;
         public float AttackCooldown = 1f;
         public float Damage = 5f;
+        private float _currentAttackCooldown;
 
-        private bool _inRange;
-        public bool InRange
-        {
-            get => _inRange;
-            set
-            {
-                if (_inRange == value) return;
-                _inRange = value;
-                InRangeChanged();
-            }
-        }
-
-        private void InRangeChanged()
-        {
-            if (!InRange) animator.PlayAttacking(false);
-        }
+        public bool InRange { get; set; }
 
         private IPauseService _pauseService;
         protected IHealth _heroHealth;
         protected int layerMask;
 
         protected IGameFactory _gameFactory;
-
-        protected float _currentAttackCooldown;
+        private Coroutine _cooldownCoroutine;
 
         [Inject]
         public void Init(IGameFactory gameFactory, IPauseService pauseService)
@@ -48,17 +34,13 @@ namespace CodeBase.Enemy
             _gameFactory = gameFactory;
             _heroHealth = _gameFactory.HeroDeathObject.GetComponent<IHealth>();
         }
-        
-        //Animator event
-        public void ResetCooldown()
+
+        private void Awake()
         {
             _currentAttackCooldown = AttackCooldown;
-            animator.PlayAttacking(false);
+            layerMask = LayerMask.NameToLayer("Player");
         }
 
-        private void Awake() => 
-            layerMask = LayerMask.NameToLayer("Player");
-        
         protected virtual void OnEnable()
         {
             animator.StateExited += CheckStateExited;
@@ -69,29 +51,36 @@ namespace CodeBase.Enemy
             animator.StateExited -= CheckStateExited;
         }
 
-        protected virtual void Update()
+        public void OnUpdate()
         {
-            if (_pauseService.IsPaused)
+            if (_pauseService.IsPaused || !CooldownIsUp)
                 return;
-            
-            UpdateCooldown();
-            if (CanAttack()) 
-                StartAttack();
+            _currentAttackCooldown = 0;
+            StartCooldownTimer();
+            animator.Attack();
         }
 
         protected abstract void CheckStateExited(AnimatorState obj);
 
-        private void StartAttack() => animator.PlayAttacking(true);
+        public bool CanAttack() => groundChecker.IsGrounded && InRange;
 
-        protected abstract bool CanAttack();
-
-        protected bool CooldownIsUp() => 
-            _currentAttackCooldown <= 0;
-
-        private void UpdateCooldown()
+        private void StartCooldownTimer()
         {
-            if (!CooldownIsUp())
-                _currentAttackCooldown -= Time.deltaTime;
+            if (_cooldownCoroutine != null)
+                StopCoroutine(_cooldownCoroutine);
+
+            _cooldownCoroutine = StartCoroutine(CooldownTimer());
+        }
+
+        private IEnumerator CooldownTimer()
+        {
+            while (_currentAttackCooldown < AttackCooldown)
+            {
+                if (!_pauseService.IsPaused)
+                    _currentAttackCooldown += Time.deltaTime;
+
+                yield return null;
+            }
         }
     }
 }

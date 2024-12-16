@@ -26,7 +26,7 @@ namespace CodeBase.UI.Menu
         {
                 if(Window != null)
                     Window.gameObject.SetActive(false);
-                _stateMachine.Enter<LoadMenuState>();
+                _stateMachine.Enter<LoadMenuGameState>();
         }
     }
 }

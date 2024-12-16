@@ -16,7 +16,7 @@ namespace CodeBase.Infrastructure
 
         private void Awake()
         {
-            _game.StateMachine.Enter<BootstrapState>();
+            _game.StateMachine.Enter<BootstrapGameState>();
         }
     }
 }

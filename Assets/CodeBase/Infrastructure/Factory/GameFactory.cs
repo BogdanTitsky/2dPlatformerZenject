@@ -54,7 +54,7 @@ namespace CodeBase.Infrastructure.Factory
             await InitGameWorld();
             await TryCreateUncollectedLoot();
             InformProgressReaders();
-            _stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<GameLoopGameState>();
         }
         public void Dispose()
         {

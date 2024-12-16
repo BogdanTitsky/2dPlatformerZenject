@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CodeBase.Data;
+﻿using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -16,7 +15,7 @@ namespace CodeBase.Logic.EnemySpawner
 
         public bool IsSlain;
         private IGameFactory _factory;
-        private EnemyDeath _enemyDeath;
+        private EnemyStateMachine _enemyStateMachine;
         private GameObject _enemyObject;
         
         [Inject]
@@ -28,9 +27,7 @@ namespace CodeBase.Logic.EnemySpawner
         public void LoadProgress(PlayerProgress progress)
         {
             if (progress.KillData.ClearedSpawners.Contains(Id))
-            {
                 IsSlain = true;
-            }
             else
                 Spawn();
         }
@@ -46,8 +43,8 @@ namespace CodeBase.Logic.EnemySpawner
             if (_enemyObject == null)
             {
                 _enemyObject = await _factory.CreateEnemy(EnemyTypeId, transform);
-                _enemyDeath = _enemyObject.GetComponent<EnemyDeath>();
-                _enemyDeath.OnDeath += Slay;
+                _enemyStateMachine = _enemyObject.GetComponent<EnemyStateMachine>();
+                _enemyStateMachine.OnDeath += Slay;
             }
             else
             {
@@ -56,10 +53,10 @@ namespace CodeBase.Logic.EnemySpawner
             }
         }
 
-        private void Slay()
+        private void Slay() 
         {
-            if (_enemyDeath != null)
-                _enemyDeath.OnDeath -= Slay;
+            if (_enemyStateMachine != null)
+                _enemyStateMachine.OnDeath -= Slay;
             
             IsSlain = true;
         }

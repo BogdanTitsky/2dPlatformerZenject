@@ -9,19 +9,12 @@ namespace CodeBase.Enemy
 {
     public class EnemyAnimator : MonoBehaviour, IAnimationStateReader
     {
-        //Parameters
-        private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
-        private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        private static readonly int Die = Animator.StringToHash("Die");
-        private static readonly int HeroDie = Animator.StringToHash("HeroDie");
-
         //Animations
         private readonly int _idleStateHash = Animator.StringToHash("Idle");
         private readonly int _stunStateHash = Animator.StringToHash("Stun");
         private readonly int _attackStateHash = Animator.StringToHash("Attack");
         private readonly int _shootStateHash = Animator.StringToHash("Shoot");
-        private readonly int _walkingStateHash = Animator.StringToHash("Move");
+        private readonly int _moveStateHash = Animator.StringToHash("Move");
         private readonly int _deathStateHash = Animator.StringToHash("Death");
         private readonly int _heroDieStateHash = Animator.StringToHash("Taunt");
 
@@ -32,6 +25,7 @@ namespace CodeBase.Enemy
 
         public AnimatorState State { get; private set; }
         private Coroutine _currentCoroutine;
+        private const float CrossFadeDuration = 0.1f;
 
         [Inject]
         private void Init(IPauseService pauseService)
@@ -59,35 +53,15 @@ namespace CodeBase.Enemy
             _pauseService.PauseChanged -= PauseServiceOnPauseChanged;
         }
 
-        public void PlayStunForSeconds(float duration)
-        {
-            PlayAnimationForSeconds(duration, _stunStateHash);
-        }
+        public void PlayStun() => _animator.CrossFade(_stunStateHash, CrossFadeDuration);
 
-        public void PlayDeath()
-        {
-            _animator.SetTrigger(Die);
-        }
+        public void PlayDeath() => _animator.CrossFade(_deathStateHash, CrossFadeDuration);
+        
+        public void PlayIdle() => _animator.CrossFade(_idleStateHash, CrossFadeDuration);
 
-        public void PlayOnHeroDie()
-        {
-            _animator.SetTrigger(HeroDie);
-        }
+        public void Move() => _animator.CrossFade(_moveStateHash, CrossFadeDuration);
 
-        public void Move()
-        {
-            _animator.SetBool(IsMoving, true);
-        }
-
-        public void StopMoving()
-        {
-            _animator.SetBool(IsMoving, false);
-        }
-
-        public void PlayAttacking(bool value)
-        {
-            _animator.SetBool(IsAttacking, value);
-        }
+        public void Attack() => _animator.CrossFade(_attackStateHash, CrossFadeDuration);
 
         public void EnteredState(int stateHash)
         {
@@ -95,10 +69,8 @@ namespace CodeBase.Enemy
             StateEntered?.Invoke(State);
         }
 
-        public void ExitedState(int stateHash)
-        {
+        public void ExitedState(int stateHash) => 
             StateExited?.Invoke(StateFor(stateHash));
-        }
 
         private AnimatorState StateFor(int stateHash)
         {
@@ -109,8 +81,8 @@ namespace CodeBase.Enemy
                 state = AnimatorState.Attack;
             else if (stateHash == _shootStateHash)
                 state = AnimatorState.Shoot;
-            else if (stateHash == _walkingStateHash)
-                state = AnimatorState.Walking;
+            else if (stateHash == _moveStateHash)
+                state = AnimatorState.Moving;
             else if (stateHash == _deathStateHash)
                 state = AnimatorState.Died;
             else if (stateHash == _heroDieStateHash)
@@ -121,28 +93,6 @@ namespace CodeBase.Enemy
                 state = AnimatorState.Unknown;
 
             return state;
-        }
-
-        private void PlayAnimationForSeconds(float duration, int paramHash)
-        {
-            if (_currentCoroutine != null)
-                StopCoroutine(_currentCoroutine);
-            _animator.CrossFade(paramHash, 0.1f);
-            _currentCoroutine = StartCoroutine(AnimCoroutine(duration));
-        }
-
-        private IEnumerator AnimCoroutine(float duration)
-        {
-            float elapsedTime = 0;
-
-            while (elapsedTime < duration)
-            {
-                if (!_pauseService.IsPaused)
-                    elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-            
-            _animator.CrossFade(_idleStateHash, 0.1f);
         }
     }
 }

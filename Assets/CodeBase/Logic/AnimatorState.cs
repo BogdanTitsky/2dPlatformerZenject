@@ -5,7 +5,7 @@ namespace CodeBase.Logic
     Unknown,
     Idle,
     Attack,
-    Walking,
+    Moving,
     Died,
     SecondAttack,
     MidAirAttack,
