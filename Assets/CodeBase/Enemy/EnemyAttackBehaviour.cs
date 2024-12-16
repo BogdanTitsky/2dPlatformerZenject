@@ -63,8 +63,12 @@ namespace CodeBase.Enemy
 
         public void OnUpdate()
         {
-            if (_pauseService.IsPaused || !CooldownIsUp)
-                return;
+            if (!_pauseService.IsPaused && CooldownIsUp)
+                Attack();
+        }
+
+        private void Attack()
+        {
             _currentAttackCooldown = 0;
             StartCooldownTimer();
             animator.Attack();
@@ -72,7 +76,7 @@ namespace CodeBase.Enemy
 
         protected abstract void CheckStateExited(AnimatorState obj);
 
-        public bool CanAttack() => groundChecker.IsGrounded && InRange;
+        public virtual bool CanAttack() => groundChecker.IsGrounded && InRange;
 
         private void StartCooldownTimer()
         {

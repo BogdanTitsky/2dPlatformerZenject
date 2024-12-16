@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using CodeBase.Logic;
 using UnityEngine;
 using Zenject;
@@ -20,6 +21,18 @@ namespace CodeBase.Enemy.RangeAttackLogic
         {
             Projectile projectile = _projectilePool.GetProjectile(firePoint.position);
             projectile.Launch(_gameFactory.HeroDeathObject.transform.position, projectileSpeed, Damage );
+        }
+
+        public override bool CanAttack()
+        {
+            Vector2 directionToPlayer =
+                (_gameFactory.HeroDeathObject.transform.position - firePoint.position).normalized;
+            float distanceToPlayer =
+                Vector2.Distance(firePoint.position, _gameFactory.HeroDeathObject.transform.position);
+
+            RaycastHit2D hit = Physics2D.Raycast(firePoint.position, directionToPlayer, distanceToPlayer, LayerMask.GetMask("Ground"));
+            
+            return !hit.collider && base.CanAttack();
         }
 
         protected override void CheckStateExited(AnimatorState obj)
