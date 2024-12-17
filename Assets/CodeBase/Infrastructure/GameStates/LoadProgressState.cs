@@ -1,12 +1,10 @@
 using CodeBase.Data;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
-using CodeBase.Audio;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.GameStates;
+using CodeBase.Infrastructure.States;
 
-
-namespace CodeBase.Infrastructure.States
+namespace CodeBase.Infrastructure.GameStates
 {
   public class LoadProgressGameState : IGameState
   {

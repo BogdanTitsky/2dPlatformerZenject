@@ -1,7 +1,6 @@
-﻿using CodeBase.Infrastructure.GameStates;
-using CodeBase.Logic;
+﻿using CodeBase.Logic;
 
-namespace CodeBase.Infrastructure.States
+namespace CodeBase.Infrastructure.GameStates
 {
     public class LoadMenuGameState : IGameState
     {

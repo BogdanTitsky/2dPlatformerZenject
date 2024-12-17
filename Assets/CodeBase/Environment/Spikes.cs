@@ -1,6 +1,7 @@
 using System;
 using CodeBase.Hero;
 using CodeBase.Logic;
+using CodeBase.Player;
 using UnityEngine;
 
 namespace CodeBase.Environment

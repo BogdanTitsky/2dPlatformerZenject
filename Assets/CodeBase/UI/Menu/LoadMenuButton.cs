@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.States;
+﻿using CodeBase.Infrastructure.GameStates;
+using CodeBase.Infrastructure.States;
 using CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;

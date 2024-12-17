@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.States;
+﻿using CodeBase.Infrastructure.GameStates;
+using CodeBase.Infrastructure.States;
 using UnityEngine;
 using Zenject;
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Player;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;

@@ -1,9 +1,9 @@
 ﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.GameStates;
+using CodeBase.Infrastructure.States;
 using CodeBase.UI.Services.Factory;
 using UnityEditor;
 
-namespace CodeBase.Infrastructure.States
+namespace CodeBase.Infrastructure.GameStates
 {
     public class InitGameGameState : IGameState
     {

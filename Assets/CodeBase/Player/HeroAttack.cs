@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CodeBase.Data;
 using CodeBase.Enemy;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
@@ -8,7 +9,7 @@ using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
     [RequireComponent(typeof(HeroAnimator))]
     public class HeroAttack : MonoBehaviour, ISavedProgressReader

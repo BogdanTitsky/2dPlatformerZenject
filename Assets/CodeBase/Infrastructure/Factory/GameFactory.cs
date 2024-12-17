@@ -56,6 +56,7 @@ namespace CodeBase.Infrastructure.Factory
             InformProgressReaders();
             _stateMachine.Enter<GameLoopGameState>();
         }
+        
         public void Dispose()
         {
             _loadLevelState.OnLoaded -= LoadGame;

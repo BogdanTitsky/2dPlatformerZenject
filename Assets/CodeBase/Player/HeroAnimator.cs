@@ -5,7 +5,7 @@ using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
   public class HeroAnimator : MonoBehaviour, IAnimationStateReader
   {

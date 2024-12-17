@@ -1,10 +1,9 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.GameStates;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
-using UnityEngine;
+using CodeBase.Infrastructure.States;
 
-namespace CodeBase.Infrastructure.States
+namespace CodeBase.Infrastructure.GameStates
 {
     public class BootstrapGameState : IGameState
     {

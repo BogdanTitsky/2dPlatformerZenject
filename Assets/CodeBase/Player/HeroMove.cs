@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
     public class HeroMove : MonoBehaviour, ISavedProgress
     {
