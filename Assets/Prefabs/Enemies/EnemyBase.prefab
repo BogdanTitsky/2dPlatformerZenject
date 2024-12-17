@@ -87,7 +87,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -195,9 +195,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 3416992784277949871}
-  speed: 2
+  speed: 4
   animator: {fileID: 7393210776034395062}
   enemyAttackBehaviour: {fileID: 273393419447361233}
+  groundChecker: {fileID: 7110225664573643788}
+  jumpForce: 30
+  ground:
+    serializedVersion: 2
+    m_Bits: 131072
 --- !u!114 &617963568173254324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,7 +975,7 @@ GameObject:
   - component: {fileID: 993835740700669424}
   - component: {fileID: 7110225664573643788}
   - component: {fileID: 6508893381750518212}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: GroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1005,7 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3416992784277949871}
-  colliderChecker: {fileID: 0}
+  colliderChecker: {fileID: 6508893381750518212}
 --- !u!61 &6508893381750518212
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1050,5 +1055,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2, y: 0.09}
+  m_Size: {x: 1, y: 0.09}
   m_EdgeRadius: 0

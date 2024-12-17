@@ -1,5 +1,5 @@
-﻿using System;
-using CodeBase.Data;
+﻿using CodeBase.Data;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
@@ -7,7 +7,7 @@ using CodeBase.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
     public class HeroJump : MonoBehaviour, ISavedProgressReader
     {

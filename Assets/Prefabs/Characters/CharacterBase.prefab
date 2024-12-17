@@ -240,9 +240,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroAnimator: {fileID: -1881666878790873495}
-  Cleavage: 1.6
-  Distance: {x: 1.4, y: 0.8}
   heroMover: {fileID: -881292060972320408}
+  triggerObserver: {fileID: 0}
   audioSource: {fileID: -3768041093211151369}
   attackClip: {fileID: 8300000, guid: 9c5c7e3be4d010c48adcc440a909494f, type: 3}
 --- !u!114 &4792438638703222910
@@ -935,13 +934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6c1cd1eced9c47b9e973168811740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layerGround:
-    serializedVersion: 2
-    m_Bits: 131072
-  checkDistance: 0.1
-  boxSize: {x: 0.8, y: 0.1}
   rb: {fileID: -4820137000759361564}
-  collider: {fileID: 3691867566676386760}
+  colliderChecker: {fileID: 0}
 --- !u!61 &3691867566676386760
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
     public class GroundChecker : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace CodeBase.Hero
         private bool isGrounded;
         public event Action GroundedChanged;
 
-        private void OnTriggerStay2D(Collider2D other) => IsGrounded = rb.linearVelocity.y <= 0.1f;
+        private void OnTriggerStay2D(Collider2D other) => IsGrounded = Mathf.Abs(rb.linearVelocity.y) <= 0.1f;
 
         private void OnTriggerExit2D(Collider2D other) => IsGrounded = false;
     }

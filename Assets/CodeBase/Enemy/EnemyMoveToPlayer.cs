@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
+using CodeBase.Player;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +12,10 @@ namespace CodeBase.Enemy
         [SerializeField] private float speed;
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
-
+        [SerializeField] private GroundChecker groundChecker;
+        [SerializeField] private float jumpForce = 50;
+        [SerializeField] private LayerMask ground;
+        
         private Transform _targetTransform;
         private IGameFactory _gameFactory;
         private IPauseService _pauseService;
@@ -48,9 +52,29 @@ namespace CodeBase.Enemy
 
             Vector2 direction = GetDirection();
             LookAtTarget();
+
+            if (CheckWalls() && groundChecker.IsGrounded)
+            {
+                Jump();
+            }
+            
             Vector2 velocity = _rb.linearVelocity;
             velocity.x = speed * direction.x;
             _rb.linearVelocity = velocity;
+        }
+
+        private bool CheckWalls()
+        {
+            Vector3 direction = new(transform.localScale.x, 0);
+            RaycastHit2D hit = Physics2D.Raycast(_rb.position,direction , 2,ground);
+            return hit.collider;
+        }
+        
+        private void Jump()
+        {
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
+            Debug.Log(_rb.linearVelocity);
+
         }
 
         public void LookAtTarget()
@@ -61,7 +85,7 @@ namespace CodeBase.Enemy
             else if (direction.x < 0)
                 transform.localScale = new Vector3(-1, 1, 1);
         }
-
+        
         private Vector2 GetDirection()=>(_targetTransform.position  - _rb.transform.position).normalized;
 
         public void StopMove() => _rb.linearVelocity = Vector2.zero;

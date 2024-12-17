@@ -3,6 +3,7 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Logic;
+using CodeBase.Player;
 using UnityEngine;
 using Zenject;
 
