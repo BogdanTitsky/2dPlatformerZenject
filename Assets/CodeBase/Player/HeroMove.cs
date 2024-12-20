@@ -2,7 +2,6 @@
 using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
-using CodeBase.Services.Input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -16,16 +15,14 @@ namespace CodeBase.Player
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private GameObject nonRotatable;
         private bool AbleMove = true;
-        private IInputService _inputService;
         private Vector3 _inputDirection;
         private IPauseService _pauseService;
         private Vector3 mirrored = new(-1, 1, 1);
 
         [Inject]
-        public void Init(IInputService inputService, IPauseService pauseService)
+        public void Init(IPauseService pauseService)
         {
             _pauseService = pauseService;
-            _inputService = inputService;
             _pauseService.PauseChanged += OnPauseChanged;
         }
         private void OnEnable()
@@ -46,12 +43,11 @@ namespace CodeBase.Player
             
             _inputDirection = Vector2.zero;
 
-            if (_inputService.Axis.sqrMagnitude > Constants.Epsilon && AbleMove)
-            {
-                _inputDirection = _inputService.Axis;
-                _inputDirection.y = 0;
-                LookAtMoveDirection();
-            }
+            // if (_inputService.Axis.sqrMagnitude > Constants.Epsilon && AbleMove)
+            // {
+            //     _inputDirection.y = 0;
+            //     LookAtMoveDirection();
+            // }
         }
 
         private void FixedUpdate()

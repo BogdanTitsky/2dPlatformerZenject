@@ -70,12 +70,8 @@ namespace CodeBase.Enemy
             return hit.collider;
         }
         
-        private void Jump()
-        {
+        private void Jump() => 
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
-            Debug.Log(_rb.linearVelocity);
-
-        }
 
         public void LookAtTarget()
         {

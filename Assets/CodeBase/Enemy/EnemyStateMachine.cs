@@ -15,7 +15,7 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private LootSpawner lootSpawner;
         
-        private readonly StateMachine _stateMachine = new();
+        private readonly PollingStateMachine pollingStateMachine = new();
 
         #region States
         
@@ -31,7 +31,7 @@ namespace CodeBase.Enemy
         {
             InitStates();
             AddTransitions();
-            _stateMachine.SetState(wanderState);
+            pollingStateMachine.SetState(wanderState);
         }
 
         private void InitStates()
@@ -62,7 +62,7 @@ namespace CodeBase.Enemy
         private void OnHealthChanged()
         {
             if (enemyHealth.Current > 0)
-                _stateMachine.SetState(stunState);
+                pollingStateMachine.SetState(stunState);
         }
 
         #endregion
@@ -88,15 +88,15 @@ namespace CodeBase.Enemy
         #region Helpers
 
         private void At(IState from, IState to, IPredicate condition) => 
-            _stateMachine.AddTransition(from, to, condition);
+            pollingStateMachine.AddTransition(from, to, condition);
 
         private void Any(IState to, IPredicate condition) => 
-            _stateMachine.AddAnyTransition(to, condition);
+            pollingStateMachine.AddAnyTransition(to, condition);
 
         #endregion
         
-        private void Update() => _stateMachine.Update();
+        private void Update() => pollingStateMachine.Update();
 
-        private void FixedUpdate() => _stateMachine.FixedUpdate();
+        private void FixedUpdate() => pollingStateMachine.FixedUpdate();
     }
 }

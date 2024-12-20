@@ -11,6 +11,7 @@ using CodeBase.Infrastructure.Services.StaticData.Data;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawner;
+using CodeBase.Player;
 using CodeBase.UI.Elements;
 using UnityEngine;
 using UnityEngine.SceneManagement;

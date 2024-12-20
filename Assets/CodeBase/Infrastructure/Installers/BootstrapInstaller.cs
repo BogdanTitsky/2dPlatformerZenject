@@ -8,7 +8,7 @@ using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
-using CodeBase.Services.Input;
+using CodeBase.Player;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
@@ -23,11 +23,14 @@ namespace CodeBase.Infrastructure.Installers
         [SerializeField] private LoadingCurtain _loadingCurtain;
         [SerializeField] private AudioMixer _audioMixer;
         [SerializeField] private BackgroundMusic _backgroundMusic;
+        [SerializeField] private PlayerController _playerController;
+        
 
         public override void InstallBindings()
         {
             Container.Bind<ICoroutineRunner>().To<GameBootstrapper>().FromComponentInNewPrefab(_gameBootstrapperPrefab)
                 .AsSingle().NonLazy();
+            Container.Bind<PlayerController>().FromComponentInNewPrefab(_playerController).AsSingle().NonLazy();
             Container.Bind<LoadingCurtain>().FromComponentInNewPrefab(_loadingCurtain).AsSingle().NonLazy();
             Container.Bind<AudioMixer>().FromInstance(_audioMixer).AsSingle().NonLazy();
             Container.Bind<BackgroundMusic>().FromComponentInNewPrefab(_backgroundMusic).AsSingle().NonLazy();
@@ -54,7 +57,6 @@ namespace CodeBase.Infrastructure.Installers
 
         private void RegisterServices()
         {
-            RegisterInputService();
             Container.Bind<IPauseService>().To<PauseService>().AsSingle().NonLazy();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle().NonLazy();
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle().NonLazy();
@@ -63,15 +65,6 @@ namespace CodeBase.Infrastructure.Installers
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IUiFactory>().To<UiFactory>().AsSingle();
             Container.Bind<IAudioFactory>().To<AudioFactory>().AsSingle();
-
-
-            void RegisterInputService()
-            {
-                if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-                    Container.Bind<IInputService>().To<MobileInputService>().AsSingle();
-                else
-                    Container.Bind<IInputService>().To<StandaloneInputService>().AsSingle();
-            }
         }
     }
 }

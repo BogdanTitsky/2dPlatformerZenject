@@ -78,3 +78,4 @@ MonoBehaviour:
   _loadingCurtain: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2, type: 3}
   _audioMixer: {fileID: 24100000, guid: 4bb86723ba399334196e18466390477a, type: 2}
   _backgroundMusic: {fileID: 6312743474979626124, guid: e3ac132e2e96c7a438b81ea6f948f0b6, type: 3}
+  _playerController: {fileID: -2602659657907969170, guid: 180efbaa4937b6847af533d237e44a9b, type: 3}

@@ -5,6 +5,7 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData.Data;
+using CodeBase.Player;
 using UnityEngine;
 using Projectile = CodeBase.Enemy.RangeAttackLogic.Projectile;
 

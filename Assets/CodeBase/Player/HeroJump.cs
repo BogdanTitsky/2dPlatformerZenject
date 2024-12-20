@@ -1,11 +1,7 @@
 ﻿using CodeBase.Data;
-using CodeBase.Hero;
-using CodeBase.Infrastructure.Services.Pause;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Logic;
-using CodeBase.Services.Input;
 using UnityEngine;
-using Zenject;
 
 namespace CodeBase.Player
 {
@@ -17,18 +13,9 @@ namespace CodeBase.Player
         [SerializeField] private float _jumpMultiplierOnHoldingBtn = 45f;
         [SerializeField] private float _maxJumpTime = 0.3f;
 
-        private IInputService _input;
-        private IPauseService _pauseService;
         private Stats _stats;
         private bool _isJumpBtnDown;
         private float _currentJumpTime;
-
-        [Inject]
-        public void Init(IInputService input, IPauseService pauseService)
-        {
-            _pauseService = pauseService;
-            _input = input;
-        }
 
         private void OnEnable() => groundChecker.GroundedChanged += OnGroundedChanged;
 
@@ -45,35 +32,11 @@ namespace CodeBase.Player
             _stats = progress.HeroStats;
         }
 
-        private void Update()
-        {
-            JumpInput();
-        }
-
         private void FixedUpdate()
         {
             JumpIfGrounded();
             TryExtendJump();
             PlayJumpAnimation();
-        }
-
-        private void JumpInput()
-        {
-            if (_pauseService.IsPaused)
-            {
-                JumpButtonUp();
-                return;
-            }
-
-            if (_input.IsJumpButtonUp())
-                JumpButtonUp();
-            else if (_input.IsJumpButtonDown())
-                _isJumpBtnDown = true;
-        }
-
-        private void JumpButtonUp()
-        {
-            _isJumpBtnDown = false;
         }
 
         private void JumpIfGrounded()

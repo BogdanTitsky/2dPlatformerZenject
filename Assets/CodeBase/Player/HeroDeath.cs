@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections;
 using CodeBase.Data;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Player;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
     public class HeroDeath : MonoBehaviour, ISavedProgressReader
     {
@@ -21,13 +20,13 @@ namespace CodeBase.Hero
         private bool _isDead;
 
         private IWindowService _windowService;
-    
+
         [Inject]
         public void Init(IWindowService windowService)
         {
             _windowService = windowService;
         }
-        
+
         private void OnEnable()
         {
             health.HealthChanged += HealthChanged;
@@ -40,17 +39,17 @@ namespace CodeBase.Hero
 
         private void HealthChanged()
         {
-            if(!_isDead && health.Current <= 0)
+            if (!_isDead && health.Current <= 0)
                 Die();
         }
+
         public void LoadProgress(PlayerProgress progress)
         {
             _isDead = false;
-            heroAnimator.animator.Play("Idle");
             attack.enabled = true;
             heroMove.enabled = true;
         }
-        
+
         private void Die()
         {
             OnHeroDeath?.Invoke();
@@ -62,8 +61,9 @@ namespace CodeBase.Hero
             Instantiate(DeathFx, transform.position, Quaternion.identity);
         }
 
-        private void ShowGameEndPopUp() => _windowService.Open(WindowId.Lose);
-        
-        
+        private void ShowGameEndPopUp()
+        {
+            _windowService.Open(WindowId.Lose);
+        }
     }
 }

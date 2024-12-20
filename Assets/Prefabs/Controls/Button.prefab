@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 22409286}
   - component: {fileID: 22292980}
   - component: {fileID: 11499078}
-  - component: {fileID: 2660735445145782973}
   - component: {fileID: 4277708814983554769}
   m_Layer: 5
   m_Name: Button
@@ -78,21 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2660735445145782973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 995f34434fbe45d46aacf4e120446279, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button:
-    m_key: Fire1
-    value: 0
 --- !u!114 &4277708814983554769
 MonoBehaviour:
   m_ObjectHideFlags: 0

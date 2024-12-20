@@ -1,14 +1,10 @@
 ﻿using System.Collections;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Logic;
-using CodeBase.Player;
-using CodeBase.Services.Input;
 using CodeBase.UI.Elements;
 using UnityEngine;
-using Zenject;
 
-namespace CodeBase.Hero
+namespace CodeBase.Player
 {
     /// <summary>
     /// This class represents the hero's block functionality. It handles the hero's block stamina,
@@ -19,13 +15,7 @@ namespace CodeBase.Hero
         [SerializeField] private HeroAnimator _heroAnimator;
         [SerializeField] private BlockBar blockBar;
 
-        [Inject]
-        public void Init(IInputService inputService)
-        {
-            _inputService = inputService;
-        }
 
-        private IInputService _inputService;
 
         private const float BlockConsumptionPerSec = 36;
         private float _maxBlockStamina;
@@ -78,7 +68,6 @@ namespace CodeBase.Hero
 
         private void Update()
         {
-            HandleInput();
             UpdateBlockBar();
         }
 
@@ -119,14 +108,6 @@ namespace CodeBase.Hero
 
         private void HideBar() => 
             blockBar.gameObject.SetActive(false);
-
-        private void HandleInput()
-        {
-            if (_inputService.IsBlockButtonUp())
-                IsBlockBtnDown = false;
-            if (_inputService.IsBlockButtonDown() && !_blockBroken && _heroAnimator.State != AnimatorState.Jumping)
-                IsBlockBtnDown = true;
-        }
 
         private IEnumerator BlockBreakerRecoveryRoutine()
         {
