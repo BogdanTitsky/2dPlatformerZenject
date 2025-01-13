@@ -17,7 +17,7 @@ namespace CodeBase.Enemy.EnemyStates
             animator.PlayIdle();
         }
 
-        public override void Update()
+        public override void OnUpdate()
         {
         }
     }

@@ -10,31 +10,31 @@ namespace CodeBase.Player.PlayerStates
         }
 
         public event Action AttackEnd;
-        
-        private float attackDuration;
-        private float elapsedTime;
-        private bool isCombo;
-        private int currentCombo;
+
+        private float _attackDuration;
+        private float _elapsedTime;
+        private bool _isCombo;
+        private int _currentCombo;
 
         public override void OnEnter()
         {
-            currentCombo = 0;
+            _currentCombo = 0;
             Attack();
         }
 
-        public override void Update()
+        public override void OnUpdate()
         {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= attackDuration) 
+            _elapsedTime += Time.deltaTime;
+            if (_elapsedTime >= _attackDuration) 
                 IsNextAttack();
         }
 
         public void TryContinueCombo() => 
-            isCombo = true;
+            _isCombo = true;
 
         private void IsNextAttack()
         {
-            if (isCombo)
+            if (_isCombo)
                 Attack();
             else
                 AttackEnd?.Invoke();
@@ -42,10 +42,10 @@ namespace CodeBase.Player.PlayerStates
 
         private void Attack()
         {
-            currentCombo++;
-            isCombo = false;
-            attackDuration = animator.PlayAttack(currentCombo);
-            elapsedTime = 0;
+            _currentCombo++;
+            _isCombo = false;
+            _attackDuration = animator.CalculatePlayAttackDuration(_currentCombo);
+            _elapsedTime = 0;
         }
     }
 }

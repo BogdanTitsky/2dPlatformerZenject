@@ -60,7 +60,11 @@ namespace CodeBase.Player
         public void PlayIdle() => 
             animator.CrossFade(_idleStateHash, CrossFadeDuration);
 
-        public float PlayAttack(int comboAttackNumber)
+        public void PlayWalking() => 
+            animator.CrossFade(_walkingStateHash, CrossFadeDuration);
+        
+        //ToDo cache animation
+        public float CalculatePlayAttackDuration(int comboAttackNumber)
         {
             if (comboAttackNumber == 1)
             {
@@ -79,6 +83,7 @@ namespace CodeBase.Player
             }
             return 0;
         }
+        
         private float FindAnimationClip(int stateHash)
         {
             foreach (var clip in animator.runtimeAnimatorController.animationClips)
@@ -90,6 +95,7 @@ namespace CodeBase.Player
             }
             return 0;
         }
+        
         public void IsStunnedOn()
         {
         }

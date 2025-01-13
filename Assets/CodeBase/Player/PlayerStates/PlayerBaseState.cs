@@ -15,11 +15,11 @@ namespace CodeBase.Player.PlayerStates
         {
         }
 
-        public virtual void Update()
+        public virtual void OnUpdate()
         {
         }
 
-        public virtual void FixedUpdate()
+        public virtual void OnFixedUpdate()
         {
         }
 

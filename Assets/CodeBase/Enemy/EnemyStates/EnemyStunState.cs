@@ -1,5 +1,4 @@
-﻿using CodeBase.Infrastructure.StateMachine;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Enemy.EnemyStates
 {
@@ -23,7 +22,7 @@ namespace CodeBase.Enemy.EnemyStates
             stunned = false;
         }
 
-        public override void Update()
+        public override void OnUpdate()
         {
             elapsedTime += Time.deltaTime;
             if (elapsedTime >= stunDuration)
@@ -31,6 +30,7 @@ namespace CodeBase.Enemy.EnemyStates
                 stunned = true;
             }
         }
+        
         
         public void SetStunDuration(float duration) => stunDuration = duration;
 

@@ -15,7 +15,7 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyAnimator animator;
         [SerializeField] private LootSpawner lootSpawner;
         
-        private readonly PollingStateMachine pollingStateMachine = new();
+        private readonly PollingStateMachine stateMachine = new();
 
         #region States
         
@@ -31,7 +31,7 @@ namespace CodeBase.Enemy
         {
             InitStates();
             AddTransitions();
-            pollingStateMachine.SetState(wanderState);
+            stateMachine.SetState(wanderState);
         }
 
         private void InitStates()
@@ -55,14 +55,20 @@ namespace CodeBase.Enemy
 
         #region TakeDamageState
 
-        private void OnEnable() => enemyHealth.HealthChanged += OnHealthChanged;
+        private void OnEnable()
+        {
+            enemyHealth.HealthChanged += OnHealthChanged;
+        }
 
-        private void OnDisable() => enemyHealth.HealthChanged -= OnHealthChanged;
-        
+        private void OnDisable()
+        {
+            enemyHealth.HealthChanged -= OnHealthChanged;
+        }
+
         private void OnHealthChanged()
         {
             if (enemyHealth.Current > 0)
-                pollingStateMachine.SetState(stunState);
+                stateMachine.SetState(stunState);
         }
 
         #endregion
@@ -88,15 +94,15 @@ namespace CodeBase.Enemy
         #region Helpers
 
         private void At(IState from, IState to, IPredicate condition) => 
-            pollingStateMachine.AddTransition(from, to, condition);
+            stateMachine.AddTransition(from, to, condition);
 
         private void Any(IState to, IPredicate condition) => 
-            pollingStateMachine.AddAnyTransition(to, condition);
+            stateMachine.AddAnyTransition(to, condition);
 
         #endregion
         
-        private void Update() => pollingStateMachine.Update();
+        private void Update() => stateMachine.Update();
 
-        private void FixedUpdate() => pollingStateMachine.FixedUpdate();
+        private void FixedUpdate() => stateMachine.FixedUpdate();
     }
 }

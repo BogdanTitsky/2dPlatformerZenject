@@ -18,12 +18,12 @@ namespace CodeBase.Enemy.EnemyStates
             // noop
         }
 
-        public virtual void Update()
+        public virtual void OnUpdate()
         {
             // noop
         }
 
-        public virtual void FixedUpdate()
+        public virtual void OnFixedUpdate()
         {
             // noop
         }

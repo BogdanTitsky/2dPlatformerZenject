@@ -22,7 +22,7 @@ namespace CodeBase.Enemy.EnemyStates
             moveToPlayer.StopMove();
         }
 
-        public override void Update()
+        public override void OnUpdate()
         {
             moveToPlayer.Chase();
         }

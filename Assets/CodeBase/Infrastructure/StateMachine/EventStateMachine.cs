@@ -10,12 +10,12 @@ namespace CodeBase.Infrastructure.StateMachine
         private readonly HashSet<ITransition> anyTransitions = new();
 
         public IState CurrentState() => current.State;
-        
+
         public void Update() =>
-            current.State?.Update();
+            current.State?.OnUpdate();
 
         public void FixedUpdate() =>
-            current.State?.FixedUpdate();
+            current.State?.OnFixedUpdate();
 
         public void AddTransition(IState from, IState to) =>
             GetOrAddNode(from).AddTransition(GetOrAddNode(to).State);
@@ -31,7 +31,8 @@ namespace CodeBase.Infrastructure.StateMachine
 
         public void ChangeState(IState state)
         {
-            if (state == current.State || !IsTransitionExist(state)) return;
+            if (state == current.State || !IsTransitionExist(state))
+                return;
 
             IState previousState = current.State;
             IState nextState = nodes[state.GetType()].State;
@@ -65,7 +66,7 @@ namespace CodeBase.Infrastructure.StateMachine
 
             return node;
         }
-
+        
         private class StateNode
         {
             public IState State { get; }
@@ -77,7 +78,7 @@ namespace CodeBase.Infrastructure.StateMachine
                 Transitions = new HashSet<ITransition>();
             }
 
-            public void AddTransition(IState to) => 
+            public void AddTransition(IState to) =>
                 Transitions.Add(new EventTransition(to));
         }
     }

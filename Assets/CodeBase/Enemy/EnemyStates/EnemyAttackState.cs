@@ -19,7 +19,7 @@ namespace CodeBase.Enemy.EnemyStates
             Debug.Log("AttackState");
         }
 
-        public override void Update()
+        public override void OnUpdate()
         {
             moveToPlayer.LookAtTarget();
             attackBehaviour.OnUpdate();

@@ -15,12 +15,12 @@ namespace CodeBase.Infrastructure.StateMachine
             if (predicateTransition != null)
                 ChangeState(predicateTransition.To);
 
-            current.State?.Update();
+            current.State?.OnUpdate();
         }
 
         public void FixedUpdate()
         {
-            current.State?.FixedUpdate();
+            current.State?.OnFixedUpdate();
         }
 
         public void SetState(IState state)
@@ -29,6 +29,8 @@ namespace CodeBase.Infrastructure.StateMachine
             current = nodes[state.GetType()];
             current.State?.OnEnter();
         }
+
+        public IState CurrentState() => current.State;
 
         private void ChangeState(IState state)
         {

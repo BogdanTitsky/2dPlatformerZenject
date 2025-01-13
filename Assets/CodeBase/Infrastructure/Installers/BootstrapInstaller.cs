@@ -25,7 +25,6 @@ namespace CodeBase.Infrastructure.Installers
         [SerializeField] private BackgroundMusic _backgroundMusic;
         [SerializeField] private PlayerController _playerController;
         
-
         public override void InstallBindings()
         {
             Container.Bind<ICoroutineRunner>().To<GameBootstrapper>().FromComponentInNewPrefab(_gameBootstrapperPrefab)

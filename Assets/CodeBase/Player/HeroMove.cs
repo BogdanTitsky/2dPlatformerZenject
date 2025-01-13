@@ -14,80 +14,29 @@ namespace CodeBase.Player
         [SerializeField] private float movementSpeed;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private GameObject nonRotatable;
-        private bool AbleMove = true;
         private Vector3 _inputDirection;
         private IPauseService _pauseService;
         private Vector3 mirrored = new(-1, 1, 1);
 
-        [Inject]
-        public void Init(IPauseService pauseService)
+        public void Move(Vector2 direction)
         {
-            _pauseService = pauseService;
-            _pauseService.PauseChanged += OnPauseChanged;
-        }
-        private void OnEnable()
-        {
-            heroAnimator.StateEntered += CheckEnteredState;
-        }
-
-        private void OnDisable()
-        {
-            heroAnimator.StateEntered -= CheckEnteredState;
-            _pauseService.PauseChanged -= OnPauseChanged;
-        }
-
-        private void Update()
-        {
-            if (_pauseService.IsPaused)
-                return;
-            
             _inputDirection = Vector2.zero;
-
-            // if (_inputService.Axis.sqrMagnitude > Constants.Epsilon && AbleMove)
-            // {
-            //     _inputDirection.y = 0;
-            //     LookAtMoveDirection();
-            // }
-        }
-
-        private void FixedUpdate()
-        {
-            if (_pauseService.IsPaused)
-                return;
-            
-            Vector2 velocity = rb.linearVelocity;
-            velocity.x = movementSpeed * _inputDirection.x;
-            rb.linearVelocity = velocity;
-        }
-
-        private void CheckEnteredState(AnimatorState state)
-        {
-            switch (state)
+            if (direction.sqrMagnitude > Constants.Epsilon)
             {
-                case AnimatorState.Attack:
-                case AnimatorState.SecondAttack:
-                case AnimatorState.ThirdAttack:
-                case AnimatorState.Block: 
-                case AnimatorState.Died:
-                case AnimatorState.Stunned:
-                    MoveOff();
-                    break;
-                case AnimatorState.Hurt:
-                    AbleMove = false;
-                    break;        
-                default:
-                    MoveOn();
-                    break;
+                _inputDirection.x = direction.x;
+                LookAtMoveDirection();
             }
         }
-        
-        private void MoveOff()
+
+        public void ApplyMove()
         {
-            AbleMove = false;
-            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocityX =  movementSpeed * _inputDirection.x;
         }
 
-        private void MoveOn() => AbleMove = true;
+        public void MoveOff()
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
 
         public void KnockUp()
         {
